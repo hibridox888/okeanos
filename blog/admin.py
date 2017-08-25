@@ -2,58 +2,60 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from .models import Post, Archivo, Imagen, Video
+from .models import Entry, Image, File, Video
 
 
 # Register your models here.
-class VideoPostInline(admin.TabularInline):
-    model = Video
-    fields = ['nombre', 'archivo']
-    extra = 0
-
-
-class ImagenPostInline(admin.TabularInline):
-    model = Imagen
-    fields = ['nombre', 'archivo']
+class ImageEntryInline(admin.TabularInline):
+    model = Image
+    fields = ['name', 'file']
     extra = 1
+    max_num = 9
 
 
-class ArchivoPostInline(admin.TabularInline):
-    model = Archivo
-    fields = ['nombre', 'archivo']
+class VideoEntryInline(admin.TabularInline):
+    model = Video
+    fields = ['name', 'file']
     extra = 0
+    max_num = 3
 
 
-class PostAdmin(admin.ModelAdmin):
-    model = Post
-    search_fields = ['titulo', 'resumen']
-    readonly_fields = ['modificacion', ]
-    list_display = ['titulo', 'autor', 'tipo', '_resumen']
-    inlines = [ImagenPostInline, ArchivoPostInline, VideoPostInline]
-    list_filter = ['creacion', 'autor', 'tipo', 'ubicacion']
+class FileEntryInline(admin.TabularInline):
+    model = File
+    fields = ['name', 'file']
+    extra = 0
+    max_num = 9
+
+
+class EntryAdmin(admin.ModelAdmin):
+    model = Entry
+    search_fields = ['headline', 'summary', ]
+    readonly_fields = ['created', 'modify', ]
+    list_display = ['headline', 'author', 'publication_type', '_summary']
+    inlines = [ImageEntryInline, FileEntryInline, VideoEntryInline]
+    list_filter = ['is_active', 'pub_date', 'author', 'publication_type', 'location']
     prepopulated_fields = {
-        'slug': ('titulo',),
+        'slug': ('headline',),
     }
-    fieldsets = ((
-                     'MetaDatos', {
-                         'fields': (('creacion', 'modificacion'), 'slug'),
-                         'classes': ('collapse',)
-                     }), (
-                     'General', {
-                         'fields': (('sitio'), 'autor',
-                                    'titulo', 'subtitulo',
-                                    ('tipo', 'ubicacion')),
-                         # 'classes': ('collapse',)
-                     }), (
-                     'Contenido', {
-                         'fields': ('resumen', 'descripcion'),
-                         # 'classes': ('collapse',)
-                     })
+    fieldsets = (
+        ('General', {
+            'fields': ('publication_type',),
+            # 'classes': ('collapse',)
+        }),
+        ('Contenido', {
+            'fields': ('is_active', 'headline', 'subheadline', 'location', 'summary', 'content',),
+            # 'classes': ('collapse',)
+        }),
+        ('Adicionales', {
+            'fields': ('pub_date', 'slug',),
+            'classes': ('collapse',)
+        }),
     )
-    ordering = ['creacion']
+    ordering = ['pub_date', ]
+
     def save_model(self, request, obj, form, change):
-        obj.autor = request.user
+        obj.author = request.user
         obj.save()
 
 
-admin.site.register(Post, PostAdmin)
+admin.site.register(Entry, EntryAdmin)

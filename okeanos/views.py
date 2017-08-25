@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 
-from blog.models import Post, now
+from blog.models import Entry, now
 
 
 class Pagina(object):
@@ -13,7 +13,8 @@ class Pagina(object):
 
 
 def home(request):
-    last_post = Post.objects.all().order_by('creacion')
+    last_entries = Entry.objects.all().order_by('creacion')
     return render(request, 'web/home.html', {
         'pagina': Pagina,
+        'last_entries': last_entries,
     })

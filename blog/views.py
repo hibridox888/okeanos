@@ -3,7 +3,7 @@ from django.views.generic.dates import (
     YearArchiveView,
 )
 
-from .models import Post
+from .models import Entry
 
 
 class BlogViewMixin(object):
@@ -15,9 +15,9 @@ class BlogViewMixin(object):
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            return Post.objects.all()
+            return Entry.objects.all()
         else:
-            return Post.objects.published()
+            return Entry.objects.published()
 
 
 class BlogArchiveIndexView(BlogViewMixin, ArchiveIndexView):

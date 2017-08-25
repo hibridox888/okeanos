@@ -18,6 +18,7 @@ from django.contrib import admin
 from settings import MEDIA_ROOT, MEDIA_URL
 from django.conf.urls.static import static
 from .views import home
+from django.conf.urls import include, url
 
 urlpatterns = [
                   url(r'^admin/', admin.site.urls, name='django-admin'),

@@ -5,7 +5,7 @@ import datetime
 # Create your models here.
 from django.db import models
 from django.template.defaultfilters import truncatechars  # or truncatewords
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 from django_hosts.resolvers import reverse
 from ckeditor.fields import RichTextField
 from easy_thumbnails.fields import ThumbnailerImageField
@@ -13,11 +13,11 @@ from easy_thumbnails.fields import ThumbnailerImageField
 now = datetime.datetime.now()
 
 CONTENT_CHOICES = [
-    ('N', _("News")),
-    ('P', _("Projects")),
-    ('E', _("Entry")),
-    ('O', _("Others")),
-    ('E', _("Events")),
+    ('N', _("Noticias")),
+    ('P', _("Proyectos")),
+    ('E', _("Entradas")),
+    ('O', _("Otros")),
+    ('V', _("Eventos")),
 ]
 
 
@@ -31,37 +31,38 @@ class EntryQuerySet(models.QuerySet):
 
 class Entry(models.Model):
     # metadata
-    created = models.DateTimeField(_('created'), null=True, auto_created=True, editable=False)
-    modify = models.DateTimeField(_('modify'), auto_now=True, editable=False)
+    created = models.DateTimeField(_('creado'), null=True, auto_created=True, editable=False)
+    modify = models.DateTimeField(_('modificado'), auto_now=True, editable=False)
     pub_date = models.DateTimeField(
-        verbose_name=_("publication date"),
+        verbose_name=_("fecha publicación"),
         help_text=_(
             "For an entry to be published, it must be active and its "
             "publication date must be in the past."
         ),
+        default=now,
     )
     author = models.ForeignKey('auth.User', )
     slug = models.SlugField(_('slug'), unique_for_date='pub_date')
-    publication_type = models.CharField(_('publication type'), max_length=1, choices=CONTENT_CHOICES, default='P')
+    publication_type = models.CharField(_('tipo de publicación'), max_length=1, choices=CONTENT_CHOICES, default='E')
 
     # if redirect to other site
-    external_url = models.URLField(_('external url'), null=True, blank=True)
+    external_url = models.URLField(_("external url"), null=True, blank=True)
 
     # define content
-    headline = models.CharField(_('headline'), max_length=200)
-    subtitle = models.CharField(_('subtitle'), max_length=200, blank=True, null=True)
-    location = models.CharField(_('location'), max_length=40, blank=True, null=True)
-    summary = models.TextField(_('summary'), blank=True, null=True)
-    content = RichTextField(_('content'), blank=True, null=True)
+    headline = models.CharField(_('titulo'), max_length=200)
+    subheadline = models.CharField(_('subtitulo'), max_length=200, blank=True, null=True)
+    location = models.CharField(_('lugar'), max_length=40, blank=True, null=True)
+    summary = models.CharField(_('resumen'), max_length=300, blank=True, null=True)
+    content = RichTextField(_('contenido'), blank=True, null=True)
 
     objects = EntryQuerySet.as_manager()
 
     is_active = models.BooleanField(
-        _('is active'),
+        _('se encuentra activo'),
         help_text=_(
-            "Tick to make this entry live (see also the publication date). "
-            "Note that administrators (like yourself) are allowed to preview "
-            "inactive entries whereas the general public aren't."
+            "Marque para hacer esta entrada en vivo (ver también la fecha de publicación)"
+            "Tenga en cuenta que los administradores (como usted) tienen permiso para previsualizar "
+            "Entradas inactivas mientras que el público en general no lo son"
         ),
         default=False,
     )
@@ -87,66 +88,65 @@ class Entry(models.Model):
         return self.active().filter(pub_date__lte=now)
 
     @property
-    def _resumen(self):
-        return truncatechars(self.resumen, 150)
+    def _summary(self):
+        return truncatechars(self.summary, 150)
 
-    def primera_imagen(self):
-        return self.imagen_post.first()
+    def first_img(self):
+        return self.image_post.first()
 
     def __unicode__(self):
-        return '%s, %s' % (self.titulo, self.autor)
+        return '%s, %s' % (self.headline, self.author)
 
     class Meta:
-        db_table = 'blog_entries'
         ordering = ('-pub_date',)
         get_latest_by = 'pub_date'
-        verbose_name = 'Publicación'
-        verbose_name_plural = 'Publicaciones'
+        verbose_name = _('entrada')
+        verbose_name_plural = _('entradas')
 
 
-class Archivo(models.Model):
-    post = models.ForeignKey(Entry, related_name='archivo_post')
-    nombre = models.CharField(max_length=100)
-    archivo = models.FileField(upload_to='post/file')
-
-    def __unicode__(self):
-        if self.nombre is None:
-            return '%s' % self.post.titulo
-        elif self.nombre is not None:
-            return '%s' % self.nombre
-
-    class Meta:
-        verbose_name = 'Archivo'
-        verbose_name_plural = 'Archivos'
-
-
-class Imagen(models.Model):
-    post = models.ForeignKey(Post, related_name='imagen_post')
-    nombre = models.CharField(max_length=100)
-    archivo = ThumbnailerImageField(upload_to='post/img')
+class File(models.Model):
+    entry = models.ForeignKey(Entry, related_name='file_entry')
+    name = models.CharField(_('nombre'), max_length=100, blank=True, null=True)
+    file = models.FileField(_('url'), upload_to='entries/file')
 
     def __unicode__(self):
-        if self.nombre is None:
-            return '%s' % self.post.titulo
-        elif self.nombre is not None:
-            return '%s' % self.nombre
+        if self.name:
+            return '%s' % self.name
+        else:
+            return '%s' % self.file.name
 
     class Meta:
-        verbose_name = 'Imagen'
-        verbose_name_plural = 'Imagenes'
+        verbose_name = _('archivo')
+        verbose_name_plural = _('archivos')
+
+
+class Image(models.Model):
+    entry = models.ForeignKey(Entry, related_name='image_post')
+    name = models.CharField(_('nombre'), max_length=100, blank=True, null=True)
+    file = ThumbnailerImageField(_('url'), upload_to='entries/img')
+
+    def __unicode__(self):
+        if self.name:
+            return '%s' % self.name
+        else:
+            return '%s' % self.file.name
+
+    class Meta:
+        verbose_name = _('imagen')
+        verbose_name_plural = _('imagenes')
 
 
 class Video(models.Model):
-    post = models.ForeignKey(Post, related_name='video_post')
-    nombre = models.CharField(max_length=100)
-    archivo = models.FileField(upload_to='post/vid')
+    entry = models.ForeignKey(Entry, related_name='video_post')
+    name = models.CharField(_('nombre'), max_length=100, blank=True, null=True)
+    file = models.FileField(_('url'), upload_to='entries/vid')
 
     def __unicode__(self):
-        if self.nombre is None:
-            return '%s' % self.post.titulo
-        elif self.nombre is not None:
-            return '%s' % self.nombre
+        if self.name:
+            return '%s' % self.name
+        else:
+            return '%s' % self.file.name
 
     class Meta:
-        verbose_name = 'Video'
-        verbose_name_plural = 'Videos'
+        verbose_name = _('video')
+        verbose_name_plural = _('videos')
