@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="{% static 'img/logobn.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/imagen.ico' %}" type="image/x-icon">
     <!--  Android 5 Chrome Color-->
     <meta name="theme-color" content="#FFC344">
     <!--  Pos -->
@@ -15,26 +15,18 @@
     <link rel="stylesheet" href="{% static 'materialize/css/materialize.css' %}">
 
     {# <link rel="icon" href="{% static '' %}"> #}
-    <link rel="stylesheet"
-          href="{% static 'css/main.css' %}">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {% block extra-head %}{% endblock %}
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript">
-        $(window).load(function () {
-            $('#back-preload').fadeOut(500);
-            $('body').css({'overflow': 'visible'});
-        })
-    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'materialize/js/materialize.js' %}"></script>
     <!--Import Google Icon Font-->
 </head>
 <body>
 <div id="back-preload">
     <div id="preloader" class="center">
         <div class="preloader-wrapper big active">
-            <div class="spinner-layer">
+            <div class="spinner-layer spinner-yellow-only">
                 <div class="circle-clipper left">
                     <div class="circle"></div>
                 </div>
@@ -49,63 +41,36 @@
     </div>
 </div>
 {% block navbar %}
-    <header class="navbar-fixed black">
-        <nav class="black-transparent">
-            <div class="nav-wrapper container">
-                {% comment %}
-                <a href="{% url 'home' %}" class="brand-logo">
-                    <a href="/" class="brand-logo">
-                    <img src="/static/img/logo.min.png" alt="">
+    <nav class="black white-text">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo">
+                    <img class="img-logo" src="{% static 'img/logo.jpg' %}" alt="">
                 </a>
-                {% endcomment %}
-                <a href="#" data-activates="mobile-demo" class="button-collapse">
-                    <i class="material-icons">menu</i>
-                </a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li class="hoverable"><a href="#inicio">inicio</a></li>
-                    <li class="hoverable"><a href="#servicios">servicios</a></li>
-                    <li class="hoverable"><a href="#portafolio">portafolio</a></li>
-                    <li class="hoverable"><a href="#quienes-somos">¿quiénes somos?</a></li>
-                    <li class="hoverable"><a href="#blog">blog</a></li>
-                    <li class="hoverable"><a href="#contacto">contacto</a></li>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right options-nav hide-on-med-and-down">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Somos</a></li>
+                    <li><a href="">Blog</a></li>
+                    <li><a href="">Contacto</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    <li><a href="#inicio">inicio</a></li>
-                    <li><a href="#servicios">servicios</a></li>
-                    <li><a href="#portafolio">portafolio</a></li>
-                    <li><a href="#quienes-somos">¿quiénes somos?</a></li>
-                    <li><a href="#blog">blog</a></li>
-                    <li><a href="#contacto">contacto</a></li>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Somos</a></li>
+                    <li><a href="">Blog</a></li>
+                    <li><a href="">Contacto</a></li>
                 </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 {% endblock %}
 <main>
     {% block main %}{% endblock %}
 </main>
-<footer class="contacto">
-    <div class="socials" style="background-color: #191919">
-        <a target="_blank" href="https://www.facebook.com/Proaus-1917190248565439/"><img
-                src="{% static 'img/icons/1.facebook.max.svg' %}" alt=""></a>
-        <a target="_blank" href="https://twitter.com/PROAUSARQUI"><img src="{% static 'img/icons/2.twitter.max.svg' %}"
-                                                                       alt=""></a>
-        <a target="_blank" href="https://www.instagram.com/proausarquitectos/"><img
-                src="{% static 'img/icons/3.insta.max.svg' %}" alt=""></a>
-        {# <a target="_blank" href=""><img src="{% static 'img/icons/4.google.max.svg' %}" alt=""></a> #}
-        <a target="_blank" href="https://cl.pinterest.com/proausarquitectura/"><img
-                src="{% static 'img/icons/5.pinterest.max.svg' %}" alt=""></a>
-    </div>
-    <div class="black center" style="color: #333333;">
-<span class="">Diseño & Desarrollo Web: <a
-        href="http://tucodigo.cl/"
-        style="color: #333333;">TuCodigo.cl</a></span>
-    </div>
-</footer>
+
 </body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
-<script type="text/javascript" src="{% static 'dist/imagesloaded.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/images-loaded.js' %}"></script>
 
 <script>
     if (document.location.search.match(/type=embed/gi)) {
@@ -114,10 +79,10 @@
 </script>
 <!--Import jQuery before materialize.js-->
 
-<script type="text/javascript" src="{% static 'javascript/init.js' %}"></script>
-<script type="text/javascript" src="{% static 'javascript/init-animate.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/init.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/init-animate.js' %}"></script>
 <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
-<script src="{% static 'dist/masonry.js' %}"></script>
+<script src="{% static 'masonry/masonry.js' %}"></script>
 <script>
     (function ($) {
         var $container = $('.container-masonry');
