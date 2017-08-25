@@ -1,5 +1,17 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Open+Sans:300,400,600,700"
 
+.color-1
+  background-color: #D9BF77
+
+.color-2
+  background-color: #B76E00
+
+.color-3
+  background-color: #BF491E
+
+.color-4
+  background-color: #2A4F9E
+
 body
   font-family: 'Poppins', sans-serif
   overflow: hidden
@@ -8,8 +20,9 @@ body
   flex-direction: column
 
 main
-  background-color: #00b0ff
-  height: 200px
+  flex: 1 0 auto
+  .parallax-container
+    height: 400px
 
 #back-preload
   width: 100%
@@ -30,7 +43,6 @@ main
   border-color: #D9BF77
 
 nav
-  z-index: 100
   ul
     a
       font-weight: 500
@@ -63,3 +75,78 @@ nav
           bottom: 3px
           top: 3px
         height: 60px
+
+.social-main
+  .social-container
+    @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css)
+    text-align: center
+    .social-icons
+      padding: 0
+      list-style: none
+      margin: 1em
+      li
+        display: inline-block
+        margin: 0.15em
+        position: relative
+        font-size: 1.2em
+      i
+        color: #fff
+        position: absolute
+        top: 21px
+        left: 21px
+        transition: all 265ms ease-out
+      a
+        display: inline-block
+        &:before
+          transform: scale(1)
+          -ms-transform: scale(1)
+          -webkit-transform: scale(1)
+          content: " "
+          width: 60px
+          height: 60px
+          border-radius: 100%
+          display: block
+          background: linear-gradient(45deg, #ff003c, #c648c8)
+          transition: all 265ms ease-out
+        &:hover
+          &:before
+            transform: scale(0)
+            transition: all 265ms ease-in
+          i
+            transform: scale(2.2)
+            -ms-transform: scale(2.2)
+            -webkit-transform: scale(2.2)
+            color: #ff003c
+            background: -webkit-linear-gradient(45deg, #ff003c, #c648c8)
+            -webkit-background-clip: text
+            -webkit-text-fill-color: transparent
+            transition: all 265ms ease-in
+        &.social-square
+          &:before
+            background: linear-gradient(45deg, #7b00e0, #ae31d9)
+            border-radius: 10%
+          &:hover
+            &:before
+              transform: rotate(-180deg)
+              -ms-transform: rotate(-180deg)
+              -webkit-transform: scale(-180deg)
+              border-radius: 100%
+            i
+              transform: scale(1.6)
+              -ms-transform: scale(1.6)
+              -webkit-transform: scale(1.6)
+              color: #fff
+              transform: scale(1.6)
+              -webkit-text-fill-color: #fff
+
+footer
+  color: #fff
+  background-color: #222222
+  a
+    color: #fff
+
+.section
+  .title
+    font-size: 1.8em
+  .text
+    font-size: .7em

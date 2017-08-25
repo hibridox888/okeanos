@@ -31,7 +31,7 @@ class EntryAdmin(admin.ModelAdmin):
     model = Entry
     search_fields = ['headline', 'summary', ]
     readonly_fields = ['created', 'modify', ]
-    list_display = ['headline', 'author', 'publication_type', '_summary']
+    list_display = ['headline', 'author', 'publication_type', 'resumen']
     inlines = [ImageEntryInline, FileEntryInline, VideoEntryInline]
     list_filter = ['is_active', 'pub_date', 'author', 'publication_type', 'location']
     prepopulated_fields = {

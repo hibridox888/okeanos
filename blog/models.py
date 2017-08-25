@@ -41,7 +41,7 @@ class Entry(models.Model):
         ),
         default=now,
     )
-    author = models.ForeignKey('auth.User', )
+    author = models.ForeignKey('auth.User', verbose_name=_('autor'))
     slug = models.SlugField(_('slug'), unique_for_date='pub_date')
     publication_type = models.CharField(_('tipo de publicación'), max_length=1, choices=CONTENT_CHOICES, default='E')
 
@@ -88,7 +88,7 @@ class Entry(models.Model):
         return self.active().filter(pub_date__lte=now)
 
     @property
-    def _summary(self):
+    def resumen(self):
         return truncatechars(self.summary, 150)
 
     def first_img(self):

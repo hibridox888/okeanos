@@ -1,4 +1,20 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Open+Sans:300,400,600,700";
+.color-1 {
+  background-color: #D9BF77;
+}
+
+.color-2 {
+  background-color: #B76E00;
+}
+
+.color-3 {
+  background-color: #BF491E;
+}
+
+.color-4 {
+  background-color: #2A4F9E;
+}
+
 body {
   font-family: "Poppins", sans-serif;
   overflow: hidden;
@@ -8,8 +24,10 @@ body {
 }
 
 main {
-  background-color: #00b0ff;
-  height: 200px;
+  flex: 1 0 auto;
+}
+main .parallax-container {
+  height: 400px;
 }
 
 #back-preload {
@@ -34,9 +52,6 @@ main {
   border-color: #D9BF77;
 }
 
-nav {
-  z-index: 100;
-}
 nav ul a {
   font-weight: 500;
   font-size: 12px;
@@ -68,6 +83,91 @@ nav .nav-wrapper .brand-logo .img-logo {
   padding-bottom: 3px;
   padding-top: 3px;
   height: 60px;
+}
+
+.social-main .social-container {
+  @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
+  text-align: center;
+}
+.social-main .social-container .social-icons {
+  padding: 0;
+  list-style: none;
+  margin: 1em;
+}
+.social-main .social-container .social-icons li {
+  display: inline-block;
+  margin: 0.15em;
+  position: relative;
+  font-size: 1.2em;
+}
+.social-main .social-container .social-icons i {
+  color: #fff;
+  position: absolute;
+  top: 21px;
+  left: 21px;
+  transition: all 265ms ease-out;
+}
+.social-main .social-container .social-icons a {
+  display: inline-block;
+}
+.social-main .social-container .social-icons a:before {
+  transform: scale(1);
+  -ms-transform: scale(1);
+  -webkit-transform: scale(1);
+  content: " ";
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  display: block;
+  background: linear-gradient(45deg, #ff003c, #c648c8);
+  transition: all 265ms ease-out;
+}
+.social-main .social-container .social-icons a:hover:before {
+  transform: scale(0);
+  transition: all 265ms ease-in;
+}
+.social-main .social-container .social-icons a:hover i {
+  transform: scale(2.2);
+  -ms-transform: scale(2.2);
+  -webkit-transform: scale(2.2);
+  color: #ff003c;
+  background: -webkit-linear-gradient(45deg, #ff003c, #c648c8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 265ms ease-in;
+}
+.social-main .social-container .social-icons a.social-square:before {
+  background: linear-gradient(45deg, #7b00e0, #ae31d9);
+  border-radius: 10%;
+}
+.social-main .social-container .social-icons a.social-square:hover:before {
+  transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -webkit-transform: scale(-180deg);
+  border-radius: 100%;
+}
+.social-main .social-container .social-icons a.social-square:hover i {
+  transform: scale(1.6);
+  -ms-transform: scale(1.6);
+  -webkit-transform: scale(1.6);
+  color: #fff;
+  transform: scale(1.6);
+  -webkit-text-fill-color: #fff;
+}
+
+footer {
+  color: #fff;
+  background-color: #222222;
+}
+footer a {
+  color: #fff;
+}
+
+.section .title {
+  font-size: 1.8em;
+}
+.section .text {
+  font-size: 0.7em;
 }
 
 /*# sourceMappingURL=main.css.map */

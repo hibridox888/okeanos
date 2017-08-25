@@ -13,7 +13,7 @@ $(window).ready(function () {
                 });
             } else {
                 $('.cabecera.slider').slider({
-                    height: 550, indicators: false, interval: 10000
+                    height: 600, indicators: true, interval: 10000
                 });
             }
             $('.carousel.carousel-slider').carousel({fullWidth: true});
