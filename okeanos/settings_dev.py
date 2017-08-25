@@ -118,3 +118,52 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/home/tucodigo/src/static_okeanos',
 ]
+
+CKEDITOR_UPLOAD_PATH = "upload/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter',
+             'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+
+            ['RemoveFormat', 'Source']
+        ]
+    }
+}
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/home/media/media.lawrence.com/"
+MEDIA_ROOT = os.path.join('media').replace('\\', '/')
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash if there is a path component (optional in other cases).
+# Examples: "http://media.lawrence.com", "http://example.com/media/"
+MEDIA_URL = '/media/'
+
+# for easy thumbnail
+THUMBNAIL_ALIASES = {
+    '': {
+        'min-portfolio': {'size': (250, 250), 'crop': True},
+        'min-blog': {'size': (345, 165), 'crop': True},
+    },
+}
+
+'''
+# proaus hola@proaus proausemail
+ADMINS = (('Hernan', 'hernan@tucodigo.cl'))
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_HOST_USER = 'noresponder_proaus'
+EMAIL_HOST_PASSWORD = 'proausemail123'
+# EMAIL_SSL_KEYFILE = None
+DEFAULT_FROM_EMAIL = 'noresponder@proaus.cl'
+# SERVER_EMAIL = 'HOLA@EMAIL.CL'
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+'''
