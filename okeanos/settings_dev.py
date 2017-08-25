@@ -8,6 +8,11 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
+
+
+$ env1/bin/pip freeze > requirements.txt
+$ env2/bin/pip install -r requirements.txt
+pip freeze | xargs pip uninstall -y # delete libraries in virtualenv
 """
 
 import os
@@ -35,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'easy_thumbnails',
+    'ckeditor',
+    'contact.apps.ContactConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
