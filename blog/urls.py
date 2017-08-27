@@ -4,6 +4,7 @@ from . import views
 
 app_name = 'weblog'
 urlpatterns = [
+    # url(r'^$', home, name='home'),
     url(
         r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/(?P<slug>[\w-]+)/$',
         views.BlogDateDetailView.as_view(),

@@ -5,7 +5,7 @@ import datetime
 # Create your models here.
 from django.db import models
 from django.template.defaultfilters import truncatechars  # or truncatewords
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext as _, ugettext_lazy
 from django_hosts.resolvers import reverse
 from ckeditor.fields import RichTextField
 from easy_thumbnails.fields import ThumbnailerImageField
@@ -19,6 +19,18 @@ CONTENT_CHOICES = [
     ('O', _("Otros")),
     ('V', _("Eventos")),
 ]
+
+
+class Tag(models.Model):
+    title = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return '%s' % self.title
+
+    class Meta:
+        ordering = ('title', )
+        verbose_name_plural = _('etiquetas')
+        verbose_name = _('etiqueta')
 
 
 class EntryQuerySet(models.QuerySet):
@@ -63,6 +75,19 @@ class Entry(models.Model):
             "Marque para hacer esta entrada en vivo (ver también la fecha de publicación)"
             "Tenga en cuenta que los administradores (como usted) tienen permiso para previsualizar "
             "Entradas inactivas mientras que el público en general no lo son"
+        ),
+        default=False,
+    )
+
+    # Others
+    tags = models.ManyToManyField(Tag, verbose_name=_('etiqueta'), related_name='entry_tag',
+                                  null=True, blank=True)
+    on_slider = models.BooleanField(
+        _('visible en slider'),
+        help_text=_(
+            "Marque para que sea visible en el slider"
+            "Se visualizará primero el inicial y luego los que sean visibles en slider"
+            "Pueden marcar hasta 6 para ser visibles, es necesaria una imagen, de no ser subida una imágen no se mostrará"
         ),
         default=False,
     )

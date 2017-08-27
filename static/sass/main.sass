@@ -1,4 +1,40 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Open+Sans:300,400,600,700"
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css)
+.padding-top-max
+  padding-top: 5em
+
+.padding-bot-max
+  padding-bottom: 5em
+
+.padding-top-med
+  padding-top: 2.5em
+
+.padding-bot-med
+  padding-bottom: 1em
+
+.padding-top-min
+  padding-top: 1em
+
+.padding-bot-min
+  padding-bottom: 1.5em
+//margin
+.margin-top-max
+  margin-top: 5em
+
+.margin-bot-max
+  margin-bottom: 5em
+
+.margin-top-med
+  margin-top: 2.5em
+
+.margin-bot-med
+  margin-bottom: 1em
+
+.margin-top-min
+  margin-top: 1em
+
+.margin-bot-min
+  margin-bottom: 1.5em
 
 .color-1
   background-color: #D9BF77
@@ -12,6 +48,36 @@
 .color-4
   background-color: #2A4F9E
 
+.fondo-gris-1
+  background-color: #F8F8F8
+
+.fondo-black
+  background-color: #111111
+
+.uppercased
+  text-transform: uppercase
+
+.capitalize
+  text-transform: capitalize
+
+.slider .indicators .indicator-item.active
+  background-color: #D9BF77
+
+.slider .indicators .indicator-item
+  background-color: #aaaaaa
+
+.slider
+  .slides
+    h1, h2, h3, h4, h5
+      font-weight: 300
+    li
+      .caption
+        top: auto
+        bottom: 15%
+
+.btn:hover, .btn-large:hover
+  background-color: rgba(192, 166, 96, 0.95)
+
 body
   font-family: 'Poppins', sans-serif
   overflow: hidden
@@ -20,9 +86,15 @@ body
   flex-direction: column
 
 main
-  flex: 1 0 auto
   .parallax-container
     height: 400px
+
+hr
+  width: 20%
+  border: 2px solid #D9BF77
+  border-radius: 200px /2px
+  height: 0px
+  text-align: center
 
 #back-preload
   width: 100%
@@ -42,43 +114,43 @@ main
 .spinner-yellow-only
   border-color: #D9BF77
 
-nav
-  ul
-    a
-      font-weight: 500
-      font-size: 12px
-      text-transform: uppercase
-      letter-spacing: 3px
-      -webkit-transition: color 1s
-      -moz-transition: color 1s
-      -ms-transition: color 1s
-      -o-transition: color 1s
-      transition: color 1s
-      &:hover
-        color: #D9BF77
-        -webkit-transition: color 1s
-        -moz-transition: color 1s
-        -ms-transition: color 1s
-        -o-transition: color 1s
-        transition: color 1s
-      &:active
-        color: #D9BF77
-        -webkit-transition: color 1s
-        -moz-transition: color 1s
-        -ms-transition: color 1s
-        -o-transition: color 1s
-        transition: color 1s
-  .nav-wrapper
-    .brand-logo
-      .img-logo
-        padding:
-          bottom: 3px
-          top: 3px
-        height: 60px
+.black-transparent
+  background-color: rgba(34, 34, 34, 0.8) !important
+
+.navbar-fixed
+  nav
+    background-color: rgba(34, 34, 34, 0.9) !important
+    ul
+      a
+        font-weight: 500
+        font-size: 12px
+        text-transform: uppercase
+        letter-spacing: 3px
+        -webkit-transition: color .5s
+        -moz-transition: color .5s
+        -ms-transition: color .5s
+        -o-transition: color .5s
+        transition: color .5s
+        &:hover
+          color: #D9BF77
+          -webkit-transition: color .5s
+          -moz-transition: color .5s
+          -ms-transition: color .5s
+          -o-transition: color .5s
+          transition: color .5s
+        &:active
+          color: #D9BF77
+          -webkit-transition: color .5s
+          -moz-transition: color .5s
+          -ms-transition: color .5s
+          -o-transition: color .5s
+          transition: color .5s
+    .nav-wrapper
+      .brand-logo
+        font-weight: 300
 
 .social-main
   .social-container
-    @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css)
     text-align: center
     .social-icons
       padding: 0
@@ -88,12 +160,12 @@ nav
         display: inline-block
         margin: 0.15em
         position: relative
-        font-size: 1.2em
+        font-size: 1.5em
       i
         color: #fff
         position: absolute
-        top: 21px
-        left: 21px
+        top: .9em
+        left: .9em
         transition: all 265ms ease-out
       a
         display: inline-block
@@ -106,7 +178,7 @@ nav
           height: 60px
           border-radius: 100%
           display: block
-          background: linear-gradient(45deg, #ff003c, #c648c8)
+          background: linear-gradient(45deg, #D9BF77, #B76E00)
           transition: all 265ms ease-out
         &:hover
           &:before
@@ -116,14 +188,14 @@ nav
             transform: scale(2.2)
             -ms-transform: scale(2.2)
             -webkit-transform: scale(2.2)
-            color: #ff003c
-            background: -webkit-linear-gradient(45deg, #ff003c, #c648c8)
+            color: #BF491E
+            background: -webkit-linear-gradient(45deg, #D9BF77, #B76E00)
             -webkit-background-clip: text
             -webkit-text-fill-color: transparent
             transition: all 265ms ease-in
         &.social-square
           &:before
-            background: linear-gradient(45deg, #7b00e0, #ae31d9)
+            background: linear-gradient(45deg, #2A4F9E, #B76E00)
             border-radius: 10%
           &:hover
             &:before
@@ -141,12 +213,63 @@ nav
 
 footer
   color: #fff
-  background-color: #222222
+  background-color: #101010
   a
     color: #fff
+  .footer-copyright
+    background-color: #000
 
-.section
+section
   .title
     font-size: 1.8em
+    font-weight: 500
+    font-family: 'Poppins', sans-serif
   .text
-    font-size: .7em
+    font-size: .9em
+    font-weight: 300
+    font-family: 'Open Sans', sans-serif
+
+.caption-permanent
+  height: 100%
+  text-align: center
+  z-index: 103
+  color: #fff
+  width: 100%
+  padding: 2% 10% 0 10%
+  position: absolute
+
+.pictures-team
+  .row .col
+    padding: 20px
+  .col
+    position: relative
+    width: 50%
+  .image
+    display: block
+    width: 100%
+    height: auto
+  .overlay
+    padding:
+      left: 5%
+      right: 5%
+    position: absolute
+    top: 5%
+    bottom: 5%
+    left: 5%
+    right: 5%
+    height: 90%
+    width: 90%
+    opacity: 0
+    transition: .5s ease
+    background-color: rgba(34, 34, 34, 0.9)
+    hr
+      width: 20%
+      border: 2px solid #fff
+      height: 0px
+      text-align: center
+    .nombre
+      font-size: 1em
+    .cargo, .titulo
+      font-size: .9em
+  .col:hover .overlay
+    opacity: 1

@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from modeltranslation.translator import translator, TranslationOptions
 
 from django.contrib import admin
-from .models import Entry, Image, File, Video
+from .models import Entry, Image, File, Video, Tag
 
 
 # Register your models here.
+class TagInLine(admin.TabularInline):
+    model = Tag.through
+
+
 class ImageEntryInline(admin.TabularInline):
     model = Image
     fields = ['name', 'file']
@@ -32,14 +37,14 @@ class EntryAdmin(admin.ModelAdmin):
     search_fields = ['headline', 'summary', ]
     readonly_fields = ['created', 'modify', ]
     list_display = ['headline', 'author', 'publication_type', 'resumen']
-    inlines = [ImageEntryInline, FileEntryInline, VideoEntryInline]
+    inlines = [TagInLine, ImageEntryInline, FileEntryInline, VideoEntryInline]
     list_filter = ['is_active', 'pub_date', 'author', 'publication_type', 'location']
     prepopulated_fields = {
         'slug': ('headline',),
     }
     fieldsets = (
         ('General', {
-            'fields': ('publication_type',),
+            'fields': ('publication_type', 'on_slider', 'tags'),
             # 'classes': ('collapse',)
         }),
         ('Contenido', {
@@ -59,3 +64,4 @@ class EntryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Entry, EntryAdmin)
+admin.site.register(Tag)
