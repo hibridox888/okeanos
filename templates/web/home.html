@@ -1,7 +1,7 @@
 {% extends 'web/base.html' %}
 {% load staticfiles thumbnail cache %}
 {% block main %}
-    <div class="cabecera slider">
+    <div class="cabecera slider section scrollspy" id="home">
         <ul class="slides">
             <li>
                 <img src="{% static 'img/water.jpg' %}">
@@ -92,7 +92,7 @@
             </div>
         </div>
     </section>
-    <section class="fondo-gris-1 center">
+    <section class="fondo-gris-1 center section scrollspy" id="somos">
         <div class="padding-top-max padding-bot-max">
             <div class="container">
                 <div class="row">
@@ -231,7 +231,7 @@
             </div>
         </div>
     </section>
-    <section class="white">
+    <section class="white section scrollspy" id="blog">
         <div class="padding-top-max padding-bot-max">
             <div class="container">
                 <div class="container">
@@ -288,15 +288,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row center">
+                        <a href="{% url 'blog-app:home' %}" class="btn btn-large color-1">Ver más</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="fondo-gris-1 center">
+    <section class="fondo-gris-1 section scrollspy" id="contacto">
         <div class="padding-top-max padding-bot-min">
             <div class="container">
                 <div class="row">
-                    <div class="padding-bot-min">
+                    <div class="padding-bot-min center">
                         <div class="title">Contacto</div>
                     </div>
                     <div class="padding-bot-med">
@@ -323,6 +326,7 @@
                                 <div class="title">Email</div>
                                 <div class="content">fzilic@okeanos.cl </div>
                             </div>
+                            <hr>
                         </div>
                     </div>
                     <div class="col l8 m6 s12">

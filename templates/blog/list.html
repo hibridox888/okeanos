@@ -1,0 +1,141 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+{% block menu-links %}
+    <ul class="right options-nav hide-on-med-and-down">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'home' %}#somos">Somos</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+        <li><a href="">Home</a></li>
+        <li><a href="">Somos</a></li>
+        <li><a href="">Blog</a></li>
+        <li><a href="">Contacto</a></li>
+    </ul>
+{% endblock %}
+{% block main %}
+    <section class="blog-main section scrollspy" id="blog">
+        <div class="parallax-container valign-wrapper">
+            <div class="section no-pad-bot">
+                <div class="container white-text">
+                    <div class="header">{{ pagina.titulo }}</div>
+                    <div class="subheader">{{ pagina.subtitulo }}</div>
+                    <div class="right">{{ pagina.now }}</div>
+                </div>
+            </div>
+            <div class="parallax"><img src="{% static 'img/sunrise-1756274_1920.jpg' %}"></div>
+        </div>
+    </section>
+    <div class="blog-main white padding-top-med padding-bot-med">
+        <div class="container">
+            <div class="row">
+                <aside class="col l3 right">
+                    <form>
+                        <div class="input-field">
+                            <input id="search" type="search" required>
+                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                            <i class="material-icons medium">close</i>
+                        </div>
+                    </form>
+                    <div class="title">Etiquetas</div>
+                    {% for tag in all_tags %}
+                        <div class="chip">
+                            {{ tag.title }}
+                        </div>
+                    {% endfor %}
+                    <div class="title">Post recientes</div>
+                    <hr class="hr-1">
+                    {% for entry in last_entries %}
+                        <div class="entry padding-top-min padding-bot-min">
+                            <div class="title">{{ entry.headline }}</div>
+                            <div class="date">{{ entry.pub_date }}</div>
+                            <hr class="hr-2">
+                        </div>
+                    {% endfor %}
+                </aside>
+                <div class="col l8">
+                    {% for entry in last_entries %}
+                        <div class="col s12 m6">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{% static 'img/sunrise-1756274_1920.jpg' %}">
+                                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i
+                                            class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title">{{ entry.headline }}</span>
+                                    <p>{{ entry.subheadline }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="fondo-gris-1 section scrollspy" id="contacto">
+        <div class="padding-top-max padding-bot-min">
+            <div class="container">
+                <div class="row">
+                    <div class="padding-bot-min center">
+                        <div class="title">Contacto</div>
+                    </div>
+                    <div class="padding-bot-med">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l4 m6 s12">
+                        <div class="card-panel hoverable">
+                            <div>
+                                <div class="title">Horario</div>
+                                <div class="content">09.00 a 13.00 y 15.00 a 18.00</div>
+                            </div>
+                            <hr>
+                            <div>
+                                <div class="title">Ubicación</div>
+                                <div class="content">General Lagos 2086
+                                    Edificio 2000, Oficina 2211.
+                                    Valdivia, Los Ríos.
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <div class="title">Email</div>
+                                <div class="content">fzilic@okeanos.cl</div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col l8 m6 s12">
+                        <div class="card-panel hoverable">
+                            <form>
+                                <div class="row">
+                                    <div class="input-field col m6 s12">
+                                        <i class="material-icons prefix">people</i>
+                                        <input id="first_name" type="text" class="validate">
+                                        <label for="first_name">Nombre</label>
+                                    </div>
+                                    <div class="input-field col m6 s12">
+                                        <i class="material-icons prefix">mail</i>
+                                        <input id="email" type="email" class="validate">
+                                        <label for="email">Email</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">people</i>
+                                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">Contenido</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

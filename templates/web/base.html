@@ -51,18 +51,20 @@
                         </a>
                         <a href="#" data-activates="mobile-demo" class="button-collapse"><i
                                 class="material-icons">menu</i></a>
-                        <ul class="right options-nav hide-on-med-and-down">
-                            <li><a href="">Home</a></li>
-                            <li><a href="">Somos</a></li>
-                            <li><a href="">Blog</a></li>
-                            <li><a href="">Contacto</a></li>
-                        </ul>
-                        <ul class="side-nav" id="mobile-demo">
-                            <li><a href="">Home</a></li>
-                            <li><a href="">Somos</a></li>
-                            <li><a href="">Blog</a></li>
-                            <li><a href="">Contacto</a></li>
-                        </ul>
+                        {% block menu-links %}
+                            <ul class="right options-nav hide-on-med-and-down">
+                                <li><a href="#home">Home</a></li>
+                                <li><a href="#somos">Somos</a></li>
+                                <li><a href="#blog">Blog</a></li>
+                                <li><a href="#contacto">Contacto</a></li>
+                            </ul>
+                            <ul class="side-nav" id="mobile-demo">
+                                <li><a href="">Home</a></li>
+                                <li><a href="">Somos</a></li>
+                                <li><a href="">Blog</a></li>
+                                <li><a href="">Contacto</a></li>
+                            </ul>
+                        {% endblock %}
                     </div>
                 </div>
             </nav>
@@ -100,7 +102,7 @@
             <div class="container">
                 <div class="footer-copyright">
                     OKEANOS 2017
-                    <a class="right" href="/admin">Ingresar</a>
+                    <a class="right" href="">Un Link</a>
                 </div>
             </div>
         </div>

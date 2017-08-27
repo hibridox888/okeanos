@@ -1,4 +1,4 @@
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Open+Sans:300,400,600,700";
+@import "https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700|Open+Sans:300,400,600,700";
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
 .padding-top-max {
   padding-top: 5em;
@@ -21,7 +21,7 @@
 }
 
 .padding-bot-min {
-  padding-bottom: 1.5em;
+  padding-bottom: 1em;
 }
 
 .margin-top-max {
@@ -46,6 +46,24 @@
 
 .margin-bot-min {
   margin-bottom: 1.5em;
+}
+
+.padding-width-min {
+  padding-left: 5%;
+  padding-right: 5%;
+  margin: 0 auto;
+}
+
+.padding-width-med {
+  padding-left: 10%;
+  padding-right: 10%;
+  margin: 0 auto;
+}
+
+.padding-width-max {
+  padding-left: 15%;
+  padding-right: 15%;
+  margin: 0 auto;
 }
 
 .color-1 {
@@ -115,14 +133,6 @@ body {
 
 main .parallax-container {
   height: 400px;
-}
-
-hr {
-  width: 20%;
-  border: 2px solid #D9BF77;
-  border-radius: 200px/2px;
-  height: 0px;
-  text-align: center;
 }
 
 #back-preload {
@@ -261,6 +271,13 @@ footer .footer-copyright {
   background-color: #000;
 }
 
+section hr {
+  width: 20%;
+  border: 2px solid #D9BF77;
+  border-radius: 200px/2px;
+  height: 0px;
+  text-align: center;
+}
 section .title {
   font-size: 1.8em;
   font-weight: 500;
@@ -323,6 +340,64 @@ section .text {
 }
 .pictures-team .col:hover .overlay {
   opacity: 1;
+}
+
+.hr-1 {
+  border-top: 3px solid #D9BF77;
+  border-bottom: 2px dashed #D9BF77;
+  border-left: none;
+  border-right: none;
+  height: 4px;
+}
+
+.hr-2 {
+  height: 2px;
+  background-color: #D9BF77;
+  border: none;
+  width: 80%;
+}
+
+.blog-main {
+  bottom: 0;
+}
+.blog-main .parallax-container {
+  width: 100%;
+  height: 20em;
+}
+.blog-main .section {
+  width: 100%;
+  padding-bottom: 0;
+}
+.blog-main .section .header {
+  font-size: 1.8em;
+}
+.blog-main .section .subheader {
+  font-size: 1.2em;
+}
+.blog-main .title {
+  font-size: 2em;
+  font-weight: 500;
+}
+.blog-main .date {
+  font-size: 1.2em;
+  font-weight: 200;
+}
+.blog-main aside .title {
+  font-size: 1.5em;
+  font-weight: 200;
+}
+.blog-main aside .entry .title {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+.blog-main aside .entry .date {
+  font-size: 1em;
+  font-weight: 200;
+}
+
+.section {
+  padding-bottom: 0;
+  padding-top: 0;
 }
 
 /*# sourceMappingURL=main.css.map */

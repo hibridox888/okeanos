@@ -28,7 +28,7 @@ class Tag(models.Model):
         return '%s' % self.title
 
     class Meta:
-        ordering = ('title', )
+        ordering = ('title',)
         verbose_name_plural = _('etiquetas')
         verbose_name = _('etiqueta')
 
@@ -58,7 +58,7 @@ class Entry(models.Model):
     publication_type = models.CharField(_('tipo de publicación'), max_length=1, choices=CONTENT_CHOICES, default='E')
 
     # if redirect to other site
-    external_url = models.URLField(_("external url"), null=True, blank=True)
+    external_url = models.URLField(_("url externa"), null=True, blank=True)
 
     # define content
     headline = models.CharField(_('titulo'), max_length=200)
@@ -72,22 +72,22 @@ class Entry(models.Model):
     is_active = models.BooleanField(
         _('se encuentra activo'),
         help_text=_(
-            "Marque para hacer esta entrada en vivo (ver también la fecha de publicación)"
-            "Tenga en cuenta que los administradores (como usted) tienen permiso para previsualizar "
-            "Entradas inactivas mientras que el público en general no lo son"
+            "Marque para hacer esta entrada en vivo (ver también la fecha de publicación) "
+            "Tenga en cuenta que los administradores (como usted) tienen permiso para previsualizar  "
+            "Entradas inactivas mientras que el público en general no lo son "
         ),
         default=False,
     )
 
     # Others
     tags = models.ManyToManyField(Tag, verbose_name=_('etiqueta'), related_name='entry_tag',
-                                  null=True, blank=True)
+                                  blank=True)
     on_slider = models.BooleanField(
         _('visible en slider'),
         help_text=_(
-            "Marque para que sea visible en el slider"
-            "Se visualizará primero el inicial y luego los que sean visibles en slider"
-            "Pueden marcar hasta 6 para ser visibles, es necesaria una imagen, de no ser subida una imágen no se mostrará"
+            "Marque para que sea visible en el slider "
+            "Se visualizará primero el inicial y luego los que sean visibles en slider "
+            "Pueden marcar hasta 6 para ser visibles, es necesaria una imagen, de no ser subida una imágen no se mostrará "
         ),
         default=False,
     )

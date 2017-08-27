@@ -24,23 +24,3 @@ def home(request):
         'last_entries': last_entries,
     })
 
-
-# HTTP Error 400
-
-@requires_csrf_token
-def bad_request(request, exception, template_name='404.html'):
-    """
-    400 error handler.
-
-    Templates: :template:`400.html`
-    Context: None
-    """
-    try:
-        template = loader.get_template(template_name)
-    except TemplateDoesNotExist:
-        if template_name != ERROR_400_TEMPLATE_NAME:
-            # Reraise if it's a missing custom template.
-            raise
-        return http.HttpResponseBadRequest('<h1>Bad Request (400)</h1>', content_type='text/html')
-    # No exception content is passed to the template, to not disclose any sensitive information.
-    return http.HttpResponseBadRequest(template.render())

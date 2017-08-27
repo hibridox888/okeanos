@@ -6,11 +6,11 @@ from django.contrib import admin
 from .models import Entry, Image, File, Video, Tag
 
 
-# Register your models here.
 class TagInLine(admin.TabularInline):
-    model = Tag.through
+    model = Tag
 
 
+# Register your models here.
 class ImageEntryInline(admin.TabularInline):
     model = Image
     fields = ['name', 'file']
@@ -37,14 +37,14 @@ class EntryAdmin(admin.ModelAdmin):
     search_fields = ['headline', 'summary', ]
     readonly_fields = ['created', 'modify', ]
     list_display = ['headline', 'author', 'publication_type', 'resumen']
-    inlines = [TagInLine, ImageEntryInline, FileEntryInline, VideoEntryInline]
+    inlines = [ImageEntryInline, FileEntryInline, VideoEntryInline]
     list_filter = ['is_active', 'pub_date', 'author', 'publication_type', 'location']
     prepopulated_fields = {
         'slug': ('headline',),
     }
     fieldsets = (
         ('General', {
-            'fields': ('publication_type', 'on_slider', 'tags'),
+            'fields': (('tags','publication_type'), 'on_slider', 'external_url'),
             # 'classes': ('collapse',)
         }),
         ('Contenido', {

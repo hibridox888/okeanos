@@ -125,9 +125,9 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
-MODELTRANSLATION_LANGUAGES = ('en', 'es')
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('en', 'es')
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'es'
+MODELTRANSLATION_LANGUAGES = ('es', 'en')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('en', 'en')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
