@@ -60,8 +60,10 @@
                             <div class="card">
                                 <div class="card-image">
                                     <img src="{% static 'img/sunrise-1756274_1920.jpg' %}">
-                                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i
-                                            class="material-icons">add</i></a>
+                                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"
+                                       href="{{ entry.get_absolute_url }}">
+                                        <i class="material-icons">add</i>
+                                    </a>
                                 </div>
                                 <div class="card-content">
                                     <span class="card-title">{{ entry.headline }}</span>
@@ -74,68 +76,4 @@
             </div>
         </div>
     </div>
-
-    <section class="fondo-gris-1 section scrollspy" id="contacto">
-        <div class="padding-top-max padding-bot-min">
-            <div class="container">
-                <div class="row">
-                    <div class="padding-bot-min center">
-                        <div class="title">Contacto</div>
-                    </div>
-                    <div class="padding-bot-med">
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l4 m6 s12">
-                        <div class="card-panel hoverable">
-                            <div>
-                                <div class="title">Horario</div>
-                                <div class="content">09.00 a 13.00 y 15.00 a 18.00</div>
-                            </div>
-                            <hr>
-                            <div>
-                                <div class="title">Ubicación</div>
-                                <div class="content">General Lagos 2086
-                                    Edificio 2000, Oficina 2211.
-                                    Valdivia, Los Ríos.
-                                </div>
-                            </div>
-                            <hr>
-                            <div>
-                                <div class="title">Email</div>
-                                <div class="content">fzilic@okeanos.cl</div>
-                            </div>
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="col l8 m6 s12">
-                        <div class="card-panel hoverable">
-                            <form>
-                                <div class="row">
-                                    <div class="input-field col m6 s12">
-                                        <i class="material-icons prefix">people</i>
-                                        <input id="first_name" type="text" class="validate">
-                                        <label for="first_name">Nombre</label>
-                                    </div>
-                                    <div class="input-field col m6 s12">
-                                        <i class="material-icons prefix">mail</i>
-                                        <input id="email" type="email" class="validate">
-                                        <label for="email">Email</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix">people</i>
-                                        <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                        <label for="textarea1">Contenido</label>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 {% endblock %}

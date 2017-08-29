@@ -8,7 +8,7 @@ from django.template import Context, Engine, TemplateDoesNotExist, loader
 from django.views.decorators.csrf import requires_csrf_token
 from django.views.defaults import ERROR_400_TEMPLATE_NAME
 
-from blog.models import Entry, now
+from blog.models import Entry, EntryQuerySet, now
 
 
 class Pagina(object):
@@ -18,9 +18,8 @@ class Pagina(object):
 
 
 def home(request):
-    last_entries = Entry.objects.all().order_by('creacion')
+    last_entries = Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now)[:30]
     return render(request, 'web/home.html', {
         'pagina': Pagina,
         'last_entries': last_entries,
     })
-

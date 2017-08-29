@@ -1,4 +1,4 @@
-<!DOCTYPE html>{% load staticfiles thumbnail cache admin_urls %}
+<!DOCTYPE html>{% load staticfiles thumbnail cache %}
 <html lang="es">
 <head>
     <meta charset="utf-8">
@@ -53,10 +53,10 @@
                                 class="material-icons">menu</i></a>
                         {% block menu-links %}
                             <ul class="right options-nav hide-on-med-and-down">
-                                <li><a href="#home">Home</a></li>
-                                <li><a href="#somos">Somos</a></li>
-                                <li><a href="#blog">Blog</a></li>
-                                <li><a href="#contacto">Contacto</a></li>
+                                <li><a class="waves-effect" href="#home">Home</a></li>
+                                <li><a class="waves-effect" href="#somos">Somos</a></li>
+                                <li><a class="waves-effect" href="#blog">Blog</a></li>
+                                <li><a class="waves-effect" href="#contacto">Contacto</a></li>
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
                                 <li><a href="">Home</a></li>
@@ -77,6 +77,85 @@
 </main>
 {% block social %}
 
+{% endblock %}
+{% block contacto %}
+    <section>
+        <div class="mapa" id="mapa">
+            <div id="map_container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7688.92004256751!2d-73.25309013141916!3d-39.83585981705053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x630463270946ee1a!2sUniversidad+Austral+de+Chile!5e0!3m2!1ses!2scl!4v1503953983529"
+                        width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <div id="map"></div>
+        </div>
+    </section>
+    <section class="fondo-gris-1 section scrollspy" id="contacto">
+        <div class="padding-top-max padding-bot-min">
+            <div class="container">
+                <div class="row">
+                    <div class="padding-bot-min center">
+                        <div class="title">Contacto</div>
+                    </div>
+                    <div class="padding-bot-med">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l4 m6 s12">
+                        <div class="card-panel hoverable">
+                            <div>
+                                <div class="title">Horario</div>
+                                <div class="content right-align">09.00 a 13.00 y 15.00 a 18.00</div>
+                            </div>
+                            <hr>
+                            <div>
+                                <div class="title">Ubicación</div>
+                                <div class="content right-align">General Lagos 2086
+                                    Edificio 2000, Oficina 2211.
+                                    Valdivia, Los Ríos.
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <div class="title">Email</div>
+                                <div class="content right-align">fzilic@okeanos.cl</div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="col l8 m6 s12">
+                            <div class="card-panel hoverable">
+                                <div>
+                                    <div class="row">
+                                        <div class="input-field col m6 s12">
+                                            <i class="material-icons prefix">people</i>
+                                            <input id="first_name" type="text" class="validate">
+                                            <label for="first_name">Nombre</label>
+                                        </div>
+                                        <div class="input-field col m6 s12">
+                                            <i class="material-icons prefix">mail</i>
+                                            <input id="email" type="email" class="validate">
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">people</i>
+                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                            <label for="textarea1">Contenido</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="btn btn-floating btn-large pulse btn-material color-3">
+                                <i class="material-icons">send</i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 <footer>
     {% block footer %}

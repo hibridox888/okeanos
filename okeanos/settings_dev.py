@@ -29,7 +29,7 @@ SECRET_KEY = '5b4d^+px31d8-uf@m3c^b-0m%9jdgikybw#+a$-!@_z!1_y#@%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [u'127.0.0.1']
 
 # Application definition
 
@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -114,12 +115,12 @@ STATICFILES_FINDERS = (
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
+LANGUAGE_CODE = 'es'
 gettext = lambda s: s
 LANGUAGES = (
     ('es', gettext('Spanish')),
     ('en', gettext('English')),
 )
-LANGUAGE_CODE = 'es'
 TIME_ZONE = 'America/Santiago'
 USE_I18N = True
 USE_L10N = True
@@ -168,7 +169,7 @@ MEDIA_URL = '/media/'
 THUMBNAIL_ALIASES = {
     '': {
         'min-portfolio': {'size': (250, 250), 'crop': True},
-        'min-blog': {'size': (345, 165), 'crop': True},
+        'card-img': {'size': (300, 240), 'crop': True},
     },
 }
 

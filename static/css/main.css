@@ -158,7 +158,7 @@ main .parallax-container {
 }
 
 .black-transparent {
-  background-color: rgba(34, 34, 34, 0.8) !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
 .navbar-fixed nav {
@@ -362,7 +362,7 @@ section .text {
 }
 .blog-main .parallax-container {
   width: 100%;
-  height: 20em;
+  height: 10em;
 }
 .blog-main .section {
   width: 100%;
@@ -398,6 +398,50 @@ section .text {
 .section {
   padding-bottom: 0;
   padding-top: 0;
+}
+
+.blog-main .container .card-panel {
+  padding-right: 5%;
+  padding-left: 5%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+.blog-main .headline {
+  font-size: 2em;
+  font-weight: 600;
+}
+.blog-main .subheadline {
+  font-size: 1.5em;
+  font-weight: 400;
+}
+.blog-main .pub-date {
+  font-size: 1em;
+  font-weight: 200;
+}
+.blog-main .pub-date .material-icons {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+.blog-main .summary {
+  font-size: 1em;
+  font-weight: 200;
+}
+
+#mapa {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.btn-material {
+  margin-right: 0;
+  position: relative;
+  top: -44px;
+  left: 80%;
+}
+
+#contacto .card-panel .title {
+  font-size: 1.5em;
 }
 
 /*# sourceMappingURL=main.css.map */

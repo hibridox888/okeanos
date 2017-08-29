@@ -93,13 +93,8 @@ class Entry(models.Model):
     )
 
     def get_absolute_url(self):
-        kwargs = {
-            'year': self.pub_date.year,
-            'month': self.pub_date.strftime('%b').lower(),
-            'day': self.pub_date.strftime('%d').lower(),
-            'slug': self.slug,
-        }
-        return reverse('weblog:entry', kwargs=kwargs)
+        from django.core.urlresolvers import reverse
+        return reverse('blogweb_blog:detail_entry', args=[str(self.slug)])
 
     def is_published(self):
         """

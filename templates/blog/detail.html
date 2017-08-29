@@ -1,0 +1,101 @@
+{% extends 'web/base.html' %}
+{% load staticfiles thumbnail cache %}
+{% block menu-links %}
+    <ul class="right options-nav hide-on-med-and-down">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'home' %}#somos">Somos</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+        <li><a href="">Home</a></li>
+        <li><a href="">Somos</a></li>
+        <li><a href="">Blog</a></li>
+        <li><a href="">Contacto</a></li>
+    </ul>
+{% endblock %}
+{% block main %}
+    <section class="blog-main section scrollspy" id="blog">
+        <div class="parallax-container valign-wrapper">
+            <div class="section no-pad-bot">
+                <div class="container white-text">
+                    <div class="header">{{ entry.get_publication_type_display }}</div>
+                    <div class="subheader">{{ entry.author.first_name }} {{ entry.author.last_name }}</div>
+                    <div class="right">Ver más de este autor</div>
+                </div>
+            </div>
+            <div class="parallax"><img src="{% static 'img/sunrise-1756274_1920.jpg' %}"></div>
+        </div>
+    </section>
+    <div class="blog-main fondo-gris-1 padding-top-med padding-bot-med">
+        <div class="container">
+            <div class="row">
+                <aside class="col l4 right">
+                    <div class="container">
+                        <div class="container">
+                            <form>
+                                <div class="input-field">
+                                    <input id="search" type="search" required>
+                                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                    <i class="material-icons medium">close</i>
+                                </div>
+                            </form>
+                            <div class="title">Etiquetas</div>
+                            {% for tag in all_tags %}
+                                <div class="chip">
+                                    {{ tag.title }}
+                                </div>
+                            {% endfor %}
+                            <div class="title">Post recientes</div>
+                            <hr class="hr-1">
+                            {% for entry in last_entries %}
+                                <div class="entry padding-top-min padding-bot-min">
+                                    <div class="header">{{ entry.headline }}</div>
+                                    <div class="date right-align">{{ entry.pub_date }}</div>
+                                    <hr class="hr-2">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </aside>
+                <div class="col l8 card-panel white">
+                    <h3 class="headline">{{ entry.headline }}</h3>
+                    <h4 class="subheadline">{{ entry.subheadline }}</h4>
+                    <div class="row">
+                        <h5 class="right-align pub-date">
+                            <i class="material-icons tiny">people</i> {{ entry.author }}
+                            <i class="material-icons tiny">location_on</i> {{ entry.location }}
+                            <i class="material-icons tiny">date_range</i> {{ entry.pub_date }}
+                        </h5>
+                    </div>
+                    <div class="tags">
+                        Etiquetas:
+                        {% for tag in entry.tags.select_related %}
+                            <div class="chip">{{ tag.title|title }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="right-align">
+                        <h5 class="right-align pub-date location"></h5>
+                    </div>
+                    <div class="summary">{{ entry.summary }}</div>
+                    <div class="content">
+                        {{ entry.content|safe }}
+                    </div>
+                    <div class="galery-img">
+                        {% for image in entry.image_post.select_related %}
+                            <a href="{{ image.file }}" class="chip">{{ image.file }}</a>
+                        {% endfor %}
+                    </div>
+                    <ul id="tabs-swipe-demo" class="tabs">
+                        <li class="tab col s3"><a href="#test-swipe-1">Test 1</a></li>
+                        <li class="tab col s3"><a class="active" href="#test-swipe-2">Test 2</a></li>
+                        <li class="tab col s3"><a href="#test-swipe-3">Test 3</a></li>
+                    </ul>
+                    <div id="test-swipe-1" class="col s12" style="background-image: ">Test 1</div>
+                    <div id="test-swipe-2" class="col s12 red">Test 2</div>
+                    <div id="test-swipe-3" class="col s12 green">Test 3</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
