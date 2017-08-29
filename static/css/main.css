@@ -134,6 +134,9 @@ body {
 main .parallax-container {
   height: 400px;
 }
+main .herramienta {
+  height: 200px;
+}
 
 #back-preload {
   width: 100%;
@@ -184,6 +187,14 @@ main .parallax-container {
 }
 .navbar-fixed nav .nav-wrapper .brand-logo {
   font-weight: 300;
+}
+.navbar-fixed nav .nav-wrapper .brand-logo .logo {
+  -webkit-filter: invert(100%);
+          filter: invert(100%);
+  width: auto;
+  height: 58px;
+  padding-top: 3%;
+  padding-bottom: 3%;
 }
 
 .social-main .social-container {
@@ -431,6 +442,7 @@ section .text {
   width: 100%;
   margin: 0 auto;
   height: 100%;
+  background-color: #F8F8F8;
 }
 
 .btn-material {
@@ -442,6 +454,42 @@ section .text {
 
 #contacto .card-panel .title {
   font-size: 1.5em;
+}
+
+.go-top {
+  background-color: #BD7B14;
+  color: #fff;
+}
+.go-top:hover {
+  background-color: #BD7B14 !important;
+}
+
+.input-field label {
+  color: #000;
+}
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #d91438;
+  -webkit-box-shadow: 0 1px 0 0 #11d967;
+          box-shadow: 0 1px 0 0 #11d967;
+}
+.input-field input[type=text]:focus + label {
+  color: #D9BF77;
+}
+.input-field .prefix.active {
+  color: #D9BF77;
+}
+
+.sponsors {
+  background-color: #060200 !important;
+}
+
+.waves-effect {
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.gallery-videos .height-video {
+  min-height: 100% !important;
 }
 
 /*# sourceMappingURL=main.css.map */

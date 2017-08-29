@@ -1,0 +1,15 @@
+{% extends 'web/base.html' %}
+{% block main %}
+    <h3 class="">¡Gracias!</h3>
+    <div class="row">
+        <div class="col s12">
+            <h4>Su mensaje está siendo enviado en este momento.. Redireccionando..</h4>
+        </div>
+        <script>
+            function redireccionarPagina() {
+                window.location = "/";
+            }
+            setTimeout("redireccionarPagina()", 3000);
+        </script>
+    </div>
+{% endblock %}

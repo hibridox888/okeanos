@@ -103,6 +103,8 @@ body
 main
   .parallax-container
     height: 400px
+  .herramienta
+    height: 200px
 
 #back-preload
   width: 100%
@@ -156,6 +158,13 @@ main
     .nav-wrapper
       .brand-logo
         font-weight: 300
+        .logo
+          filter: invert(100%)
+          width: auto
+          height: 58px
+          padding:
+            top: 3%
+            bottom: 3%
 
 .social-main
   .social-container
@@ -367,6 +376,7 @@ section
   width: 100%
   margin: 0 auto
   height: 100%
+  background-color: #F8F8F8
 
 .btn-material
   margin:
@@ -379,3 +389,33 @@ section
   .card-panel
     .title
       font-size: 1.5em
+
+.go-top
+  background-color: #BD7B14
+  color: #fff
+  &:hover
+    background-color: #BD7B14 !important
+
+.input-field
+  label
+    color: #000
+  input[type=text]
+    &:focus
+      + label
+        color: #D9BF77
+      border-bottom: 1px solid #d91438
+      box-shadow: 0 1px 0 0 #11d967
+  .prefix.active
+    color: #D9BF77
+
+.sponsors
+  background-color: #060200 !important
+
+
+.waves-effect
+  -webkit-transition: .3s ease-out
+  transition: .3s ease-out
+
+.gallery-videos
+  .height-video
+    min-height: 100% !important

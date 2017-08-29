@@ -4,7 +4,7 @@
     <ul class="right options-nav hide-on-med-and-down">
         <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'home' %}#somos">Somos</a></li>
-        <li><a href="#blog">Blog</a></li>
+        <li><a href="{% url 'blog-app:home' %}">Blog</a></li>
         <li><a href="#contacto">Contacto</a></li>
     </ul>
     <ul class="side-nav" id="mobile-demo">
@@ -15,6 +15,17 @@
     </ul>
 {% endblock %}
 {% block main %}
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.10&appId=222427671463375";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+
     <section class="blog-main section scrollspy" id="blog">
         <div class="parallax-container valign-wrapper">
             <div class="section no-pad-bot">
@@ -27,39 +38,45 @@
             <div class="parallax"><img src="{% static 'img/sunrise-1756274_1920.jpg' %}"></div>
         </div>
     </section>
-    <div class="blog-main fondo-gris-1 padding-top-med padding-bot-med">
+    <div class="blog-main fondo-gris-1 padding-top-med padding-bot-min">
         <div class="container">
             <div class="row">
                 <aside class="col l4 right">
                     <div class="container">
                         <div class="container">
-                            <form>
-                                <div class="input-field">
-                                    <input id="search" type="search" required>
-                                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                                    <i class="material-icons medium">close</i>
-                                </div>
-                            </form>
                             <div class="title">Etiquetas</div>
+                            <div class="chip">
+                                <a href="{% url 'blog-app:home' %}"
+                                   class="black-text">Todas</a>
+                            </div>
                             {% for tag in all_tags %}
                                 <div class="chip">
-                                    {{ tag.title }}
+                                    <a href="{% url 'blog-app:list_tag' tag.title %}"
+                                       class="black-text">{{ tag.title|title }}</a>
                                 </div>
                             {% endfor %}
                             <div class="title">Post recientes</div>
                             <hr class="hr-1">
-                            {% for entry in last_entries %}
-                                <div class="entry padding-top-min padding-bot-min">
-                                    <div class="header">{{ entry.headline }}</div>
-                                    <div class="date right-align">{{ entry.pub_date }}</div>
-                                    <hr class="hr-2">
-                                </div>
+                            {% for entry in all_entries %}
+                                <a href="{% url 'blog-app:detail_entry' entry.slug %}" class="black-text">
+                                    <div class="entry padding-top-min padding-bot-min">
+                                        <div class="title">{{ entry.headline }}</div>
+                                        <div class="date">{{ entry.pub_date }}</div>
+                                        <hr class="hr-2">
+                                    </div>
+                                </a>
                             {% endfor %}
                         </div>
                     </div>
                 </aside>
                 <div class="col l8 card-panel white">
-                    <h3 class="headline">{{ entry.headline }}</h3>
+                    <h3 class="headline">{{ entry.headline }}
+                        {% if request.user.is_superuser %}
+                            <a class="right btn-floating waves-effect btn-flat color-1 pulse"
+                               href="{{ entry.get_admin_url }}">
+                                <i class="material-icons">mode_edit</i></a>
+                        {% endif %}
+                    </h3>
                     <h4 class="subheadline">{{ entry.subheadline }}</h4>
                     <div class="row">
                         <h5 class="right-align pub-date">
@@ -77,25 +94,79 @@
                     <div class="right-align">
                         <h5 class="right-align pub-date location"></h5>
                     </div>
+                    <hr>
                     <div class="summary">{{ entry.summary }}</div>
-                    <div class="content">
+                    <hr>
+                    <div class="content padding-bot-med">
                         {{ entry.content|safe }}
                     </div>
-                    <div class="galery-img">
+                    {% if entry.image_post.select_related %}
+                        <div class="galery-img">
+                            <div class="subheadline">Imagenes:</div>
+                            {% for image in entry.image_post.select_related %}
+                                <a href="{{ image.file }}" class="chip">{{ image }}</a>
+                            {% endfor %}
+                        </div>
+                        <ul id="tabs-swipe-demo" class="tabs">
+                            {% for image in entry.image_post.select_related %}
+                                <li class="tab col s3"><a href="#test-swipe-{{ image.id }}"> {{ image }}</a></li>
+                            {% endfor %}
+                        </ul>
                         {% for image in entry.image_post.select_related %}
-                            <a href="{{ image.file }}" class="chip">{{ image.file }}</a>
+                            <div id="test-swipe-{{ image.id }}" class="col s12">
+                                <img src="{{ MEDIA_URL }}{{ image.file }}" alt="">
+                            </div>
                         {% endfor %}
-                    </div>
-                    <ul id="tabs-swipe-demo" class="tabs">
-                        <li class="tab col s3"><a href="#test-swipe-1">Test 1</a></li>
-                        <li class="tab col s3"><a class="active" href="#test-swipe-2">Test 2</a></li>
-                        <li class="tab col s3"><a href="#test-swipe-3">Test 3</a></li>
-                    </ul>
-                    <div id="test-swipe-1" class="col s12" style="background-image: ">Test 1</div>
-                    <div id="test-swipe-2" class="col s12 red">Test 2</div>
-                    <div id="test-swipe-3" class="col s12 green">Test 3</div>
+                    {% endif %}
+                    {% if entry.file_entry.select_related %}
+                        <div class="galery-files padding-top-med">
+                            <div class="subheadline">Archivos:</div>
+                            {% for foo in entry.file_entry.select_related %}
+                                <a download="" href="{{ foo.file }}" class="chip">{{ foo }}</a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if entry.video_post.select_related %}
+                        <div class="gallery-videos padding-bot-min padding-top-med">
+                            <ul id="tabs-swipe-demo" class="tabs">
+                                {% for video in entry.video_post.select_related %}
+                                    <li class="tab col s3"><a href="#test-swipe-video-{{ video.id }}"> {{ video }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% for video in entry.video_post.select_related %}
+                                <div id="test-swipe-video-{{ video.id }}" class="col s12 height-video">
+                                    <video id="{{ video.id }}" class="video-js" controls preload width="640"
+                                           height="400"
+                                           poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                        <source src="{{ MEDIA_URL }}{{ video.file }}" type='video/mp4'>
+                                        <p class="vjs-no-js">
+                                            Su navegador no es compatible con HTML5, lo sentimos
+                                            <a href="http://videojs.com/html5-video-support/" target="_blank">supports
+                                                HTML5
+                                                video</a>
+                                        </p>
+                                    </video>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    {% if entry.facebook_comments %}
+        <div class="blog-main fondo-gris-1 padding-bot-med">
+            <div class="container">
+                <div class="row">
+                    <div class="col l8 card-panel white">
+                        <h3 class="headline">Comentarios:</h3>
+                        <div class="fb-comments"
+                             data-href="http://www.okeanos.cl/comentario/{{ entry.slug }}"
+                             data-width="100%" data-numposts="5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

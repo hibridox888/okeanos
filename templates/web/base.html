@@ -8,10 +8,10 @@
     <meta name="theme-color" content="#FFC344">
     <!--  Pos -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-    <title>{{ title }}</title>
+    <meta name="description" content="{{ pagina.description }}">
+    <meta name="keywords" content="{% for tag in all_tags %}{{ tag|slugify }}, {{ tag }}, {% endfor %}">
+    <meta name="author" content="OKEANOS">
+    <title>{{ pagina.titulo }}</title>
     <link rel="stylesheet" href="{% static 'materialize/css/materialize.css' %}">
 
     {# <link rel="icon" href="{% static '' %}"> #}
@@ -20,7 +20,11 @@
     {% block extra-head %}{% endblock %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="{% static 'materialize/js/materialize.js' %}"></script>
-    <!--Import Google Icon Font-->
+    <!-- video js -->
+    <link href="http://vjs.zencdn.net/6.2.5/video-js.css" rel="stylesheet">
+
+    <!-- If you'd like to support IE8 -->
+    <script async src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 </head>
 <body>
 <div id="back-preload">
@@ -46,14 +50,15 @@
             <nav class="white-text black-transparent">
                 <div class="container">
                     <div class="nav-wrapper">
-                        <a href="#!" class="brand-logo">
-                            OKEANOS
+                        <a href="{% url 'home' %}" class="brand-logo center hide-on-med-and-down">
+                            <img class="logo" src="{% static 'img/logoblack.png' %}" alt="">
                         </a>
+                        <a href="{% url 'home' %}" class="brand-logo">OKEANOS</a>
                         <a href="#" data-activates="mobile-demo" class="button-collapse"><i
                                 class="material-icons">menu</i></a>
                         {% block menu-links %}
                             <ul class="right options-nav hide-on-med-and-down">
-                                <li><a class="waves-effect" href="#home">Home</a></li>
+                                <li><a class="waves-effect" href="{% url 'home' %}">Home</a></li>
                                 <li><a class="waves-effect" href="#somos">Somos</a></li>
                                 <li><a class="waves-effect" href="#blog">Blog</a></li>
                                 <li><a class="waves-effect" href="#contacto">Contacto</a></li>
@@ -122,34 +127,48 @@
                             <hr>
                         </div>
                     </div>
-                    <form>
+                    <form role="form" action="" method="post">
+                        {% csrf_token %}
                         <div class="col l8 m6 s12">
-                            <div class="card-panel hoverable">
-                                <div>
-                                    <div class="row">
-                                        <div class="input-field col m6 s12">
-                                            <i class="material-icons prefix">people</i>
-                                            <input id="first_name" type="text" class="validate">
-                                            <label for="first_name">Nombre</label>
+                            {% if contact.nombre %}
+                                <div class="card-panel hoverable">
+                                    <div>
+                                        <div class="row">
+                                            <div class="input-field col m6 s12">
+                                                {{ contact.nombre.errors }}
+                                                <i class="material-icons prefix">people_outline</i>
+                                                {{ contact.nombre }}
+                                                <label for="nombre">Nombre</label>
+                                            </div>
+                                            <div class="input-field col m6 s12">
+                                                {{ contact.email.errors }}
+                                                <i class="material-icons prefix">mail_outline</i>
+                                                {{ contact.email }}
+                                                <label for="email" data-error="wrong" data-success="right">Email</label>
+                                            </div>
                                         </div>
-                                        <div class="input-field col m6 s12">
-                                            <i class="material-icons prefix">mail</i>
-                                            <input id="email" type="email" class="validate">
-                                            <label for="email">Email</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <i class="material-icons prefix">people</i>
-                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                            <label for="textarea1">Contenido</label>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                {{ contact.errors }}
+                                                <i class="material-icons prefix">message</i>
+                                                {{ contact.mensaje }}
+                                                <label for="textarea1">Contenido</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <a class="btn btn-floating btn-large pulse btn-material color-3">
-                                <i class="material-icons">send</i>
-                            </a>
+                                <button type="submit" class="btn btn-floating btn-large pulse btn-material color-3">
+                                    <i class="material-icons">send</i>
+                                </button>
+                            {% else %}
+                                <script>
+                                    var $toastContent = $('<span>Email enviado</span>').add($('<button class="btn-flat toast-action"><i class="material-icons">check</i></button>'));
+                                    Materialize.toast($toastContent, 10000);
+                                </script>
+                                <div class="card-panel hoverable">
+                                    <h3 class="title center-align">Mensaje enviado</h3>
+                                </div>
+                            {% endif %}
                         </div>
                     </form>
                 </div>
@@ -166,13 +185,41 @@
                         <div class="row">
                             <div class="social-container">
                                 <ul class="social-icons">
-                                    <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a target="_blank" href="https://www.facebook.com/"><i
+                                            class="fa fa-facebook-square"></i></a></li>
+                                    <li><a target="_blank" href="https://twitter.com/"><i
+                                            class="fa fa-instagram"></i></a></li>
+                                    <li><a target="_blank" href="https://www.instagram.com/"><i
+                                            class="fa fa-twitter-square"></i></a></li>
+                                    <li><a target="_blank" href="https://www.linkedin.com/"><i
+                                            class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-container padding-top-min padding-bot-med sponsors">
+            <div class="container">
+                <div class="row">
+                    <div class="col l2 m4 s6">
+                        <img class="responsive-" src="{% static 'sponsors/10.jpg' %}" alt="">
+                    </div>
+                    <div class="col l2 m4 s6">
+                        <img class="responsive-" src="{% static 'sponsors/11.jpg' %}" alt="">
+                    </div>
+                    <div class="col l2 m4 s6">
+                        <img class="responsive-" src="{% static 'sponsors/12.jpg' %}" alt="">
+                    </div>
+                    <div class="col l2 m4 s6">
+                        <img class="reslo m4 s6nsive-" src="{% static 'sponsors/13.jpg' %}" alt="">
+                    </div>
+                    <div class="col l2 m4 s6">
+                        <img class="responsive-" src="{% static 'sponsors/14.jpg' %}" alt="">
+                    </div>
+                    <div class="col l2 m4 s6">
+                        <img class="responsive-" src="{% static 'sponsors/15.jpg' %}" alt="">
                     </div>
                 </div>
             </div>
@@ -181,16 +228,19 @@
             <div class="container">
                 <div class="footer-copyright">
                     OKEANOS 2017
-                    <a class="right" href="">Un Link</a>
+                    <a target="_blank" class="right" href="http://tucodigo.cl/">Desarrollo Web: TuCodigo.cl</a>
                 </div>
             </div>
         </div>
     {% endblock %}
 </footer>
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large waves-effect btn-flat color-1 go-top pulse">
+        <i class="material-icons white-text">arrow_drop_up</i>
+    </a>
 </body>
 
 <script type="text/javascript" src="{% static 'js/images-loaded.js' %}"></script>
-
 <script>
     if (document.location.search.match(/type=embed/gi)) {
         window.parent.postMessage("resize", "*");
@@ -224,6 +274,6 @@
         });
     }(jQuery));
 </script>
-
+<script async src="http://vjs.zencdn.net/6.2.5/video.js"></script>
 {% block extra-js %}{% endblock %}
 </html>

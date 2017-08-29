@@ -5,22 +5,29 @@
         <ul class="slides">
             <li>
                 <img src="{% static 'img/water.jpg' %}">
-                <div class="caption center-align">
-                    <h3 class="uppercased">Okeanos</h3>
-                    <h5 class="light grey-text text-lighten-3">Heramienta de exploración</h5>
+                <div class="caption center-align uppercased">
+                    <h3 class="light grey-text text-lighten-3">Tecnología marina</h3>
+                    <h5 class="light grey-text text-lighten-3">95% de los oceanos aún no se ha explorado</h5>
                 </div>
             </li>
             {% for entry in last_entries %}
                 {% if entry.on_slider %}
                     <li>
-                        <img src="{% static 'img/planet-581239.jpg' %}">
+                        {% if entry.first_img %}
+                            <img src="{% thumbnail entry.first_img.file 'slider-img' %}">
+                        {% else %}
+                            <img src="{% static 'img/sunrise-1756274_1920.jpg' %}" alt="">
+                        {% endif %}
                         <div class="caption center-align">
-                            <h3>{{ forloop.counter }}{{ entry.headline }}</h3>
+                            <h3>{{ entry.headline }}</h3>
                             <h5 class="light grey-text text-lighten-3">{{ entry.subheadline }}</h5>
                             {% if entry.external_url %}
-                                <a href="{{ entry.external_url }}" class="btn btn-large color-1 ">Ver más</a>
+                                <a target="_blank" href="{{ entry.external_url }}"
+                                   class="btn btn-large color-1 waves-effect">Ver
+                                    más</a>
                             {% else %}
-                                <a href="{{ entry.get_absolute_url }}" class="btn btn-large color-1 ">holandaVer más</a>
+                                <a href="{{ entry.get_absolute_url }}" class="btn btn-large color-1 waves-effect">Ver
+                                    más</a>
                             {% endif %}
                         </div>
                     </li>
@@ -66,9 +73,9 @@
             </div>
         </div>
     </section>
-    <div class="parallax-container">
+    <div class="parallax-container herramienta">
         <div class="parallax">
-            <img src="{% static 'img/planet-581239.jpg' %}">
+            <img src="{% static 'img/herramienta.jpg' %}">
         </div>
     </div>
     <section class="white center">
@@ -265,7 +272,7 @@
                         {% endfor %}
                     </div>
                     <div class="row center">
-                        <a href="{% url 'blog-app:home' %}" class="btn btn-large color-1">Ver más</a>
+                        <a href="{% url 'blog-app:home' %}" class="btn btn-large color-1 waves-effect">Ver más</a>
                     </div>
                 </div>
             </div>

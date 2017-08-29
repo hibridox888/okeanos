@@ -30,36 +30,44 @@
     <div class="blog-main white padding-top-med padding-bot-med">
         <div class="container">
             <div class="row">
-                <aside class="col l3 right">
-                    <form>
-                        <div class="input-field">
-                            <input id="search" type="search" required>
-                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                            <i class="material-icons medium">close</i>
+                <aside class="col l4 right">
+                    <div class="container">
+                        <div class="container">
+                            <div class="title">Etiquetas</div>
+                            <div class="chip">
+                                <a href="{% url 'blog-app:home' %}"
+                                   class="black-text">Todas</a>
+                            </div>
+                            {% for tag in all_tags %}
+                                <div class="chip">
+                                    <a href="{% url 'blog-app:list_tag' tag.title %}"
+                                       class="black-text">{{ tag.title|title }}</a>
+                                </div>
+                            {% endfor %}
+                            <div class="title">Post recientes</div>
+                            <hr class="hr-1">
+                            {% for entry in all_entries %}
+                                <a href="{% url 'blog-app:detail_entry' entry.slug %}" class="black-text">
+                                    <div class="entry padding-top-min padding-bot-min">
+                                        <div class="title">{{ entry.headline }}</div>
+                                        <div class="date">{{ entry.pub_date }}</div>
+                                        <hr class="hr-2">
+                                    </div>
+                                </a>
+                            {% endfor %}
                         </div>
-                    </form>
-                    <div class="title">Etiquetas</div>
-                    {% for tag in all_tags %}
-                        <div class="chip">
-                            {{ tag.title }}
-                        </div>
-                    {% endfor %}
-                    <div class="title">Post recientes</div>
-                    <hr class="hr-1">
-                    {% for entry in last_entries %}
-                        <div class="entry padding-top-min padding-bot-min">
-                            <div class="title">{{ entry.headline }}</div>
-                            <div class="date">{{ entry.pub_date }}</div>
-                            <hr class="hr-2">
-                        </div>
-                    {% endfor %}
+                    </div>
                 </aside>
                 <div class="col l8">
                     {% for entry in last_entries %}
                         <div class="col s12 m6">
                             <div class="card">
                                 <div class="card-image">
-                                    <img src="{% static 'img/sunrise-1756274_1920.jpg' %}">
+                                    {% if entry.first_img %}
+                                        <img src="{{ MEDIA_URL }}{{ entry.first_img.file }}">
+                                    {% else %}
+                                        <img src="{% static 'img/sunrise-1756274_1920.jpg' %}">
+                                    {% endif %}
                                     <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"
                                        href="{{ entry.get_absolute_url }}">
                                         <i class="material-icons">add</i>
@@ -71,6 +79,8 @@
                                 </div>
                             </div>
                         </div>
+                    {% empty %}
+                        <div class="title">No existen post relacionados</div>
                     {% endfor %}
                 </div>
             </div>

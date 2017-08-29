@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import datetime
+from os.path import basename
 
 # Create your models here.
 from django.db import models
@@ -9,6 +10,8 @@ from django.utils.translation import ugettext as _, ugettext_lazy
 from django_hosts.resolvers import reverse
 from ckeditor.fields import RichTextField
 from easy_thumbnails.fields import ThumbnailerImageField
+from django.core import urlresolvers
+from django.contrib.contenttypes.models import ContentType
 
 now = datetime.datetime.now()
 
@@ -58,7 +61,10 @@ class Entry(models.Model):
     publication_type = models.CharField(_('tipo de publicación'), max_length=1, choices=CONTENT_CHOICES, default='E')
 
     # if redirect to other site
-    external_url = models.URLField(_("url externa"), null=True, blank=True)
+    external_url = models.URLField(_("url externa"), null=True, blank=True, help_text=_(
+        "Si se deja vacío este campo, los links para ver más detalles redireccionarán dentro del sitio al detalle"
+        "Al ingresar una URL en este campo se redireccionará a este cuando se pidan detalles "
+    ))
 
     # define content
     headline = models.CharField(_('titulo'), max_length=200)
@@ -91,6 +97,19 @@ class Entry(models.Model):
         ),
         default=False,
     )
+    facebook_comments = models.BooleanField(
+        _('habilitar comentarios de facebook'),
+        help_text=_(
+            "Marque para que sea visible el plugin de facebook para realizar comentarios "
+            "No se tendrá mayor control sobre los comentarios "
+        ),
+        default=False,
+    )
+
+    def get_admin_url(self):
+        content_type = ContentType.objects.get_for_model(self.__class__)
+        return urlresolvers.reverse("admin:%s_%s_change" % (content_type.app_label, content_type.model),
+                                    args=(self.id,))
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
@@ -133,7 +152,7 @@ class File(models.Model):
         if self.name:
             return '%s' % self.name
         else:
-            return '%s' % self.file.name
+            return basename(self.file.name)
 
     class Meta:
         verbose_name = _('archivo')
@@ -149,7 +168,7 @@ class Image(models.Model):
         if self.name:
             return '%s' % self.name
         else:
-            return '%s' % self.file.name
+            return basename(self.file.name)
 
     class Meta:
         verbose_name = _('imagen')
@@ -165,7 +184,7 @@ class Video(models.Model):
         if self.name:
             return '%s' % self.name
         else:
-            return '%s' % self.file.name
+            return basename(self.file.name)
 
     class Meta:
         verbose_name = _('video')

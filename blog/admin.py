@@ -44,7 +44,7 @@ class EntryAdmin(admin.ModelAdmin):
     }
     fieldsets = (
         ('General', {
-            'fields': (('tags','publication_type'), 'on_slider', 'external_url'),
+            'fields': (('tags', 'publication_type'), 'on_slider', 'external_url', 'facebook_comments'),
             # 'classes': ('collapse',)
         }),
         ('Contenido', {

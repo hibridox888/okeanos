@@ -1,6 +1,10 @@
 $(window).ready(function () {
     (function ($) {
         $(function () {
+            var Effect = {
+                // Effect delay
+                duration: 450,
+            };
             $('ul.tabs').tabs({
                 swipeable: true
             });
@@ -32,6 +36,18 @@ $(window).ready(function () {
                     });
                 });
             }
+            $(window).scroll(function () {
+                if ($(this).scrollTop() < 300) {
+                    $('.go-top').fadeOut("slow")
+                } else {
+                    $('.go-top').fadeIn("slow")
+                }
+                return false;
+            });
+            $('.go-top').click(function () {
+                $('body,html').animate({scrollTop: 0}, 800);
+                return false;
+            });
 
         });
     })(jQuery);

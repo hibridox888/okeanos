@@ -3077,7 +3077,7 @@ if (jQuery) {
   var Effect = {
 
     // Effect delay
-    duration: 750,
+    duration: 450,
 
     show: function (e, element) {
 

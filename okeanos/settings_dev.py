@@ -168,14 +168,14 @@ MEDIA_URL = '/media/'
 # for easy thumbnail
 THUMBNAIL_ALIASES = {
     '': {
-        'min-portfolio': {'size': (250, 250), 'crop': True},
+        'slider-img': {'size': (1265, 450), 'crop': True},
         'card-img': {'size': (300, 240), 'crop': True},
     },
 }
 
 LOCALE_PATH = (os.path.join(BASE_DIR, "demoapp", "locale"))
 
-'''
+
 # proaus hola@proaus proausemail
 ADMINS = (('Hernan', 'hernan@tucodigo.cl'))
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -183,10 +183,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.webfaction.com'
-EMAIL_HOST_USER = 'noresponder_proaus'
-EMAIL_HOST_PASSWORD = 'proausemail123'
+EMAIL_HOST_USER = 'noresponder_tucodigo'
+EMAIL_HOST_PASSWORD = '123prueba'
 # EMAIL_SSL_KEYFILE = None
-DEFAULT_FROM_EMAIL = 'noresponder@proaus.cl'
+DEFAULT_FROM_EMAIL = 'prueba@tucodigo.cl'
 # SERVER_EMAIL = 'HOLA@EMAIL.CL'
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-'''
