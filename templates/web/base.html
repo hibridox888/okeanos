@@ -241,11 +241,6 @@
 </body>
 
 <script type="text/javascript" src="{% static 'js/images-loaded.js' %}"></script>
-<script>
-    if (document.location.search.match(/type=embed/gi)) {
-        window.parent.postMessage("resize", "*");
-    }
-</script>
 <!--Import jQuery before materialize.js-->
 
 <script type="text/javascript" src="{% static 'js/init.js' %}"></script>
@@ -274,6 +269,10 @@
         });
     }(jQuery));
 </script>
-<script async src="http://vjs.zencdn.net/6.2.5/video.js"></script>
+<script>
+    if (document.location.search.match(/type=embed/gi)) {
+        window.parent.postMessage("resize", "*");
+    }
+</script>
 {% block extra-js %}{% endblock %}
 </html>

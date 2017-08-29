@@ -51,8 +51,7 @@ class Entry(models.Model):
     pub_date = models.DateTimeField(
         verbose_name=_("fecha publicación"),
         help_text=_(
-            "For an entry to be published, it must be active and its "
-            "publication date must be in the past."
+            "Para que una publicación sea publicada, debe estar activa y su fecha de publicación debe estar en el pasado"
         ),
         default=now,
     )
@@ -62,7 +61,7 @@ class Entry(models.Model):
 
     # if redirect to other site
     external_url = models.URLField(_("url externa"), null=True, blank=True, help_text=_(
-        "Si se deja vacío este campo, los links para ver más detalles redireccionarán dentro del sitio al detalle"
+        "Si se deja vacío este campo, los links para ver más detalles redireccionarán dentro del sitio al detalle. "
         "Al ingresar una URL en este campo se redireccionará a este cuando se pidan detalles "
     ))
 
@@ -78,9 +77,9 @@ class Entry(models.Model):
     is_active = models.BooleanField(
         _('se encuentra activo'),
         help_text=_(
-            "Marque para hacer esta entrada en vivo (ver también la fecha de publicación) "
-            "Tenga en cuenta que los administradores (como usted) tienen permiso para previsualizar  "
-            "Entradas inactivas mientras que el público en general no lo son "
+            "Marque para hacer esta entrada en vivo (ver también la fecha de publicación). "
+            "Tenga en cuenta que los administradores (como usted) tienen permiso para previsualizar "
+            "Entradas inactivas mientras que el público en general no"
         ),
         default=False,
     )

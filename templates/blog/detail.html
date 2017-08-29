@@ -15,24 +15,14 @@
     </ul>
 {% endblock %}
 {% block main %}
-    <div id="fb-root"></div>
-    <script>(function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.10&appId=222427671463375";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-
-
     <section class="blog-main section scrollspy" id="blog">
         <div class="parallax-container valign-wrapper">
             <div class="section no-pad-bot">
                 <div class="container white-text">
                     <div class="header">{{ entry.get_publication_type_display }}</div>
                     <div class="subheader">{{ entry.author.first_name }} {{ entry.author.last_name }}</div>
-                    <div class="right">Ver más de este autor</div>
+                    <div class="right"><a class="white-text" href="{% url 'blog-app:list_author' entry.author %}">Ver
+                        más de este autor</a></div>
                 </div>
             </div>
             <div class="parallax"><img src="{% static 'img/sunrise-1756274_1920.jpg' %}"></div>
@@ -41,7 +31,7 @@
     <div class="blog-main fondo-gris-1 padding-top-med padding-bot-min">
         <div class="container">
             <div class="row">
-                <aside class="col l4 right">
+                <div class="col l4 m12 right aside">
                     <div class="container">
                         <div class="container">
                             <div class="title">Etiquetas</div>
@@ -58,18 +48,30 @@
                             <div class="title">Post recientes</div>
                             <hr class="hr-1">
                             {% for entry in all_entries %}
-                                <a href="{% url 'blog-app:detail_entry' entry.slug %}" class="black-text">
-                                    <div class="entry padding-top-min padding-bot-min">
-                                        <div class="title">{{ entry.headline }}</div>
-                                        <div class="date">{{ entry.pub_date }}</div>
-                                        <hr class="hr-2">
-                                    </div>
-                                </a>
+                                {% if entry.external_url %}
+                                    <a href="{{ entry.external_url }}" class="black-text">
+                                        <div class="entry padding-top-min padding-bot-min">
+                                            <div class="title">{{ entry.headline }} <i
+                                                    class="material-icons right">open_in_new</i>
+                                            </div>
+                                            <div class="date">{{ entry.pub_date }}</div>
+                                            <hr class="hr-2">
+                                        </div>
+                                    </a>
+                                {% else %}
+                                    <a href="{{ entry.get_absolute_url }}" class="black-text">
+                                        <div class="entry padding-top-min padding-bot-min">
+                                            <div class="title">{{ entry.headline }}</div>
+                                            <div class="date">{{ entry.pub_date }}</div>
+                                            <hr class="hr-2">
+                                        </div>
+                                    </a>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
-                </aside>
-                <div class="col l8 card-panel white">
+                </div>
+                <div class="col l8 m12 card-panel white">
                     <h3 class="headline">{{ entry.headline }}
                         {% if request.user.is_superuser %}
                             <a class="right btn-floating waves-effect btn-flat color-1 pulse"
@@ -104,7 +106,7 @@
                         <div class="galery-img">
                             <div class="subheadline">Imagenes:</div>
                             {% for image in entry.image_post.select_related %}
-                                <a href="{{ image.file }}" class="chip">{{ image }}</a>
+                                <a href="{{ MEDIA_URL }}{{ image.file }}" class="chip">{{ image }}</a>
                             {% endfor %}
                         </div>
                         <ul id="tabs-swipe-demo" class="tabs">
@@ -114,7 +116,7 @@
                         </ul>
                         {% for image in entry.image_post.select_related %}
                             <div id="test-swipe-{{ image.id }}" class="col s12">
-                                <img src="{{ MEDIA_URL }}{{ image.file }}" alt="">
+                                <img src="{% thumbnail image.file 'detalle-miniatura' %}" alt="">
                             </div>
                         {% endfor %}
                     {% endif %}
@@ -122,15 +124,17 @@
                         <div class="galery-files padding-top-med">
                             <div class="subheadline">Archivos:</div>
                             {% for foo in entry.file_entry.select_related %}
-                                <a download="" href="{{ foo.file }}" class="chip">{{ foo }}</a>
+                                <a download="{{ MEDIA_URL }}{{ foo.file }}" href="{{ MEDIA_URL }}{{ foo.file }}" class="chip">{{ foo }}</a>
                             {% endfor %}
                         </div>
                     {% endif %}
                     {% if entry.video_post.select_related %}
                         <div class="gallery-videos padding-bot-min padding-top-med">
+                            <div class="subheadline">Videos:</div>
                             <ul id="tabs-swipe-demo" class="tabs">
                                 {% for video in entry.video_post.select_related %}
-                                    <li class="tab col s3"><a href="#test-swipe-video-{{ video.id }}"> {{ video }}</a>
+                                    <li class="tab col s3"><a
+                                            href="#test-swipe-video-{{ video.id }}"> {{ video }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -152,21 +156,27 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
-        </div>
-    </div>
-    {% if entry.facebook_comments %}
-        <div class="blog-main fondo-gris-1 padding-bot-med">
-            <div class="container">
-                <div class="row">
-                    <div class="col l8 card-panel white">
+                {% if entry.facebook_comments %}
+                    <div id="fb-root"></div>
+                    <script>(function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.10&appId=222427671463375";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+                    <div class="col l8 m12 s12 card-panel white">
                         <h3 class="headline">Comentarios:</h3>
                         <div class="fb-comments"
                              data-href="http://www.okeanos.cl/comentario/{{ entry.slug }}"
                              data-width="100%" data-numposts="5"></div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
-    {% endif %}
+    </div>
+{% endblock %}
+{% block extra-js %}
+    <script src="http://vjs.zencdn.net/6.2.5/video.js"></script>
 {% endblock %}

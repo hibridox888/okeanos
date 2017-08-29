@@ -29,7 +29,7 @@ SECRET_KEY = '5b4d^+px31d8-uf@m3c^b-0m%9jdgikybw#+a$-!@_z!1_y#@%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'127.0.0.1']
+ALLOWED_HOSTS = [u'127.0.0.1', u'okeanos.tucodigo.cl']
 
 # Application definition
 
@@ -169,12 +169,12 @@ MEDIA_URL = '/media/'
 THUMBNAIL_ALIASES = {
     '': {
         'slider-img': {'size': (1265, 450), 'crop': True},
-        'card-img': {'size': (300, 240), 'crop': True},
+        'detalle-miniatura': {'size': (600, 400), 'crop': True},
+        'card-img': {'size': (300, 150), 'crop': True},
     },
 }
 
 LOCALE_PATH = (os.path.join(BASE_DIR, "demoapp", "locale"))
-
 
 # proaus hola@proaus proausemail
 ADMINS = (('Hernan', 'hernan@tucodigo.cl'))

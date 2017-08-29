@@ -1,10 +1,10 @@
 {% extends 'web/base.html' %}
-{% load staticfiles %}
+{% load staticfiles thumbnail %}
 {% block menu-links %}
     <ul class="right options-nav hide-on-med-and-down">
         <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'home' %}#somos">Somos</a></li>
-        <li><a href="#blog">Blog</a></li>
+        <li><a href="{% url 'blog-app:home' %}">Blog</a></li>
         <li><a href="#contacto">Contacto</a></li>
     </ul>
     <ul class="side-nav" id="mobile-demo">
@@ -30,7 +30,7 @@
     <div class="blog-main white padding-top-med padding-bot-med">
         <div class="container">
             <div class="row">
-                <aside class="col l4 right">
+                <div class="col l4 m12 right aside">
                     <div class="container">
                         <div class="container">
                             <div class="title">Etiquetas</div>
@@ -47,41 +47,61 @@
                             <div class="title">Post recientes</div>
                             <hr class="hr-1">
                             {% for entry in all_entries %}
-                                <a href="{% url 'blog-app:detail_entry' entry.slug %}" class="black-text">
-                                    <div class="entry padding-top-min padding-bot-min">
-                                        <div class="title">{{ entry.headline }}</div>
-                                        <div class="date">{{ entry.pub_date }}</div>
-                                        <hr class="hr-2">
-                                    </div>
-                                </a>
+                                {% if entry.external_url %}
+                                    <a href="{{ entry.external_url }}" class="black-text">
+                                        <div class="entry padding-top-min padding-bot-min">
+                                            <div class="title">{{ entry.headline }} <i class="material-icons right">open_in_new</i>
+                                            </div>
+                                            <div class="date">{{ entry.pub_date }}</div>
+                                            <hr class="hr-2">
+                                        </div>
+                                    </a>
+                                {% else %}
+                                    <a href="{{ entry.get_absolute_url }}" class="black-text">
+                                        <div class="entry padding-top-min padding-bot-min">
+                                            <div class="title">{{ entry.headline }}</div>
+                                            <div class="date">{{ entry.pub_date }}</div>
+                                            <hr class="hr-2">
+                                        </div>
+                                    </a>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
-                </aside>
-                <div class="col l8">
-                    {% for entry in last_entries %}
-                        <div class="col s12 m6">
-                            <div class="card">
-                                <div class="card-image">
-                                    {% if entry.first_img %}
-                                        <img src="{{ MEDIA_URL }}{{ entry.first_img.file }}">
-                                    {% else %}
-                                        <img src="{% static 'img/sunrise-1756274_1920.jpg' %}">
-                                    {% endif %}
-                                    <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"
-                                       href="{{ entry.get_absolute_url }}">
-                                        <i class="material-icons">add</i>
-                                    </a>
-                                </div>
-                                <div class="card-content">
-                                    <span class="card-title">{{ entry.headline }}</span>
-                                    <p>{{ entry.subheadline }}</p>
+                </div>
+                <div class="col l8 m12">
+                    <div class="row container-masonry">
+                        {% for entry in last_entries %}
+                            <div class="col s12 m6 item">
+                                <div class="card">
+                                    <div class="card-image">
+                                        {% if entry.first_img %}
+                                            <img src="{% thumbnail entry.first_img.file 'card-img' %}">
+                                        {% else %}
+                                            <img src="{% static 'img/sunrise-1756274_1920.jpg' %}">
+                                        {% endif %}
+                                        {% if entry.external_url %}
+                                            <a class="btn-floating btn-large halfway-fab waves-effect waves-light color-1 pulse"
+                                               href="{{ entry.external_url }}" target="_blank">
+                                                <i class="material-icons">link</i>
+                                            </a>
+                                        {% else %}
+                                            <a class="btn-floating btn-large halfway-fab waves-effect waves-light color-1 pulse"
+                                               href="{{ entry.get_absolute_url }}">
+                                                <i class="material-icons">add</i>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-content">
+                                        <span class="card-title">{{ entry.headline }}</span>
+                                        <p>{{ entry.subheadline }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% empty %}
-                        <div class="title">No existen post relacionados</div>
-                    {% endfor %}
+                        {% empty %}
+                            <div class="title">No existen post relacionados</div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
