@@ -33,8 +33,8 @@ Luego ingresar a "/proyecto/locale/en/LC_MESSAGES/django.po" y agregar traduccio
   - Llenar de post
 
 ### Hosting recomendados:
-> - https://www.webfaction.com/
-> - https://www.digitalocean.com
+> - [Webfaction]
+> - [DigitalOcean]
 
 ### Tech
 
@@ -43,6 +43,10 @@ Luego ingresar a "/proyecto/locale/en/LC_MESSAGES/django.po" y agregar traduccio
 * [Masonry] - Acomodar Grids
 
    [Django]: <https://www.djangoproject.com/>
+   [Sass]: <http://sass-lang.com/>
+   [Masonry]: <https://masonry.desandro.com/>
+   [Webfaction]: <https://www.webfaction.com/>
+   [DigitalOcean]: <https://www.digitalocean.com>
    [git-repo-url]: <https://github.com/user0able/okeanos.git>
    [node.js]: <http://nodejs.org>
    [jQuery]: <http://jquery.com>
