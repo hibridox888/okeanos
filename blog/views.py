@@ -5,11 +5,12 @@ from django.shortcuts import render, get_object_or_404
 from blog.models import Entry, Tag
 from contact.views import form_contact
 from okeanos.views import Pagina
+from django.utils.translation import ugettext as _, ugettext_lazy
 
 
 def home(request):
-    Pagina.titulo = 'Todas las Entradas'
-    Pagina.subtitulo = 'Noticias, proyectos, post y eventos'
+    Pagina.titulo = _('Todas las Entradas')
+    Pagina.subtitulo = _('Noticias, proyectos, post y eventos')
     last_entries = Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now)[:30]
     return render(request, 'blog/list.html', {
         'pagina': Pagina,
@@ -21,7 +22,7 @@ def home(request):
 
 
 def list_author(request, username):
-    Pagina.titulo = 'Post por el autor:'
+    Pagina.titulo = _('Post por el autor:')
     Pagina.subtitulo = '%s' % username
     last_entries = Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now).filter(
         author__username=username)[:30]
@@ -35,8 +36,8 @@ def list_author(request, username):
 
 
 def list_tag(request, title):
-    Pagina.description = 'OKEANOS, Tecnología marina'
-    Pagina.titulo = 'Etiqueta:'
+    Pagina.description = _('OKEANOS, Tecnología marina')
+    Pagina.titulo = _('Etiqueta:')
     Pagina.subtitulo = '%s' % title
     last_entries = Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now).filter(tags__title=title)[:30]
     return render(request, 'blog/list.html', {

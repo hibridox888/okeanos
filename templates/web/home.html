@@ -3,13 +3,6 @@
 {% block main %}
     <div class="cabecera slider section scrollspy" id="home">
         <ul class="slides">
-            <li>
-                <img src="{% static 'img/water.jpg' %}">
-                <div class="caption center-align uppercased">
-                    <h3 class="light grey-text text-lighten-3">{% trans 'Tecnología marina' %}</h3>
-                    <h5 class="light grey-text text-lighten-3">{% trans '95% de los oceanos aún no se ha explorado' %}</h5>
-                </div>
-            </li>
             {% for entry in last_entries %}
                 <li>
                     {% if entry.first_img %}
@@ -28,6 +21,14 @@
                             <a href="{{ entry.get_absolute_url }}" class="btn btn-large color-1 waves-effect">Ver
                                 más</a>
                         {% endif %}
+                    </div>
+                </li>
+            {% empty %}
+                <li>
+                    <img src="{% static 'img/water.jpg' %}">
+                    <div class="caption center-align uppercased">
+                        <h3 class="light grey-text text-lighten-3">{% trans 'Tecnología marina' %}</h3>
+                        <h5 class="light grey-text text-lighten-3">{% trans '95% de los oceanos aún no se ha explorado' %}</h5>
                     </div>
                 </li>
             {% endfor %}
@@ -67,7 +68,10 @@
                         <div class="title">Okeanos</div>
                     </div>
                     <div class="text container">
-                        {% trans 'Proyectos de ingeniería para un mercado global desde la ciudad de Valdivia en la Región de Los Ríos, Chile.' %}
+                        {% blocktrans %}
+                            Proyectos de ingeniería para un mercado global desde la ciudad de Valdivia en la Región de
+                            Los Ríos, Chile.
+                        {% endblocktrans %}
                     </div>
                     <div class="padding-top-med">
                         <hr>

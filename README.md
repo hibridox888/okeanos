@@ -6,7 +6,7 @@ Esta aplicación es para OKEANOS, cumpliendo requisitos de:
 
   - Blog para entradas y proyectos
   - Traducciones español/inglés del sitio
-  - El mismo formato que http://proaus.cl/
+  - El mismo formato que [Proaus]
 
 # Para instalar:
 - Instalar virtualenv y pip. O tambien se puede con easy_install
@@ -45,6 +45,8 @@ Luego ingresar a "/proyecto/locale/en/LC_MESSAGES/django.po" y agregar traduccio
    [Django]: <https://www.djangoproject.com/>
    [Sass]: <http://sass-lang.com/>
    [Masonry]: <https://masonry.desandro.com/>
+   [Proaus]: <http://proaus.cl/>
+   [OKEANOS]: <http://okeanos.tucodigo.cl/>
    [Webfaction]: <https://www.webfaction.com/>
    [DigitalOcean]: <https://www.digitalocean.com>
    [git-repo-url]: <https://github.com/user0able/okeanos.git>

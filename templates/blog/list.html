@@ -22,10 +22,10 @@
         </li>
     </ul>
     <ul class="side-nav" id="mobile-demo">
-        <li><a href="">Home</a></li>
-        <li><a href="">Somos</a></li>
-        <li><a href="">Blog</a></li>
-        <li><a href="">Contacto</a></li>
+        <li><a href="">{% trans 'Home' %}</a></li>
+        <li><a href="">{% trans 'Somos' %}</a></li>
+        <li><a href="">{% trans 'Blog' %}</a></li>
+        <li><a href="">{% trans 'Contacto' %}</a></li>
     </ul>
 {% endblock %}
 {% block main %}
@@ -47,10 +47,10 @@
                 <div class="col l4 m12 right aside">
                     <div class="container">
                         <div class="container">
-                            <div class="title">Etiquetas</div>
+                            <div class="title">{% trans 'Tags' %}</div>
                             <div class="chip">
                                 <a href="{% url 'blog-app:home' %}"
-                                   class="black-text">Todas</a>
+                                   class="black-text">{% trans 'all' %}</a>
                             </div>
                             {% for tag in all_tags %}
                                 <div class="chip">
@@ -58,18 +58,7 @@
                                        class="black-text">{{ tag.title|title }}</a>
                                 </div>
                             {% endfor %}
-                            <div class="title">Tipo</div>
-                            <div class="chip">
-                                <a href="{% url 'blog-app:home' %}"
-                                   class="black-text">Todas</a>
-                            </div>
-                            {% for tag in all_tags %}
-                                <div class="chip">
-                                    <a href="{% url 'blog-app:list_tag' tag.title %}"
-                                       class="black-text">{{ tag.title|title }}</a>
-                                </div>
-                            {% endfor %}
-                            <div class="title">Post recientes</div>
+                            <div class="title">{% trans 'Recent posts' %}</div>
                             <hr class="hr-1">
                             {% for entry in all_entries %}
                                 {% if entry.external_url %}
@@ -124,7 +113,7 @@
                                 </div>
                             </div>
                         {% empty %}
-                            <div class="title">No existen post relacionados</div>
+                            <div class="title">{% trans 'No existen post relacionados' %}</div>
                         {% endfor %}
                     </div>
                 </div>
