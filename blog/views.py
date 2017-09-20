@@ -6,8 +6,6 @@ from blog.models import Entry, Tag
 from contact.views import form_contact
 from okeanos.views import Pagina
 
-all_tags = Tag.objects.all()
-
 
 def home(request):
     Pagina.titulo = 'Todas las Entradas'
@@ -16,7 +14,7 @@ def home(request):
     return render(request, 'blog/list.html', {
         'pagina': Pagina,
         'last_entries': last_entries,
-        'all_tags': all_tags,
+        'Tag.objects.all()': Tag.objects.all(),
         'all_entries': Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now)[:30],
         'contact': form_contact(request=request),
     })
@@ -30,7 +28,7 @@ def list_author(request, username):
     return render(request, 'blog/list.html', {
         'pagina': Pagina,
         'last_entries': last_entries,
-        'all_tags': all_tags,
+        'Tag.objects.all()': Tag.objects.all(),
         'all_entries': Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now)[:30],
         'contact': form_contact(request=request),
     })
@@ -44,7 +42,7 @@ def list_tag(request, title):
     return render(request, 'blog/list.html', {
         'pagina': Pagina,
         'last_entries': last_entries,
-        'all_tags': all_tags,
+        'Tag.objects.all()': Tag.objects.all(),
         'all_entries': Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now)[:30],
         'contact': form_contact(request=request),
     })
@@ -59,7 +57,7 @@ def detail_entry(request, slug):
     return render(request, 'blog/detail.html', {
         'pagina': Pagina,
         'entry': entry,
-        'all_tags': all_tags,
+        'Tag.objects.all()': Tag.objects.all(),
         'last_entries': last_entries,
         'all_entries': Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now)[:30],
         'contact': form_contact(request=request),

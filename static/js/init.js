@@ -1,9 +1,19 @@
 $(window).ready(function () {
     (function ($) {
         $(function () {
+            $('.slider').slider({
+                height: 600,
+                indicators: true,
+                interval: 10000
+            });
+            $('.detail-slider.slider').slider({
+                height: 300,
+                indicators: false,
+                interval: 10000
+            });
             var Effect = {
                 // Effect delay
-                duration: 450,
+                duration: 450
             };
             $('ul.tabs').tabs({
                 swipeable: true
@@ -13,16 +23,22 @@ $(window).ready(function () {
             $(".button-collapse").sideNav();
             $('.parallax').parallax();
             $('.scrollspy').scrollSpy({scrollOffset: 64});
-            var mediaquery = window.matchMedia("(max-width: 600px)");
-            if (mediaquery.matches) {
-                $('.cabecera.slider').slider({
-                    height: 450, indicators: false, interval: 10000
-                });
-            } else {
-                $('.cabecera.slider').slider({
-                    height: 450, indicators: true, interval: 10000
-                });
-            }
+            /*
+             var mediaquery = window.matchMedia("(max-width: 600px)");
+             if (mediaquery.matches) {
+             $('.cabecera.slider').slider({
+             height: 450,
+             indicators: true,
+             interval: 10000
+             });
+             } else {
+             $('.cabecera.slider').slider({
+             height: 600,
+             indicators: true,
+             interval: 10000
+             });
+             }
+             * */
             $('.carousel.carousel-slider').carousel({fullWidth: true});
 
             // Pushpin Demo Init

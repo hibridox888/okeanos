@@ -2,20 +2,21 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils.translation import ugettext as _, ugettext_lazy
 
 
 # Create your models here.
 
-class Contacto(models.Model):
-    fecha = models.DateTimeField(auto_now=True, blank=True, null=True)
-    nombre = models.CharField('Nombre o Empresa', max_length=50)
-    email = models.EmailField('Email')
-    mensaje = models.TextField(help_text='Un mensaje')
+class Contact(models.Model):
+    date = models.DateTimeField(_('date'), auto_now=True, blank=True, null=True, unique=True)
+    name = models.CharField(_('name'), max_length=50)
+    mail = models.EmailField(_('mail'), )
+    message = models.TextField(_('message'), help_text='mensaje del cliente', unique=True)
 
     def __unicode__(self):
-        return u"%s" % (self.nombre)
+        return u"%s" % (self.name)
 
     class Meta:
-        verbose_name = "Persona o Empresa"
-        verbose_name_plural = "Personas o Empresas"
-        ordering = ['nombre']
+        verbose_name = _('contact')
+        verbose_name_plural = _('contacts')
+        ordering = ['name']

@@ -1,12 +1,25 @@
 {% extends 'web/base.html' %}
-{% load staticfiles thumbnail cache %}
+{% load staticfiles thumbnail cache i18n %}
 {% block menu-links %}
     <ul class="right options-nav hide-on-med-and-down">
-        <li><a href="{% url 'home' %}">Home</a></li>
-        <li><a href="{% url 'home' %}#somos">Somos</a></li>
-        <li><a href="{% url 'blog-app:home' %}">Blog</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-    </ul>
+        <li><a class="waves-effect" href="#projects">{% trans 'Proyectos' %}</a></li>
+        <li><a class="waves-effect" href="#blog">{% trans 'Blog' %}</a></li>
+        <li><a class="waves-effect" href="#contacto">{% trans 'Contacto' %}</a></li>
+        <li class="flag">
+            {% if LANGUAGE_CODE == 'es' %}
+                <a class="tooltipped" href="/en" data-position="bottom" data-delay="50"
+                   data-tooltip="Change to english?">
+                    <img class="circle"
+                         src="{% static 'flags/union-jack-26119.png' %}" alt="">
+                </a>
+            {% elif LANGUAGE_CODE == 'en' %}
+                <a class="tooltipped" href="/es" data-position="bottom" data-delay="50"
+                   data-tooltip="¿Cambiar a español?">
+                    <img class="circle"
+                         src="{% static 'flags/chile-29125.png' %}" alt="">
+                </a>
+            {% endif %}
+        </li>
     <ul class="side-nav" id="mobile-demo">
         <li><a href="">Home</a></li>
         <li><a href="">Somos</a></li>
@@ -16,16 +29,16 @@
 {% endblock %}
 {% block main %}
     <section class="blog-main section scrollspy" id="blog">
-        <div class="parallax-container valign-wrapper">
+        <div class="detail-cabecera parallax-container valign-wrapper">
             <div class="section no-pad-bot">
-                <div class="container white-text">
+                <div class="container white-text padding-top-med">
                     <div class="header">{{ entry.get_publication_type_display }}</div>
                     <div class="subheader">{{ entry.author.first_name }} {{ entry.author.last_name }}</div>
-                    <div class="right"><a class="white-text" href="{% url 'blog-app:list_author' entry.author %}">Ver
+                    <div class="right"><a class="black-text" href="{% url 'blog-app:list_author' entry.author %}">Ver
                         más de este autor</a></div>
                 </div>
             </div>
-            <div class="parallax"><img src="{% static 'img/sunrise-1756274_1920.jpg' %}"></div>
+            <div class="parallax"><img src="{% static 'img/sea-2322517_1920.jpg' %}"></div>
         </div>
     </section>
     <div class="blog-main fondo-gris-1 padding-top-med padding-bot-min">
@@ -98,33 +111,29 @@
                     </div>
                     <hr>
                     <div class="summary">{{ entry.summary }}</div>
+                    {% if entry.image_post.select_related %}
+                        <hr>
+                        <div class="subheadline">Galería:</div>
+                        <div class="detail-slider slider">
+                            <ul class="slides">
+                                {% for image in entry.image_post.select_related %}
+                                    <li>
+                                        <img src="{% thumbnail image.file 'detalle-miniatura' %}">
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                     <hr>
                     <div class="content padding-bot-med">
                         {{ entry.content|safe }}
                     </div>
-                    {% if entry.image_post.select_related %}
-                        <div class="galery-img">
-                            <div class="subheadline">Imagenes:</div>
-                            {% for image in entry.image_post.select_related %}
-                                <a href="{{ MEDIA_URL }}{{ image.file }}" class="chip">{{ image }}</a>
-                            {% endfor %}
-                        </div>
-                        <ul id="tabs-swipe-demo" class="tabs">
-                            {% for image in entry.image_post.select_related %}
-                                <li class="tab col s3"><a href="#test-swipe-{{ image.id }}"> {{ image }}</a></li>
-                            {% endfor %}
-                        </ul>
-                        {% for image in entry.image_post.select_related %}
-                            <div id="test-swipe-{{ image.id }}" class="col s12">
-                                <img src="{% thumbnail image.file 'detalle-miniatura' %}" alt="">
-                            </div>
-                        {% endfor %}
-                    {% endif %}
                     {% if entry.file_entry.select_related %}
                         <div class="galery-files padding-top-med">
                             <div class="subheadline">Archivos:</div>
                             {% for foo in entry.file_entry.select_related %}
-                                <a download="{{ MEDIA_URL }}{{ foo.file }}" href="{{ MEDIA_URL }}{{ foo.file }}" class="chip">{{ foo }}</a>
+                                <a download="{{ MEDIA_URL }}{{ foo.file }}" href="{{ MEDIA_URL }}{{ foo.file }}"
+                                   class="chip">{{ foo }}</a>
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -140,16 +149,8 @@
                             </ul>
                             {% for video in entry.video_post.select_related %}
                                 <div id="test-swipe-video-{{ video.id }}" class="col s12 height-video">
-                                    <video id="{{ video.id }}" class="video-js" controls preload width="640"
-                                           height="400"
-                                           poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-                                        <source src="{{ MEDIA_URL }}{{ video.file }}" type='video/mp4'>
-                                        <p class="vjs-no-js">
-                                            Su navegador no es compatible con HTML5, lo sentimos
-                                            <a href="http://videojs.com/html5-video-support/" target="_blank">supports
-                                                HTML5
-                                                video</a>
-                                        </p>
+                                    <video preload=auto controls class="responsive-video">
+                                        <source src="{{ MEDIA_URL }}{{ video.file }}" type="video/mp4">
                                     </video>
                                 </div>
                             {% endfor %}

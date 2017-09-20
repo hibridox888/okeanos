@@ -1,15 +1,15 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Contacto
+from .models import Contact
 
 
-class ContactoAdmin(admin.ModelAdmin):
-    model = Contacto
-    search_fields = ['nombre', 'email', 'mensaje']
-    list_filter = ['fecha', ]
-    readonly_fields = ['fecha', ]
-    ordering = ['fecha']
+class ContactAdmin(admin.ModelAdmin):
+    model = Contact
+    search_fields = ['name', 'mail', 'message']
+    list_filter = ['date', ]
+    readonly_fields = ['date', ]
+    ordering = ['date']
 
 
-admin.site.register(Contacto, ContactoAdmin)
+admin.site.register(Contact, ContactAdmin)

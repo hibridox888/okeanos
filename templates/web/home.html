@@ -1,52 +1,56 @@
 {% extends 'web/base.html' %}
-{% load staticfiles thumbnail cache %}
+{% load staticfiles thumbnail cache i18n %}
 {% block main %}
     <div class="cabecera slider section scrollspy" id="home">
         <ul class="slides">
             <li>
                 <img src="{% static 'img/water.jpg' %}">
                 <div class="caption center-align uppercased">
-                    <h3 class="light grey-text text-lighten-3">Tecnología marina</h3>
-                    <h5 class="light grey-text text-lighten-3">95% de los oceanos aún no se ha explorado</h5>
+                    <h3 class="light grey-text text-lighten-3">{% trans 'Tecnología marina' %}</h3>
+                    <h5 class="light grey-text text-lighten-3">{% trans '95% de los oceanos aún no se ha explorado' %}</h5>
                 </div>
             </li>
             {% for entry in last_entries %}
-                {% if entry.on_slider %}
-                    <li>
-                        {% if entry.first_img %}
-                            <img src="{% thumbnail entry.first_img.file 'slider-img' %}">
+                <li>
+                    {% if entry.first_img %}
+                        <img src="{% thumbnail entry.first_img.file 'slider-img' %}">
+                    {% else %}
+                        <img src="{% static 'img/sunrise-1756274_1920.jpg' %}" alt="">
+                    {% endif %}
+                    <div class="caption center-align">
+                        <h3>{{ entry.headline }}</h3>
+                        <h5 class="light grey-text text-lighten-3">{{ entry.subheadline }}</h5>
+                        {% if entry.external_url %}
+                            <a target="_blank" href="{{ entry.external_url }}"
+                               class="btn btn-large color-1 waves-effect">Ver
+                                más</a>
                         {% else %}
-                            <img src="{% static 'img/sunrise-1756274_1920.jpg' %}" alt="">
+                            <a href="{{ entry.get_absolute_url }}" class="btn btn-large color-1 waves-effect">Ver
+                                más</a>
                         {% endif %}
-                        <div class="caption center-align">
-                            <h3>{{ entry.headline }}</h3>
-                            <h5 class="light grey-text text-lighten-3">{{ entry.subheadline }}</h5>
-                            {% if entry.external_url %}
-                                <a target="_blank" href="{{ entry.external_url }}"
-                                   class="btn btn-large color-1 waves-effect">Ver
-                                    más</a>
-                            {% else %}
-                                <a href="{{ entry.get_absolute_url }}" class="btn btn-large color-1 waves-effect">Ver
-                                    más</a>
-                            {% endif %}
-                        </div>
-                    </li>
-                {% endif %}
+                    </div>
+                </li>
             {% endfor %}
-
         </ul>
     </div>
     <section class="white center">
-        <div class="padding-top-max padding-bot-max">
+        <div class="padding-bot-max">
             <div class="container">
                 <div class="container">
                     <div class="padding-bot-min">
-                        <div class="title">Bienvenido a OKEANOS</div>
+                        <div class="title padding-top-med">{% trans 'Okeanos Marine Technology' %}</div>
                     </div>
                     <div class="text container">
-                        Nos dedicamos a desarrollar tecnologías de punta en robótica, monitoreo remoto y control a
-                        distancia dentro de entornos marinos. Trabajamos desde los 39 grados de latitud sur para proveer
-                        soluciones y soporte a clientes de todo el mundo.
+                        {% blocktrans %}
+                            Somos una empresa dedicada a desarrollar tecnología en robótica, monitoreo remoto y control
+                            a distancia para entornos marinos. Trabajamos en la interfaz de diversas disciplinas para
+                            proveer soluciones integrales. Nuestro equipo posee experiencia en desarrollo de electrónica
+                            y software, sistemas electromecánicos, diseño de estructuras marinas, simulaciones
+                            computacionales de fluidos, entre otros. Nuestros proyectos en robótica incluyen el
+                            desarrollo de un dron submarino para exploración (AUV), robots para limpieza de jaulas
+                            salmoneras, o el estudio y diseño de estructuras para energía mareomotriz mediante elementos
+                            finitos y CFD.
+                        {% endblocktrans %}
                     </div>
                     <div class="padding-top-med">
                         <hr>
@@ -60,11 +64,10 @@
             <div class="container">
                 <div class="container">
                     <div class="padding-bot-min">
-                        <div class="title">Desde la Universidad Austral de Chile: al mundo.</div>
+                        <div class="title">Okeanos</div>
                     </div>
                     <div class="text container">
-                        Somos un Spin-Off que nace en 2016 dentro de la Universidad Austral de Chile, dentro del marco
-                        del proyecto Fondef VIU15E0011.
+                        {% trans 'Proyectos de ingeniería para un mercado global desde la ciudad de Valdivia en la Región de Los Ríos, Chile.' %}
                     </div>
                     <div class="padding-top-med">
                         <hr>
@@ -74,8 +77,15 @@
         </div>
     </section>
     <div class="parallax-container herramienta">
+        <div class="container">
+            <div class="row center">
+                <div class="header col s12 light">
+                    <img class="logo" src="{% static 'img/logo.png' %}" alt="">
+                </div>
+            </div>
+        </div>
         <div class="parallax">
-            <img src="{% static 'img/herramienta.jpg' %}">
+            <img class="img-paralax" src="{% static 'img/sea-2322517_1920.jpg' %}">
         </div>
     </div>
     <section class="white center">
@@ -83,13 +93,13 @@
             <div class="container">
                 <div class="container">
                     <div class="padding-bot-min">
-                        <div class="title">Brindamos servicios de capacitación y soporte
-                        </div>
+                        <div class="title padding-top-med">{% trans 'Servicios de capacitación y soporte' %}</div>
                     </div>
                     <div class="text container">
-                        Según los requerimientos del cliente.Nuestras capacidades incluyen desarrollo de software y de
-                        sistemas electrónicos embebidos, sistemas de actuación y control, plataformas autónomas (drones)
-                        y sistemas de medición oceanográficos, entre otros.
+                        {% blocktrans %}
+                            Okeanos pone a disposición su experiencia en tecnología para realizar labores de
+                            capacitación, soporte y mantenimiento según los requerimientos de sus clientes.
+                        {% endblocktrans %}
                     </div>
                     <div class="padding-top-med">
                         <hr>
@@ -98,34 +108,78 @@
             </div>
         </div>
     </section>
-    <section class="fondo-gris-1 center section scrollspy" id="somos">
+    <section class="fondo-gris-1 section scrollspy" id="projects">
+        <div class="padding-top-max padding-bot-max">
+            <div class="container">
+                <div class="container">
+                    <div class="padding-bot-min center-align">
+                        <div class="title">{% trans 'Projects' %}</div>
+                    </div>
+                    <div class="padding-top-min padding-bot-med">
+                        <hr>
+                    </div>
+                    <div class="row container-masonry">
+                        {% for entry in projects_entries %}
+                            <div class="col s12 m6 l4 item">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <img src="">
+                                        {% if entry.first_img %}
+                                            <img src="{% thumbnail entry.first_img.file 'card-img' %}">
+                                        {% else %}
+                                            <img src="{% static 'img/default-img.jpg' %}">
+                                        {% endif %}
+                                        {% if entry.external_url %}
+                                            <a class="btn-floating btn-large halfway-fab waves-effect waves-light color-1 pulse"
+                                               href="{{ entry.external_url }}" target="_blank">
+                                                <i class="material-icons">link</i>
+                                            </a>
+                                        {% else %}
+                                            <a class="btn-floating btn-large halfway-fab waves-effect waves-light color-1 pulse"
+                                               href="{{ entry.get_absolute_url }}">
+                                                <i class="material-icons">add</i>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-content">
+                                        <span class="card-title">{{ entry.headline }}</span>
+                                        {% if entry.subheadline %}
+                                            <p>{{ entry.subheadline }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row center">
+                        <a href="{% url 'blog-app:home' %}" class="btn btn-large color-1 waves-effect">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="white center section scrollspy" id="somos">
         <div class="padding-top-max padding-bot-max">
             <div class="container">
                 <div class="row">
                     <div class="padding-bot-min">
-                        <div class="title">Nuestro equipo
-                        </div>
+                        <div class="title">{% trans 'Nuestro equipo' %}</div>
                     </div>
-                    <div class="text container">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consequatur culpa eius
-                        hic, laboriosam maxime nostrum omnis sequi tempora totam. Animi at commodi cupiditate in
-                        incidunt. Asperiores eligendi natus quibusdam.
-                    </div>
-                    <div class="padding-top-med padding-bot-med">
+                    <div class="padding-top-min padding-bot-med">
                         <hr>
                     </div>
                 </div>
                 <div class="pictures-team container">
-                    <div class="row center-align">
-                        <div class="col l3 m6">
+                    <div class="row center-align center">
+                        <div class="col l4 m6">
                             <img class="responsive-img"
                                  src="{% static 'img/Stuart.png' %}"
                                  alt="">
                             <div class="overlay white-text padding-top-med">
                                 <div class="nombre padding-bot-min">Federico Zilic de Arcos</div>
                                 <hr>
-                                <div class="cargo">Gerente General</div>
-                                <div class="titulo">Ingeniero Naval</div>
+                                <div class="cargo padding-top-min padding-bot-min">{% trans 'Gerente General' %}</div>
+                                <div class="titulo">{% trans 'Ingeniero Naval' %}</div>
                                 <div class="">
                                     <a class="white-text" href="">
                                         <i class="small fa fa-facebook-square" aria-hidden="true"></i>
@@ -145,15 +199,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col l3 m6">
+                        <div class="col l4 m6">
                             <img class="responsive-img"
                                  src="{% static 'img/Kevin.jpg' %}"
                                  alt="">
                             <div class="overlay white-text padding-top-med">
                                 <div class="nombre padding-bot-min">Alexssander Cabeza Strange</div>
                                 <hr>
-                                <div class="cargo">Jefe de Ingeniería</div>
-                                <div class="titulo">Ingeniero Civil Electrónico</div>
+                                <div class="cargo padding-top-med padding-bot-med">{% trans 'Jefe de Ingeniería' %}</div>
+                                <div class="titulo">{% trans 'Ingeniero Civil Electrónico' %}</div>
                                 <div class="">
                                     <a class="white-text" href="">
                                         <i class="small fa fa-facebook-square" aria-hidden="true"></i>
@@ -173,15 +227,44 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col l3 m6">
+                        <div class="col l4 m6">
+                            <img class="responsive-img"
+                                 src="{% static 'img/Kevin.jpg' %}"
+                                 alt="">
+                            <div class="overlay white-text padding-top-med">
+                                <div class="nombre padding-bot-min">Alexssander Cabeza Strange</div>
+                                <hr>
+                                <div class="cargo padding-top-med padding-bot-med">{% trans 'Jefe de Ingeniería' %}</div>
+                                <div class="titulo">{% trans 'Ingeniero Civil Electrónico' %}</div>
+                                <div class="">
+                                    <a class="white-text" href="">
+                                        <i class="small fa fa-facebook-square" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="white-text" href="">
+                                        <i class="small fa fa-twitter-square" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="white-text" href="">
+                                        <i class="small fa fa-youtube-square" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="white-text" href="">
+                                        <i class="small fa fa-instagram-square" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="white-text" href="">
+                                        <i class="small fa fa-linkedin-square" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hide-on-med-and-down col s1 offset-s1"></div>
+                        <div class="col l4 m6">
                             <img class="responsive-img"
                                  src="{% static 'img/bob.jpg' %}"
                                  alt="">
                             <div class="overlay white-text padding-top-med">
                                 <div class="nombre padding-bot-min">Álvaro Olmos Cruz</div>
                                 <hr>
-                                <div class="cargo">Jefe de desarrollo de software</div>
-                                <div class="titulo">Ingeniero Civil Informático</div>
+                                <div class="cargo padding-top-med padding-bot-med">{% trans 'Jefe de desarrollo de software' %}</div>
+                                <div class="titulo">{% trans 'Ingeniero Civil Informático' %}</div>
                                 <div class="">
                                     <a class="white-text" href="">
                                         <i class="small fa fa-email" aria-hidden="true"></i>
@@ -204,15 +287,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col l3 m6">
+                        <div class="col l4 m6">
                             <img class="responsive-img"
                                  src="{% static 'img/rapero.jpg' %}"
                                  alt="">
                             <div class="overlay white-text padding-top-med">
-                                <div class="nombre padding-bot-min">Fabian Ritter Gutierrez</div>
+                                <div class="nombre padding-bot-min">{% trans 'Fabian Ritter Gutierrez' %}</div>
                                 <hr>
-                                <div class="cargo">Desarrollador de algoritmos especializados</div>
-                                <div class="titulo">Ingeniero Civil Acústico</div>
+                                <div class="cargo padding-top-med padding-bot-med">{% trans 'Desarrollador de algoritmos especializados' %}</div>
+                                <div class="titulo">{% trans 'Ingeniero Civil Acústico' %}</div>
                                 <div class="">
                                     <a class="white-text" href="">
                                         <i class="small fa fa-facebook-square" aria-hidden="true"></i>
@@ -237,7 +320,7 @@
             </div>
         </div>
     </section>
-    <section class="white section scrollspy" id="blog">
+    <section class="fondo-gris-1 section scrollspy" id="blog">
         <div class="padding-top-max padding-bot-max">
             <div class="container">
                 <div class="container">
@@ -248,7 +331,7 @@
                         <hr>
                     </div>
                     <div class="row container-masonry">
-                        {% for entry in last_entries %}
+                        {% for entry in other_entries %}
                             <div class="col s12 m6 l4 item">
                                 <div class="card">
                                     <div class="card-image">
@@ -281,7 +364,8 @@
                         {% endfor %}
                     </div>
                     <div class="row center">
-                        <a href="{% url 'blog-app:home' %}" class="btn btn-large color-1 waves-effect">Ver más</a>
+                        <a href="{% url 'blog-app:home' %}"
+                           class="btn btn-large color-1 waves-effect">{% trans 'Ver más' %}</a>
                     </div>
                 </div>
             </div>

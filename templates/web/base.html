@@ -1,4 +1,4 @@
-<!DOCTYPE html>{% load staticfiles thumbnail cache %}
+<!DOCTYPE html>{% load staticfiles thumbnail cache i18n %}
 <html lang="es">
 <head>
     <meta charset="utf-8">
@@ -20,11 +20,7 @@
     {% block extra-head %}{% endblock %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="{% static 'materialize/js/materialize.js' %}"></script>
-    <!-- video js -->
-    <link href="http://vjs.zencdn.net/6.2.5/video-js.css" rel="stylesheet">
-
     <!-- If you'd like to support IE8 -->
-    <script async src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 </head>
 <body>
 <div id="back-preload">
@@ -45,9 +41,10 @@
     </div>
 </div>
 {% block navbar %}
-    <div class="black">
+    <!-- Dropdown Structure -->
+    <div class="black main-menu">
         <div class="navbar-fixed">
-            <nav class="white-text black-transparent">
+            <nav class="black-text white">
                 <div class="container">
                     <div class="nav-wrapper">
                         <a href="{% url 'home' %}" class="brand-logo center hide-on-med-and-down">
@@ -58,16 +55,28 @@
                                 class="material-icons">menu</i></a>
                         {% block menu-links %}
                             <ul class="right options-nav hide-on-med-and-down">
-                                <li><a class="waves-effect" href="{% url 'home' %}">Home</a></li>
-                                <li><a class="waves-effect" href="#somos">Somos</a></li>
-                                <li><a class="waves-effect" href="#blog">Blog</a></li>
-                                <li><a class="waves-effect" href="#contacto">Contacto</a></li>
+                                <li><a class="waves-effect" href="#projects">{% trans 'Proyectos' %}</a></li>
+                                <li><a class="waves-effect" href="#blog">{% trans 'Blog' %}</a></li>
+                                <li><a class="waves-effect" href="#contacto">{% trans 'Contacto' %}</a></li>
+                                <li class="flag">
+                                    {% if LANGUAGE_CODE == 'es' %}
+                                        <a class="tooltipped" href="/en" data-position="bottom" data-delay="50" data-tooltip="Change to english?">
+                                            <img class="circle"
+                                                 src="{% static 'flags/chile-29125.png' %}" alt="">
+                                        </a>
+                                    {% elif LANGUAGE_CODE == 'en' %}
+                                        <a class="tooltipped" href="/es" data-position="bottom" data-delay="50" data-tooltip="¿Cambiar a español?">
+                                            <img class="circle"
+                                                 src="{% static 'flags/union-jack-26119.png' %}" alt="">
+                                        </a>
+                                    {% endif %}
+                                </li>
                             </ul>
                             <ul class="side-nav" id="mobile-demo">
-                                <li><a href="">Home</a></li>
-                                <li><a href="">Somos</a></li>
-                                <li><a href="">Blog</a></li>
-                                <li><a href="">Contacto</a></li>
+                                <li><a href="">{% trans 'Inicio' %}</a></li>
+                                <li><a href="">{% trans 'Somos' %}</a></li>
+                                <li><a href="">{% trans 'Blog' %}</a></li>
+                                <li><a href="">{% trans 'Contacto' %}</a></li>
                             </ul>
                         {% endblock %}
                     </div>
@@ -98,7 +107,7 @@
             <div class="container">
                 <div class="row">
                     <div class="padding-bot-min center">
-                        <div class="title">Contacto</div>
+                        <div class="title">{% trans 'Contacto' %}</div>
                     </div>
                     <div class="padding-bot-med">
                         <hr>
@@ -108,15 +117,18 @@
                     <div class="col l4 m6 s12">
                         <div class="card-panel hoverable">
                             <div>
-                                <div class="title">Horario</div>
-                                <div class="content right-align">09.00 a 13.00 y 15.00 a 18.00</div>
+                                <div class="title">{% trans 'Horario' %}</div>
+                                <div class="content right-align">{% trans '09.00 a 13.00 y 15.00 a 18.00' %}</div>
                             </div>
                             <hr>
                             <div>
-                                <div class="title">Ubicación</div>
-                                <div class="content right-align">General Lagos 2086
-                                    Edificio 2000, Oficina 2211.
-                                    Valdivia, Los Ríos.
+                                <div class="title">{% trans 'Ubicación' %}</div>
+                                <div class="content right-align">
+                                    {% blocktrans %}
+                                        General Lagos 2086 <br>
+                                        Edificio 2000, Oficina 2211.
+                                        Valdivia, Los Ríos.
+                                    {% endblocktrans %}
                                 </div>
                             </div>
                             <hr>
@@ -130,20 +142,20 @@
                     <form role="form" action="" method="post">
                         {% csrf_token %}
                         <div class="col l8 m6 s12">
-                            {% if contact.nombre %}
+                            {% if contact.is_valid == False %}
                                 <div class="card-panel hoverable">
                                     <div>
                                         <div class="row">
                                             <div class="input-field col m6 s12">
-                                                {{ contact.nombre.errors }}
+                                                {{ contact.name.errors }}
                                                 <i class="material-icons prefix">people_outline</i>
-                                                {{ contact.nombre }}
-                                                <label for="nombre">Nombre</label>
+                                                {{ contact.name }}
+                                                <label for="name">{% trans 'Name' %}</label>
                                             </div>
                                             <div class="input-field col m6 s12">
-                                                {{ contact.email.errors }}
+                                                {{ contact.mail.errors }}
                                                 <i class="material-icons prefix">mail_outline</i>
-                                                {{ contact.email }}
+                                                {{ contact.mail }}
                                                 <label for="email" data-error="wrong" data-success="right">Email</label>
                                             </div>
                                         </div>
@@ -151,8 +163,8 @@
                                             <div class="input-field col s12">
                                                 {{ contact.errors }}
                                                 <i class="material-icons prefix">message</i>
-                                                {{ contact.mensaje }}
-                                                <label for="textarea1">Contenido</label>
+                                                {{ contact.message }}
+                                                <label for="textarea1">{% trans 'Contenido' %}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -162,11 +174,11 @@
                                 </button>
                             {% else %}
                                 <script>
-                                    var $toastContent = $('<span>Email enviado</span>').add($('<button class="btn-flat toast-action"><i class="material-icons">check</i></button>'));
+                                    var $toastContent = $('<span>{% trans 'Email enviado' %}</span>').add($('<button class="btn-flat toast-action"><i class="material-icons">check</i></button>'));
                                     Materialize.toast($toastContent, 10000);
                                 </script>
                                 <div class="card-panel hoverable">
-                                    <h3 class="title center-align">Mensaje enviado</h3>
+                                    <h3 class="title center-align">{% trans 'Mensaje enviado' %}</h3>
                                 </div>
                             {% endif %}
                         </div>
@@ -176,6 +188,18 @@
         </div>
     </section>
 {% endblock %}
+<div class="parallax-container herramienta">
+    <div class="container">
+        <div class="row center">
+            <div class="header col s12 light">
+                <img class="logo" src="{% static 'img/logo.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="parallax">
+        <img class="img-paralax" src="{% static 'img/sea-2322517_1920.jpg' %}">
+    </div>
+</div>
 <footer>
     {% block footer %}
         <div class="footer-container padding-top-med">
@@ -200,35 +224,11 @@
                 </div>
             </div>
         </div>
-        <div class="footer-container padding-top-min padding-bot-med sponsors">
-            <div class="container">
-                <div class="row">
-                    <div class="col l2 m4 s6">
-                        <img class="responsive-" src="{% static 'sponsors/10.jpg' %}" alt="">
-                    </div>
-                    <div class="col l2 m4 s6">
-                        <img class="responsive-" src="{% static 'sponsors/11.jpg' %}" alt="">
-                    </div>
-                    <div class="col l2 m4 s6">
-                        <img class="responsive-" src="{% static 'sponsors/12.jpg' %}" alt="">
-                    </div>
-                    <div class="col l2 m4 s6">
-                        <img class="reslo m4 s6nsive-" src="{% static 'sponsors/13.jpg' %}" alt="">
-                    </div>
-                    <div class="col l2 m4 s6">
-                        <img class="responsive-" src="{% static 'sponsors/14.jpg' %}" alt="">
-                    </div>
-                    <div class="col l2 m4 s6">
-                        <img class="responsive-" src="{% static 'sponsors/15.jpg' %}" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="black padding-bot-min">
             <div class="container">
                 <div class="footer-copyright">
                     OKEANOS 2017
-                    <a target="_blank" class="right" href="http://tucodigo.cl/">Desarrollo Web: TuCodigo.cl</a>
+                    <a target="_blank" class="right" href="http://tucodigo.cl/">{% trans 'Desarrollo Web' %}: almacreativa.cl/</a>
                 </div>
             </div>
         </div>

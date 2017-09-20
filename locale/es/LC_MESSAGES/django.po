@@ -1,0 +1,254 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-20 08:17-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: blog/models.py:19
+msgid "New"
+msgstr ""
+
+#: blog/models.py:20
+msgid "Project"
+msgstr ""
+
+#: blog/models.py:21
+msgid "Post"
+msgstr ""
+
+#: blog/models.py:22
+msgid "Other"
+msgstr ""
+
+#: blog/models.py:23
+msgid "Event"
+msgstr ""
+
+#: blog/models.py:28
+msgid "title"
+msgstr ""
+
+#: blog/models.py:35
+msgid "tags"
+msgstr "etiquetas"
+
+#: blog/models.py:36 blog/models.py:86
+msgid "tag"
+msgstr "etiqueta"
+
+#: blog/models.py:49
+msgid "created"
+msgstr ""
+
+#: blog/models.py:50
+msgid "modify"
+msgstr ""
+
+#: blog/models.py:52
+msgid "pub date"
+msgstr ""
+
+#: blog/models.py:56
+msgid "author"
+msgstr ""
+
+#: blog/models.py:57
+msgid "slug"
+msgstr ""
+
+#: blog/models.py:58
+msgid "publication type"
+msgstr ""
+
+#: blog/models.py:61
+msgid "external url"
+msgstr ""
+
+#: blog/models.py:66
+msgid "headline"
+msgstr ""
+
+#: blog/models.py:67
+msgid "subheadline"
+msgstr ""
+
+#: blog/models.py:68
+msgid "location"
+msgstr ""
+
+#: blog/models.py:69
+msgid "summary"
+msgstr ""
+
+#: blog/models.py:70
+msgid "content"
+msgstr ""
+
+#: blog/models.py:75
+msgid "if is active"
+msgstr ""
+
+#: blog/models.py:90
+msgid "active in slider"
+msgstr ""
+
+#: blog/models.py:99
+msgid "to enable facebook comments"
+msgstr ""
+
+#: blog/models.py:140 blog/models.py:145
+msgid "entry"
+msgstr ""
+
+#: blog/models.py:141
+msgid "entries"
+msgstr "entradas"
+
+#: blog/models.py:146 blog/models.py:162 blog/models.py:178 contact/forms.py:9
+#: contact/models.py:12 templates/web/base.html:150
+msgid "name"
+msgstr ""
+
+#: blog/models.py:147 blog/models.py:163 blog/models.py:179
+msgid "file location"
+msgstr "ubicación de archivo"
+
+#: blog/models.py:156
+msgid "file"
+msgstr "archivo"
+
+#: blog/models.py:157
+msgid "files"
+msgstr "archivos"
+
+#: blog/models.py:172
+msgid "image"
+msgstr ""
+
+#: blog/models.py:173
+msgid "images"
+msgstr ""
+
+#: blog/models.py:188
+msgid "video"
+msgstr ""
+
+#: blog/models.py:189
+msgid "videos"
+msgstr ""
+
+#: contact/models.py:11
+msgid "date"
+msgstr ""
+
+#: contact/models.py:13
+msgid "mail"
+msgstr ""
+
+#: contact/models.py:14
+msgid "message"
+msgstr ""
+
+#: contact/models.py:20
+msgid "contact"
+msgstr ""
+
+#: contact/models.py:21
+msgid "contacts"
+msgstr ""
+
+#: okeanos/settings_dev.py:128
+msgid "English"
+msgstr ""
+
+#: okeanos/settings_dev.py:129
+msgid "Spanish"
+msgstr ""
+
+#: templates/admin/base.html:30
+msgid "Welcome,"
+msgstr ""
+
+#: templates/admin/base.html:35
+msgid "View site"
+msgstr ""
+
+#: templates/admin/base.html:40
+msgid "Documentation"
+msgstr ""
+
+#: templates/admin/base.html:44
+msgid "Change password"
+msgstr ""
+
+#: templates/admin/base.html:46
+msgid "Log out"
+msgstr ""
+
+#: templates/admin/base.html:56
+msgid "Home"
+msgstr ""
+
+#: templates/web/base.html:58
+msgid "Proyectos"
+msgstr ""
+
+#: templates/web/base.html:59 templates/web/base.html:78
+msgid "Blog"
+msgstr ""
+
+#: templates/web/base.html:60 templates/web/base.html:79
+#: templates/web/base.html:110
+msgid "Contacto"
+msgstr ""
+
+#: templates/web/base.html:76
+msgid "Inicio"
+msgstr ""
+
+#: templates/web/base.html:77
+msgid "Somos"
+msgstr ""
+
+#: templates/web/base.html:120
+msgid "Horario"
+msgstr ""
+
+#: templates/web/base.html:125
+msgid "Ubicación"
+msgstr ""
+
+#: templates/web/home.html:44
+msgid ""
+"\n"
+"                            Somos una empresa dedicada a desarrollar "
+"tecnología en robótica, monitoreo remoto y control\n"
+"                            a distancia para entornos marinos. Trabajamos en "
+"la interfaz de diversas disciplinas para\n"
+"                            proveer soluciones integrales. Nuestro equipo "
+"posee experiencia en desarrollo de electrónica\n"
+"                            y software, sistemas electromecánicos, diseño de "
+"estructuras marinas, simulaciones\n"
+"                            computacionales de fluidos, entre otros. "
+"Nuestros proyectos en robótica incluyen el\n"
+"                            desarrollo de un dron submarino para exploración "
+"(AUV), robots para limpieza de jaulas\n"
+"                            salmoneras, o el estudio y diseño de estructuras "
+"para energía mareomotriz mediante elementos\n"
+"                            finitos y CFD.\n"
+"                        "
+msgstr ""

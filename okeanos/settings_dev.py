@@ -12,13 +12,20 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 $ env1/bin/pip freeze > requirements.txt
 $ env2/bin/pip install -r requirements.txt
+
 pip freeze | xargs pip uninstall -y # delete libraries in virtualenv
+
+django-admin.py makemessages -l en
+and
+python manage.py compilemessages
 """
 
 import os
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(__file__)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -29,12 +36,11 @@ SECRET_KEY = '5b4d^+px31d8-uf@m3c^b-0m%9jdgikybw#+a$-!@_z!1_y#@%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'127.0.0.1', u'okeanos.tucodigo.cl']
+ALLOWED_HOSTS = [u'127.0.0.1', u'okeanos.tucodigo.cl', u'localhost']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,10 +75,10 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -115,20 +121,21 @@ STATICFILES_FINDERS = (
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
+
 LANGUAGE_CODE = 'es'
-gettext = lambda s: s
-LANGUAGES = (
-    ('es', gettext('Spanish')),
-    ('en', gettext('English')),
-)
+ugettext = lambda s: s
+LANGUAGES = [
+    ('en', _('English')),
+    ('es', _('Spanish')),
+]
 TIME_ZONE = 'America/Santiago'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'es'
-MODELTRANSLATION_LANGUAGES = ('es', 'en')
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('en', 'en')
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/

@@ -1,9 +1,9 @@
 {% extends "admin/base.html" %}
-
-{% block title %}{{ title }} | Sitio administrativo de OKEANOS{% endblock %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Sitio administrativo de OKEANOS' %}{% endblock %}
 
 {% block branding %}
-    <h1 id="site-name"><a href="{% url 'admin:index' %}">Administración OKEANOS</a></h1>
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">{% trans 'Administración OKEANOS' %}</a></h1>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
