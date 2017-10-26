@@ -111,7 +111,6 @@ class Entrada(models.Model):
                                     args=(self.id,))
 
     def get_absolute_url(self):
-        url_self = self.fecha_publicacion
         from django.core.urlresolvers import reverse
         return reverse('blogweb_blog:detail_entry', args=[str(self.slug)])
 
