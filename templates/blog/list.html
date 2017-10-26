@@ -6,9 +6,9 @@
         <div class="parallax-container valign-wrapper">
             <div class="section no-pad-bot">
                 <div class="container white-text">
-                    <div class="header">{{ pagina.titulo }}</div>
-                    <div class="subheader">{{ pagina.subtitulo }}</div>
-                    <div class="right">{{ pagina.now }}</div>
+                    <div class="header">{{ last_entries.last.autor.first_name }} {{ last_entries.last.autor.last_name }}</div>
+                    <div class="subheader">{% trans 'Ultima publicación:' %} {{ last_entries.last.fecha_publicacion }}</div>
+                    <div class="right">{% trans 'Usuario:' %} {{ last_entries.last.autor }}</div>
                 </div>
             </div>
             <div class="parallax"><img src="{% static 'img/sunrise-1756274_1920.jpg' %}"></div>
@@ -27,7 +27,7 @@
                             </div>
                             {% for tag in all_tags %}
                                 <div class="chip">
-                                    <a href="{% url 'blog-app:list_tag' tag.titulo %}"
+                                    <a href="{% url 'blog-app:list_tag' tag.slug %}"
                                        class="black-text">{{ tag.titulo|title }}</a>
                                 </div>
                             {% endfor %}

@@ -26,6 +26,9 @@ CONTENT_CHOICES = [
 
 class Etiqueta(models.Model):
     titulo = models.CharField(_('titulo'), max_length=30)
+    slug = models.SlugField(
+        _('slug'), null=True, blank=True,
+        help_text='Slug que genera la url de la etiqueta', )
 
     def __unicode__(self):
         return '%s' % self.titulo

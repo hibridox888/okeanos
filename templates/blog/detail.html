@@ -7,7 +7,7 @@
                 <div class="container white-text padding-top-med">
                     <div class="header">{{ entrada.get_tipo_publicacion_display }}</div>
                     <div class="subheader">{{ entrada.autor.first_name }} {{ entrada.autor.last_name }}</div>
-                    <div class="right"><a class="black-text" href="">Ver
+                    <div class="right"><a class="black-text" href="{% url 'blog-app:list_author' entrada.autor.username %}">Ver
                         más de este autor</a></div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                             </div>
                             {% for etiqueta in all_tags %}
                                 <div class="chip">
-                                    <a href="{% url 'blog-app:list_tag' etiqueta.titulo %}"
+                                    <a href="{% url 'blog-app:list_tag' etiqueta.slug %}"
                                        class="black-text">{{ etiqueta.titulo|title }}</a>
                                 </div>
                             {% endfor %}

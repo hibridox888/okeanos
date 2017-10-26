@@ -24,7 +24,6 @@ def list_author(request, username):
     last_entries = Entrada.objects.publicado().filter(
         autor__username=username)[:30]
     return render(request, 'blog/list.html', {
-        'pagina': 'Post por el autor:' % username,
         'last_entries': last_entries,
         'Tag.objects.all()': Entrada.objects.all(),
         'all_entries': Entrada.objects.publicado()[:30],
@@ -32,7 +31,7 @@ def list_author(request, username):
     })
 
 
-def list_tag(request, titulo):
+def list_tag(request, slug):
     ultimas_entradas = Entrada.objects.publicado()[:30]
     return render(request, 'blog/list.html', {
         'last_entries': ultimas_entradas,

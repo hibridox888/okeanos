@@ -1,4 +1,4 @@
-{% load staticfiles thumbnail cache i18n %}<!DOCTYPE html>
+{% load staticfiles thumbnail cache i18n l10n %}<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8">
@@ -61,14 +61,14 @@
                                 <li><a class="waves-effect" href="/#contacto">{% trans 'Contacto' %}</a></li>
                                 <li class="flag">
                                     {% if LANGUAGE_CODE == 'en' %}
-                                        <a class="tooltipped" href="/en" data-position="bottom" data-delay="50"
-                                           data-tooltip="Change to english?">
+                                        <a class="tooltipped" href="/es" data-position="bottom" data-delay="50"
+                                           data-tooltip="¿Cambiar a español?">
                                             <img class="circle"
                                                  src="{% static 'flags/chile-29125.png' %}" alt="">
                                         </a>
                                     {% elif LANGUAGE_CODE == 'es' %}
-                                        <a class="tooltipped" href="/es" data-position="bottom" data-delay="50"
-                                           data-tooltip="¿Cambiar a español?">
+                                        <a class="tooltipped" href="/en" data-position="bottom" data-delay="50"
+                                           data-tooltip="Change to english?">
                                             <img class="circle"
                                                  src="{% static 'flags/union-jack-26119.png' %}" alt="">
                                         </a>
@@ -210,7 +210,7 @@
         <div class="black padding-top-min padding-bot-min">
             <div class="container">
                 <div class="footer-copyright">
-                    OKEANOS 2017
+                    OKEANOS {% now "Y" %}
                     <a target="_blank" class="right" href="http://almacreativa.cl/">{% trans 'Desarrollo Web' %}:
                         almacreativa.cl</a>
                 </div>

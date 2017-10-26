@@ -8,15 +8,15 @@ from django.utils.translation import ugettext as _, ugettext_lazy
 # Create your models here.
 
 class Contact(models.Model):
-    date = models.DateTimeField(_('date'), auto_now=True, blank=True, null=True, unique=True)
-    name = models.CharField(_('name'), max_length=50)
+    date = models.DateTimeField(_('fecha'), auto_now=True, blank=True, null=True, unique=True)
+    name = models.CharField(_('nombre'), max_length=50)
     mail = models.EmailField(_('mail'), )
-    message = models.TextField(_('message'), help_text='mensaje del cliente', unique=True)
-    
+    message = models.TextField(_('mensaje'), help_text='mensaje del cliente', unique=True)
+
     def __unicode__(self):
         return u"%s" % (self.name)
 
     class Meta:
-        verbose_name = _('contact')
-        verbose_name_plural = _('contacts')
+        verbose_name = _('contacto')
+        verbose_name_plural = _('contactos')
         ordering = ['name']

@@ -1,5 +1,19 @@
 {% extends 'web/base.html' %}
 {% load staticfiles thumbnail cache i18n %}
+
+{% block description %}
+    {% blocktrans %}
+        Somos una empresa dedicada a desarrollar tecnología en robótica, monitoreo remoto y control a distancia para
+        entornos marinos. Trabajamos apoyados por un equipo multidisciplinario para proveer soluciones integrales.
+        Nuestro equipo posee experiencia en desarrollo de electrónica y software, sistemas electromecánicos, diseño de
+        estructuras marinas, simulaciones computacionales de fluidos, entre otros. Nuestros proyectos en robótica
+        incluyen el desarrollo de un dron submarino para exploración (AUV), robots para limpieza de jaulas salmoneras, o
+        el estudio y diseño de estructuras para energía mareomotriz mediante elementos finitos y CFD.
+    {% endblocktrans %}
+{% endblock %}
+{% block title %}
+    {% trans 'Okeanos Marine Tech' %}
+{% endblock %}
 {% block main %}
     <div class="cabecera slider section scrollspy" id="home">
         <ul class="slides">
@@ -80,18 +94,9 @@
             </div>
         </div>
     </section>
-    <div class="parallax-container herramienta">
-        <div class="container">
-            <div class="row center">
-                <div class="header col s12 light">
-                    <img class="logo" src="{% static 'img/logo.png' %}" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="parallax">
-            <img class="img-paralax" src="{% static 'img/sea-2322517_1920.jpg' %}">
-        </div>
-    </div>
+
+    {% include 'imagen-parallax.html' %}
+
     <section class="white center section scrollspy" id="servicios">
         <div class="padding-top-max padding-bot-max">
             <div class="container">

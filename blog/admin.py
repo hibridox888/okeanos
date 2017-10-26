@@ -7,6 +7,9 @@ from .models import Etiqueta, Entrada, Imagen, Documento, Video
 
 class EtiquetaInLine(admin.TabularInline):
     model = Etiqueta
+    prepopulated_fields = {
+        'slug': ('titulo',),
+    }
 
 
 # Register your models here.
