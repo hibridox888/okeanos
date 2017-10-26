@@ -16,91 +16,92 @@ from django.contrib.contenttypes.models import ContentType
 now = datetime.datetime.now()
 
 CONTENT_CHOICES = [
-    ('N', _("New")),
-    ('P', _("Project")),
-    ('E', _("Post")),
-    ('O', _("Other")),
-    ('V', _("Event")),
+    ('NU', _("Nuevo")),
+    ('PR', _("Proyecto")),
+    ('PO', _("Posteo")),
+    ('OT', _("Otro")),
+    ('EV', _("Evento")),
 ]
 
 
-class Tag(models.Model):
-    title = models.CharField(_('title'), max_length=30)
+class Etiqueta(models.Model):
+    titulo = models.CharField(_('titulo'), max_length=30)
 
     def __unicode__(self):
-        return '%s' % self.title
+        return '%s' % self.titulo
 
     class Meta:
-        ordering = ('title',)
-        verbose_name_plural = _('tags')
-        verbose_name = _('tag')
+        ordering = ('titulo',)
+        verbose_name = _('etiqueta')
+        verbose_name_plural = _('etiquetas')
 
 
-class EntryQuerySet(models.QuerySet):
-    def published(self):
-        return self.active().filter(pub_date__lte=now)
+class EntradaQuerySet(models.QuerySet):
+    def publicado(self):
+        return self.activo().filter(fecha_publicacion__lte=datetime.datetime.now())
 
-    def active(self):
-        return self.filter(is_active=True)
+    def activo(self):
+        return self.filter(visible=True)
 
 
-class Entry(models.Model):
+class Entrada(models.Model):
     # metadata
-    created = models.DateTimeField(_('created'), null=True, auto_created=True, editable=False)
-    modify = models.DateTimeField(_('modify'), auto_now=True, editable=False)
-    pub_date = models.DateTimeField(
-        verbose_name=_("pub date"),
-        help_text="Para que una publicación sea publicada, debe estar activa y su fecha de publicación debe estar en el pasado",
-        default=now,
-    )
-    author = models.ForeignKey('auth.User', verbose_name=_('author'))
-    slug = models.SlugField(_('slug'), unique_for_date='pub_date')
-    publication_type = models.CharField(_('publication type'), max_length=1, choices=CONTENT_CHOICES, default='E')
-
+    creacion = models.DateTimeField(_('creación'), null=True, auto_created=True, editable=False)
+    modificacion = models.DateTimeField(_('modificación'), auto_now=True, editable=False)
+    fecha_publicacion = models.DateTimeField(
+        verbose_name=_("fecha de publicación"), default=datetime.datetime.now,
+        help_text="Para que una publicación sea publicada, debe estar activa y su fecha de publicación debe estar en el pasado", )
+    autor = models.ForeignKey(
+        'auth.User',
+        verbose_name=_('autor'), )
+    slug = models.SlugField(
+        _('slug'),
+        unique_for_date='fecha_publicacion',
+        help_text='Debe ser unica en el mes y sirve para generar la url asociada, se genera automaticamente', )
     # if redirect to other site
-    external_url = models.URLField(_("external url"), null=True, blank=True,
-                                   help_text="Si se deja vacío este campo, los links para ver más detalles redireccionarán dentro del sitio al detalle. "
-                                             "Al ingresar una URL en este campo se redireccionará a este cuando se pidan detalles ")
+    url_externa = models.URLField(
+        _("url externa"), null=True, blank=True,
+        help_text="Si se deja vacío este campo, los links para ver más detalles redireccionarán dentro del sitio al detalle. "
+                  "Al ingresar una URL en este campo se redireccionará a este cuando se pidan detalles ")
+    # content in publication
+    tipo_publicacion = models.CharField(
+        _('tipo de publicación'), max_length=2, choices=CONTENT_CHOICES, default='PO',
+        help_text='Puede ser cualquier cosa: Eventos, posteos, proyectos, etc..')
+    titulo = models.CharField(_('titulo'), max_length=200, help_text='Titulo de la publicación', )
+    subtitulo = models.CharField(_('subtitulo'), max_length=200, blank=True, null=True,
+                                 help_text='Subtitulo de la publicación', )
+    ubicacion = models.CharField(_('ubicación'), max_length=40, blank=True, null=True)
+    resumen = models.CharField(_('resumen'), max_length=300, blank=True, null=True)
+    contenido = RichTextField(_('contenido'), blank=True, null=True)
 
-    # define content
-    headline = models.CharField(_('headline'), max_length=200)
-    subheadline = models.CharField(_('subheadline'), max_length=200, blank=True, null=True)
-    location = models.CharField(_('location'), max_length=40, blank=True, null=True)
-    summary = models.CharField(_('summary'), max_length=300, blank=True, null=True)
-    content = RichTextField(_('content'), blank=True, null=True)
+    objects = EntradaQuerySet.as_manager()
 
-    objects = EntryQuerySet.as_manager()
-
-    is_active = models.BooleanField(
-        _('if is active'),
+    visible = models.BooleanField(
+        _('se encuentra visible'),
         help_text=
         "Marque para hacer esta entrada en vivo (ver también la fecha de publicación). "
         "Tenga en cuenta que los administradores (como usted) tienen permiso para previsualizar "
-        "Entradas inactivas mientras que el público en general no"
-        ,
+        "Entradas inactivas mientras que el público en general no",
         default=False,
     )
 
-    # Others
-    tags = models.ManyToManyField(Tag,
-                                  verbose_name=_('tag'),
-                                  related_name='entry_tag',
-                                  blank=True)
-    on_slider = models.BooleanField(
-        _('active in slider'),
+    # Options
+    etiqueta = models.ManyToManyField(Etiqueta,
+                                      verbose_name=_('etiqueta'),
+                                      related_name='entry_tag',
+                                      blank=True)
+    slider = models.BooleanField(
+        _('activo en el slider'), default=False,
         help_text=
-            "Marque para que sea visible en el slider "
-            "Se visualizará primero el inicial y luego los que sean visibles en slider "
-            "Pueden marcar hasta 6 para ser visibles, es necesaria una imagen, de no ser subida una imágen no se mostrará "
-        ,
-        default=False,
+        "Marque para que sea visible en el slider "
+        "Se visualizará primero el inicial y luego los que sean visibles en slider "
+        "Pueden marcar hasta 6 para ser visibles, es necesaria una imagen, de no ser subida una imágen no se mostrará ",
     )
-    facebook_comments = models.BooleanField(
-        _('to enable facebook comments'),
+    comentarios_facebook = models.BooleanField(
+        _('comentarios de Facebook'),
         help_text=
-            "Marque para que sea visible el plugin de facebook para realizar comentarios "
-            "No se tendrá mayor control sobre los comentarios "
-        ,
+        "Marque para que sea visible el plugin de facebook para realizar comentarios "
+        "No se tendrá mayor control sobre los comentarios ",
         default=False,
     )
 
@@ -110,79 +111,81 @@ class Entry(models.Model):
                                     args=(self.id,))
 
     def get_absolute_url(self):
+        url_self = self.fecha_publicacion
         from django.core.urlresolvers import reverse
         return reverse('blogweb_blog:detail_entry', args=[str(self.slug)])
 
-    def is_published(self):
+    def es_publicado(self):
         """
         Return True if the entry is publicly accessible.
         """
-        return self.is_active and self.pub_date <= now
+        return self.visible and self.fecha_publicacion <= datetime.datetime.now()
 
-    is_published.boolean = True
+    es_publicado.boolean = True
 
-    def published(self):
-        return self.active().filter(pub_date__lte=now)
+    def publicado(self):
+        return self.objects.activo().filter(fecha_publicacion__lte=datetime.datetime.now)
 
     @property
-    def resumen(self):
-        return truncatechars(self.summary, 150)
+    def _resumen(self):
+        return truncatechars(self.resumen, 150)
 
-    def first_img(self):
-        return self.image_post.first()
+    def primera_imagen(self):
+        return self.imagen_entrada.first()
 
     def __unicode__(self):
-        return '%s, %s' % (self.headline, self.author)
+        return '%s, %s' % (self.titulo, self.autor)
 
     class Meta:
-        ordering = ('-pub_date',)
-        get_latest_by = 'pub_date'
-        verbose_name = _('entry')
-        verbose_name_plural = _('entries')
+        ordering = ('-fecha_publicacion',)
+        get_latest_by = 'fecha_publicacion'
+        verbose_name = _('entrada')
+        verbose_name_plural = _('entradas')
 
 
-class File(models.Model):
-    entry = models.ForeignKey(Entry, verbose_name=_('entry'),related_name='file_entry')
-    name = models.CharField(_('name'), max_length=100, blank=True, null=True)
-    file = models.FileField(_('file location'), upload_to='entries/file')
+class Documento(models.Model):
+    entrada = models.ForeignKey(Entrada, verbose_name=_('entrada'), related_name='documento_entrada')
+    nombre = models.CharField(_('nombre'), max_length=100, blank=True, null=True)
+    archivo = models.FileField(_('archivo'), upload_to='uploads/D/%Y/%m/%d/')
 
     def __unicode__(self):
-        if self.name:
-            return '%s' % self.name
+        if self.nombre:
+            return '%s' % self.nombre
         else:
-            return basename(self.file.name)
+            return basename(self.archivo.name)
 
     class Meta:
-        verbose_name = _('file')
-        verbose_name_plural = _('files')
+        verbose_name = _('documento')
+        verbose_name_plural = _('documentos')
 
 
-class Image(models.Model):
-    entry = models.ForeignKey(Entry, related_name='image_post')
-    name = models.CharField(_('name'), max_length=100, blank=True, null=True)
-    file = ThumbnailerImageField(_('file location'), upload_to='entries/img')
+class Imagen(models.Model):
+    entrada = models.ForeignKey(Entrada, verbose_name=_('entrada'), related_name='imagen_entrada')
+    nombre = models.CharField(_('nombre'), max_length=100, blank=True, null=True,
+                              help_text='ej: Horario, tickets, presentación, etc')
+    archivo = models.FileField(_('archivo'), upload_to='uploads/I/%Y/%m/%d/')
 
     def __unicode__(self):
-        if self.name:
-            return '%s' % self.name
+        if self.nombre:
+            return '%s' % self.nombre
         else:
-            return basename(self.file.name)
+            return basename(self.archivo.name)
 
     class Meta:
-        verbose_name = _('image')
-        verbose_name_plural = _('images')
+        verbose_name = _('imagen')
+        verbose_name_plural = _('imagenes')
 
 
 class Video(models.Model):
-    entry = models.ForeignKey(Entry, related_name='video_post')
-    name = models.CharField(_('name'), max_length=100, blank=True, null=True)
-    file = models.FileField(_('file location'), upload_to='entries/vid')
+    entrada = models.ForeignKey(Entrada, verbose_name=_('entrada'), related_name='video_entrada')
+    nombre = models.CharField(_('nombre'), max_length=100, blank=True, null=True)
+    archivo = models.FileField(_('archivo'), upload_to='uploads/V/%Y/%m/%d/')
 
     def __unicode__(self):
-        if self.name:
-            return '%s' % self.name
+        if self.nombre:
+            return '%s' % self.nombre
         else:
-            return basename(self.file.name)
+            return basename(self.archivo.name)
 
     class Meta:
         verbose_name = _('video')

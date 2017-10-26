@@ -1,41 +1,13 @@
 {% extends 'web/base.html' %}
 {% load staticfiles thumbnail cache i18n %}
-{% block menu-links %}
-    <ul class="right options-nav hide-on-med-and-down">
-    <li><a class="waves-effect" href="#projects">{% trans 'Proyectos' %}</a></li>
-    <li><a class="waves-effect" href="#blog">{% trans 'Blog' %}</a></li>
-    <li><a class="waves-effect" href="#contacto">{% trans 'Contacto' %}</a></li>
-    <li class="flag">
-        {% if LANGUAGE_CODE == 'es' %}
-            <a class="tooltipped" href="/en" data-position="bottom" data-delay="50"
-               data-tooltip="Change to english?">
-                <img class="circle"
-                     src="{% static 'flags/union-jack-26119.png' %}" alt="">
-            </a>
-        {% elif LANGUAGE_CODE == 'en' %}
-            <a class="tooltipped" href="/es" data-position="bottom" data-delay="50"
-               data-tooltip="¿Cambiar a español?">
-                <img class="circle"
-                     src="{% static 'flags/chile-29125.png' %}" alt="">
-            </a>
-        {% endif %}
-    </li>
-    </ul>
-    <ul class="side-nav" id="mobile-demo">
-        <li><a href="">Home</a></li>
-        <li><a href="">Somos</a></li>
-        <li><a href="">Blog</a></li>
-        <li><a href="">Contacto</a></li>
-    </ul>
-{% endblock %}
 {% block main %}
     <section class="blog-main section scrollspy">
         <div class="detail-cabecera parallax-container valign-wrapper">
             <div class="section no-pad-bot">
                 <div class="container white-text padding-top-med">
-                    <div class="header">{{ entry.get_publication_type_display }}</div>
-                    <div class="subheader">{{ entry.author.first_name }} {{ entry.author.last_name }}</div>
-                    <div class="right"><a class="black-text" href="{% url 'blog-app:list_author' entry.author %}">Ver
+                    <div class="header">{{ entrada.get_tipo_publicacion_display }}</div>
+                    <div class="subheader">{{ entrada.autor.first_name }} {{ entrada.autor.last_name }}</div>
+                    <div class="right"><a class="black-text" href="">Ver
                         más de este autor</a></div>
                 </div>
             </div>
@@ -53,30 +25,30 @@
                                 <a href="{% url 'blog-app:home' %}"
                                    class="black-text">Todas</a>
                             </div>
-                            {% for tag in all_tags %}
+                            {% for etiqueta in all_tags %}
                                 <div class="chip">
-                                    <a href="{% url 'blog-app:list_tag' tag.title %}"
-                                       class="black-text">{{ tag.title|title }}</a>
+                                    <a href="{% url 'blog-app:list_tag' etiqueta.titulo %}"
+                                       class="black-text">{{ etiqueta.titulo|title }}</a>
                                 </div>
                             {% endfor %}
                             <div class="title">{% trans 'Post recientes' %}</div>
                             <hr class="hr-1">
-                            {% for entry in all_entries %}
-                                {% if entry.external_url %}
-                                    <a href="{{ entry.external_url }}" class="black-text">
-                                        <div class="entry padding-top-min padding-bot-min">
-                                            <div class="title">{{ entry.headline }} <i
+                            {% for entrada in all_entries %}
+                                {% if entrada.url_externa %}
+                                    <a href="{{ entrada.url_externa }}" class="black-text">
+                                        <div class="entrada padding-top-min padding-bot-min">
+                                            <div class="title">{{ entrada.headline }} <i
                                                     class="material-icons right">open_in_new</i>
                                             </div>
-                                            <div class="date">{{ entry.pub_date }}</div>
+                                            <div class="date">{{ entrada.fecha_publicacion }}</div>
                                             <hr class="hr-2">
                                         </div>
                                     </a>
                                 {% else %}
-                                    <a href="{{ entry.get_absolute_url }}" class="black-text">
-                                        <div class="entry padding-top-min padding-bot-min">
-                                            <div class="title">{{ entry.headline }}</div>
-                                            <div class="date">{{ entry.pub_date }}</div>
+                                    <a href="{{ entrada.get_absolute_url }}" class="black-text">
+                                        <div class="entrada padding-top-min padding-bot-min">
+                                            <div class="title">{{ entrada.subtitulo }}</div>
+                                            <div class="date">{{ entrada.fecha_publicacion }}</div>
                                             <hr class="hr-2">
                                         </div>
                                     </a>
@@ -86,40 +58,47 @@
                     </div>
                 </div>
                 <div class="col l8 m12 card-panel white">
-                    <h3 class="headline">{{ entry.headline }}
+                    <h3 class="headline">{{ entrada.subtitulo }}
                         {% if request.user.is_superuser %}
                             <a class="right btn-floating waves-effect btn-flat color-1 pulse"
-                               href="{{ entry.get_admin_url }}">
+                               href="{{ entrada.get_admin_url }}">
                                 <i class="material-icons">mode_edit</i></a>
                         {% endif %}
                     </h3>
-                    <h4 class="subheadline">{{ entry.subheadline }}</h4>
+                    <h4 class="subheadline">{{ entrada.subtitulo }}</h4>
                     <div class="row">
                         <h5 class="right-align pub-date">
-                            <i class="material-icons tiny">people</i> {{ entry.author }}
-                            <i class="material-icons tiny">location_on</i> {{ entry.location }}
-                            <i class="material-icons tiny">date_range</i> {{ entry.pub_date }}
+                            {% if entrada.autor.first_name and entrada.autor.last_name %}
+                                <i class="material-icons tiny">people</i> {{ entrada.autor.first_name }}
+                                {{ entrada.autor.last_name }}
+                            {% endif %}
+                            {% if entrada.ubicacion %}
+                                <i class="material-icons tiny">location_on</i> {{ entrada.ubicacion }}
+                            {% endif %}
+                            <i class="material-icons tiny">date_range</i> {{ entrada.fecha_publicacion }}
                         </h5>
                     </div>
                     <div class="tags">
                         Etiquetas:
-                        {% for tag in entry.tags.select_related %}
-                            <div class="chip">{{ tag.title|title }}</div>
+                        {% for tag in entrada.etiqueta.select_related %}
+                            <div class="chip">{{ tag.titulo|title }}</div>
                         {% endfor %}
                     </div>
                     <div class="right-align">
                         <h5 class="right-align pub-date location"></h5>
                     </div>
-                    <hr>
-                    <div class="summary">{{ entry.summary }}</div>
-                    {% if entry.image_post.select_related %}
+                    {% if entrada.resumen %}
+                        <hr>
+                        <div class="summary">{{ entrada.resumen }}</div>
+                    {% endif %}
+                    {% if entrada.imagen_entrada.select_related %}
                         <hr>
                         <div class="subheadline">Galería:</div>
                         <div class="detail-slider slider">
                             <ul class="slides">
-                                {% for image in entry.image_post.select_related %}
+                                {% for image in entrada.imagen_entrada.select_related %}
                                     <li>
-                                        <img src="{% thumbnail image.file 'detalle-miniatura' %}">
+                                        <img src="{% thumbnail image.archivo 'detalle-miniatura' %}">
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -127,38 +106,38 @@
                     {% endif %}
                     <hr>
                     <div class="content padding-bot-med">
-                        {{ entry.content|safe }}
+                        {{ entrada.contenido|safe }}
                     </div>
-                    {% if entry.file_entry.select_related %}
+                    {% if entrada.archivo_entrada.select_related %}
                         <div class="galery-files padding-top-med">
                             <div class="subheadline">{% trans 'Archivos' %}:</div>
-                            {% for foo in entry.file_entry.select_related %}
-                                <a download="{{ MEDIA_URL }}{{ foo.file }}" href="{{ MEDIA_URL }}{{ foo.file }}"
+                            {% for foo in entrada.archivo_entrada.select_related %}
+                                <a download="" href="{{ MEDIA_URL }}{{ foo.archivo }}"
                                    class="chip">{{ foo }}</a>
                             {% endfor %}
                         </div>
                     {% endif %}
-                    {% if entry.video_post.select_related %}
+                    {% if entrada.video_entrada.select_related %}
                         <div class="gallery-videos padding-bot-min padding-top-med">
                             <div class="subheadline">{% trans 'Videos' %}:</div>
                             <ul id="tabs-swipe-demo" class="tabs">
-                                {% for video in entry.video_post.select_related %}
+                                {% for video in entrada.video_entrada.select_related %}
                                     <li class="tab col s3"><a
                                             href="#test-swipe-video-{{ video.id }}"> {{ video }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
-                            {% for video in entry.video_post.select_related %}
+                            {% for video in entrada.video_entrada.select_related %}
                                 <div id="test-swipe-video-{{ video.id }}" class="col s12 height-video">
                                     <video preload=auto controls class="responsive-video">
-                                        <source src="{{ MEDIA_URL }}{{ video.file }}" type="video/mp4">
+                                        <source src="{{ MEDIA_URL }}{{ video.archivo }}" type="video/mp4">
                                     </video>
                                 </div>
                             {% endfor %}
                         </div>
                     {% endif %}
                 </div>
-                {% if entry.facebook_comments %}
+                {% if entrada.comentarios_facebook %}
                     <div id="fb-root"></div>
                     <script>(function (d, s, id) {
                         var js, fjs = d.getElementsByTagName(s)[0];
@@ -169,9 +148,9 @@
                         fjs.parentNode.insertBefore(js, fjs);
                     }(document, 'script', 'facebook-jssdk'));</script>
                     <div class="col l8 m12 s12 card-panel white">
-                        <h3 class="headline">{% trans 'Comments' %}:</h3>
+                        <h3 class="headline">{% trans 'Comentarios' %}:</h3>
                         <div class="fb-comments"
-                             data-href="http://www.okeanos.cl/comentario/{{ entry.slug }}"
+                             data-href="http://www.okeanos.cl/comentario/{{ entrada.slug }}"
                              data-width="100%" data-numposts="5"></div>
                     </div>
                 {% endif %}
@@ -180,5 +159,4 @@
     </div>
 {% endblock %}
 {% block extra-js %}
-    <script src="http://vjs.zencdn.net/6.2.5/video.js"></script>
 {% endblock %}

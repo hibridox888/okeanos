@@ -3,23 +3,23 @@
 {% block main %}
     <div class="cabecera slider section scrollspy" id="home">
         <ul class="slides">
-            {% for entry in last_entries %}
+            {% for entrada in slider_entries %}
                 <li>
-                    {% if entry.first_img %}
-                        <img src="{% thumbnail entry.first_img.file 'slider-img' %}">
+                    {% if entrada.primera_imagen %}
+                        <img src="{% thumbnail entrada.primera_imagen.archivo 'slider-img' %}">
                     {% else %}
                         <img src="{% static 'img/sunrise-1756274_1920.jpg' %}" alt="">
                     {% endif %}
                     <div class="caption center-align">
-                        <h3>{{ entry.headline }}</h3>
-                        <h5 class="light grey-text text-lighten-3">{{ entry.subheadline }}</h5>
-                        {% if entry.external_url %}
-                            <a target="_blank" href="{{ entry.external_url }}"
-                               class="btn btn-large color-1 waves-effect">Ver
-                                más</a>
+                        <h3>{{ entrada.titulo }}</h3>
+                        <h5 class="light grey-text text-lighten-3">{{ entrada.subtitulo }}</h5>
+                        {% if entrada.url_externa %}
+                            <a target="_blank" href="{{ entrada.url_externa }}"
+                               class="btn btn-large color-1 waves-effect">{% trans 'Ver más' %}</a>
                         {% else %}
-                            <a href="{{ entry.get_absolute_url }}" class="btn btn-large color-1 waves-effect">Ver
-                                más</a>
+                            <a href="{{ entrada.get_absolute_url }}" class="btn btn-large color-1 waves-effect">
+                                {% trans 'Ver más' %}
+                            </a>
                         {% endif %}
                     </div>
                 </li>
@@ -44,7 +44,7 @@
                     <div class="text container">
                         {% blocktrans %}
                             Somos una empresa dedicada a desarrollar tecnología en robótica, monitoreo remoto y control
-                            a distancia para entornos marinos. Trabajamos en la interfaz de diversas disciplinas para
+                            a distancia para entornos marinos. Trabajamos apoyados por un equipo multidisciplinario para
                             proveer soluciones integrales. Nuestro equipo posee experiencia en desarrollo de electrónica
                             y software, sistemas electromecánicos, diseño de estructuras marinas, simulaciones
                             computacionales de fluidos, entre otros. Nuestros proyectos en robótica incluyen el
@@ -92,17 +92,43 @@
             <img class="img-paralax" src="{% static 'img/sea-2322517_1920.jpg' %}">
         </div>
     </div>
-    <section class="white center">
+    <section class="white center section scrollspy" id="servicios">
         <div class="padding-top-max padding-bot-max">
             <div class="container">
                 <div class="container">
                     <div class="padding-bot-min">
-                        <div class="title padding-top-med">{% trans 'Servicios de capacitación y soporte' %}</div>
+                        <div class="title padding-top-med padding-bot-med">{% trans 'Servicios' %}</div>
                     </div>
-                    <div class="text container">
+                    <h4>{% trans 'Ingeniería' %}</h4>
+                    <div class="text container padding-bot-max">
                         {% blocktrans %}
-                            Okeanos pone a disposición su experiencia en tecnología para realizar labores de
-                            capacitación, soporte y mantenimiento según los requerimientos de sus clientes.
+                            Okeanos brinda servicios de asesoría, ingeniería básica, de detalle y constructiva tanto
+                            para prototipos como para maquinaria oceánica de nivel industrial, robots teleoperados,
+                            sistemas de monitoreo y control, entre otros.
+                        {% endblocktrans %}
+                        <br>
+                        {% blocktrans %}
+                            También nos especializamos en el desarrollo de proyectos de software para gestión a
+                            distancia, manejo de datos y toma de decisiones basada en información.
+                        {% endblocktrans %}
+                    </div>
+                    <h4>{% trans 'Capacitación y soporte' %}</h4>
+                    <div class="text container padding-bot-max">
+                        {% blocktrans %}
+                            Disponemos de programas de entrenamiento para la operación y puesta en marcha de sistemas
+                            robóticos o automatizados.
+                        {% endblocktrans %}
+                        <br>
+                        {% blocktrans %}
+                            También brindamos apoyo 24/7 para la operación de todo tipo de sistemas electromecánicos,
+                            caracterizándose nuestro servicio por su rápida capacidad de respuesta.
+                        {% endblocktrans %}
+                    </div>
+                    <h4>{% trans 'Mantenimiento' %}</h4>
+                    <div class="text container padding-bot-med">
+                        {% blocktrans %}
+                            Nuestro equipo pone a disposición su experiencia para realizar labores de mantenimiento y
+                            actualización de sistemas electromecánicos y de software.
                         {% endblocktrans %}
                     </div>
                     <div class="padding-top-med">
@@ -112,43 +138,44 @@
             </div>
         </div>
     </section>
-    <section class="fondo-gris-1 section scrollspy" id="projects">
+    <section class="fondo-gris-1 section scrollspy" id="proyectos">
         <div class="padding-top-max padding-bot-max">
             <div class="container">
                 <div class="container">
                     <div class="padding-bot-min center-align">
-                        <div class="title">{% trans 'Projects' %}</div>
+                        <div class="title">{% trans 'Proyectos' %}</div>
                     </div>
                     <div class="padding-top-min padding-bot-med">
                         <hr>
                     </div>
                     <div class="row container-masonry">
-                        {% for entry in projects_entries %}
+                        {% for entrada in projects_entries %}
                             <div class="col s12 m6 l4 item">
                                 <div class="card">
                                     <div class="card-image">
                                         <img src="">
-                                        {% if entry.first_img %}
-                                            <img src="{% thumbnail entry.first_img.file 'card-img' %}">
+                                        {% if entrada.primera_imagen %}
+                                            <img src="{% thumbnail entrada.primera_imagen.archivo 'card-img' %}">
                                         {% else %}
                                             <img src="{% static 'img/default-img.jpg' %}">
                                         {% endif %}
-                                        {% if entry.external_url %}
+                                        {% if entrada.url_externa %}
                                             <a class="btn-floating btn-large halfway-fab waves-effect waves-light color-1 pulse"
-                                               href="{{ entry.external_url }}" target="_blank">
+                                               href="{{ entrada.url_externa }}" target="_blank">
                                                 <i class="material-icons">link</i>
                                             </a>
                                         {% else %}
                                             <a class="btn-floating btn-large halfway-fab waves-effect waves-light color-1 pulse"
-                                               href="{{ entry.get_absolute_url }}">
+                                               href="{{ entrada.fecha_publicacion }}{{ entrada.get_absolute_url }}"
+                                               target="_blank">
                                                 <i class="material-icons">add</i>
                                             </a>
                                         {% endif %}
                                     </div>
                                     <div class="card-content">
-                                        <span class="card-title">{{ entry.headline }}</span>
-                                        {% if entry.subheadline %}
-                                            <p>{{ entry.subheadline }}</p>
+                                        <span class="card-title">{{ entrada.titulo }}</span>
+                                        {% if entrada.subtitulo %}
+                                            <p>{{ entrada.subtitulo }}</p>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -156,7 +183,8 @@
                         {% endfor %}
                     </div>
                     <div class="row center">
-                        <a href="{% url 'blog-app:home' %}" class="btn btn-large color-1 waves-effect">Ver más</a>
+                        <a href="{% url 'blog-app:home' %}"
+                           class="btn btn-large color-1 waves-effect">{% trans 'Ver más' %}</a>
                     </div>
                 </div>
             </div>
@@ -173,154 +201,7 @@
                         <hr>
                     </div>
                 </div>
-                <div class="pictures-team container">
-                    <div class="row center-align center">
-                        <div class="col l4 m6">
-                            <img class="responsive-img"
-                                 src="{% static 'img/Stuart.png' %}"
-                                 alt="">
-                            <div class="overlay white-text padding-top-med">
-                                <div class="nombre padding-bot-min">Federico Zilic de Arcos</div>
-                                <hr>
-                                <div class="cargo padding-top-min padding-bot-min">{% trans 'Gerente General' %}</div>
-                                <div class="titulo">{% trans 'Ingeniero Naval' %}</div>
-                                <div class="">
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-facebook-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-twitter-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-youtube-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-instagram-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-linkedin-square" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col l4 m6">
-                            <img class="responsive-img"
-                                 src="{% static 'img/Kevin.jpg' %}"
-                                 alt="">
-                            <div class="overlay white-text padding-top-med">
-                                <div class="nombre padding-bot-min">Alexssander Cabeza Strange</div>
-                                <hr>
-                                <div class="cargo padding-top-med padding-bot-med">{% trans 'Jefe de Ingeniería' %}</div>
-                                <div class="titulo">{% trans 'Ingeniero Civil Electrónico' %}</div>
-                                <div class="">
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-facebook-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-twitter-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-youtube-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-instagram-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-linkedin-square" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col l4 m6">
-                            <img class="responsive-img"
-                                 src="{% static 'img/Kevin.jpg' %}"
-                                 alt="">
-                            <div class="overlay white-text padding-top-med">
-                                <div class="nombre padding-bot-min">Alexssander Cabeza Strange</div>
-                                <hr>
-                                <div class="cargo padding-top-med padding-bot-med">{% trans 'Jefe de Ingeniería' %}</div>
-                                <div class="titulo">{% trans 'Ingeniero Civil Electrónico' %}</div>
-                                <div class="">
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-facebook-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-twitter-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-youtube-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-instagram-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-linkedin-square" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="hide-on-med-and-down col s1 offset-s1"></div>
-                        <div class="col l4 m6">
-                            <img class="responsive-img"
-                                 src="{% static 'img/bob.jpg' %}"
-                                 alt="">
-                            <div class="overlay white-text padding-top-med">
-                                <div class="nombre padding-bot-min">Álvaro Olmos Cruz</div>
-                                <hr>
-                                <div class="cargo padding-top-med padding-bot-med">{% trans 'Jefe de desarrollo de software' %}</div>
-                                <div class="titulo">{% trans 'Ingeniero Civil Informático' %}</div>
-                                <div class="">
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-email" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-facebook-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-twitter-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-youtube-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-instagram-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-linkedin-square" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col l4 m6">
-                            <img class="responsive-img"
-                                 src="{% static 'img/rapero.jpg' %}"
-                                 alt="">
-                            <div class="overlay white-text padding-top-med">
-                                <div class="nombre padding-bot-min">{% trans 'Fabian Ritter Gutierrez' %}</div>
-                                <hr>
-                                <div class="cargo padding-top-med padding-bot-med">{% trans 'Desarrollador de algoritmos especializados' %}</div>
-                                <div class="titulo">{% trans 'Ingeniero Civil Acústico' %}</div>
-                                <div class="">
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-facebook-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-twitter-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-youtube-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-instagram-square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="white-text" href="">
-                                        <i class="small fa fa-linkedin-square" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include 'equipo.html' %}
             </div>
         </div>
     </section>
@@ -335,32 +216,33 @@
                         <hr>
                     </div>
                     <div class="row container-masonry">
-                        {% for entry in other_entries %}
+                        {% for entrada in other_entries %}
                             <div class="col s12 m6 l4 item">
                                 <div class="card">
                                     <div class="card-image">
                                         <img src="">
-                                        {% if entry.first_img %}
-                                            <img src="{% thumbnail entry.first_img.file 'card-img' %}">
+                                        {% if entrada.primera_imagen %}
+                                            <img src="{% thumbnail entrada.primera_imagen.archivo 'card-img' %}">
                                         {% else %}
-                                            <img src="{% static 'img/water.jpg' %}">
+                                            <img src="{% static 'img/default-img.jpg' %}">
                                         {% endif %}
-                                        {% if entry.external_url %}
+                                        {% if entrada.url_externa %}
                                             <a class="btn-floating btn-large halfway-fab waves-effect waves-light color-1 pulse"
-                                               href="{{ entry.external_url }}" target="_blank">
+                                               href="{{ entrada.url_externa }}" target="_blank">
                                                 <i class="material-icons">link</i>
                                             </a>
                                         {% else %}
                                             <a class="btn-floating btn-large halfway-fab waves-effect waves-light color-1 pulse"
-                                               href="{{ entry.get_absolute_url }}">
+                                               href="{{ entrada.fecha_publicacion }}{{ entrada.get_absolute_url }}"
+                                               target="_blank">
                                                 <i class="material-icons">add</i>
                                             </a>
                                         {% endif %}
                                     </div>
                                     <div class="card-content">
-                                        <span class="card-title">{{ entry.headline }}</span>
-                                        {% if entry.subheadline %}
-                                            <p>{{ entry.subheadline }}</p>
+                                        <span class="card-title">{{ entrada.titulo }}</span>
+                                        {% if entrada.subtitulo %}
+                                            <p>{{ entrada.subtitulo }}</p>
                                         {% endif %}
                                     </div>
                                 </div>

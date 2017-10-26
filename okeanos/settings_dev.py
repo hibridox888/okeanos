@@ -41,12 +41,16 @@ ALLOWED_HOSTS = [u'127.0.0.1', u'okeanos.tucodigo.cl', u'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    # 'material.theme.bluegrey',
+    # 'material',
+    # 'material.admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django.contrib.humanize',
     'easy_thumbnails',
     'ckeditor',
     'contact.apps.ContactConfig',
@@ -69,17 +73,19 @@ ROOT_URLCONF = 'okeanos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
+                # 'material.frontend.context_processors.modules',
+                'django.template.context_processors.media',
             ],
+            'debug': True,
         },
     },
 ]
@@ -124,10 +130,12 @@ STATICFILES_FINDERS = (
 
 LANGUAGE_CODE = 'es'
 ugettext = lambda s: s
+
 LANGUAGES = [
     ('en', _('English')),
     ('es', _('Spanish')),
 ]
+
 TIME_ZONE = 'America/Santiago'
 USE_I18N = True
 USE_L10N = True
@@ -153,7 +161,7 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Custom',
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline'],
-            ['Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+            ['Table', 'HorizontalRule', 'Smiley', 'SpecialChar'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter',
              'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],

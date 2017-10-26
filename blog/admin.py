@@ -1,67 +1,67 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from modeltranslation.translator import translator, TranslationOptions
 
 from django.contrib import admin
-from .models import Entry, Image, File, Video, Tag
+from .models import Etiqueta, Entrada, Imagen, Documento, Video
 
 
-class TagInLine(admin.TabularInline):
-    model = Tag
+class EtiquetaInLine(admin.TabularInline):
+    model = Etiqueta
 
 
 # Register your models here.
-class ImageEntryInline(admin.TabularInline):
-    model = Image
-    fields = ['name', 'file']
+class ImagenInline(admin.TabularInline):
+    model = Imagen
+    fields = ['nombre', 'archivo']
     extra = 1
     max_num = 9
 
 
-class VideoEntryInline(admin.TabularInline):
+class VideoInline(admin.TabularInline):
     model = Video
-    fields = ['name', 'file']
+    fields = ['nombre', 'archivo']
     extra = 0
     max_num = 3
 
 
-class FileEntryInline(admin.TabularInline):
-    model = File
-    fields = ['name', 'file']
+class DocumentoInline(admin.TabularInline):
+    model = Documento
+    fields = ['nombre', 'archivo']
     extra = 0
     max_num = 9
 
 
-class EntryAdmin(admin.ModelAdmin):
-    model = Entry
-    search_fields = ['headline', 'summary', ]
-    readonly_fields = ['created', 'modify', ]
-    list_display = ['headline', 'author', 'publication_type', 'resumen']
-    inlines = [ImageEntryInline, FileEntryInline, VideoEntryInline]
-    list_filter = ['is_active', 'pub_date', 'author', 'publication_type', 'location']
+class EntradaAdmin(admin.ModelAdmin):
+    model = Entrada
+    search_fields = ['titulo', 'resumen', ]
+    readonly_fields = ['creacion', 'modificacion', ]
+    list_display = ['titulo', 'autor', 'tipo_publicacion', 'resumen']
+    inlines = [ImagenInline, DocumentoInline, VideoInline]
+    list_filter = ['visible', 'fecha_publicacion', 'autor', 'tipo_publicacion', 'ubicacion']
     prepopulated_fields = {
-        'slug': ('headline',),
+        'slug': ('titulo',),
     }
     fieldsets = (
         ('General', {
-            'fields': (('tags', 'publication_type'), 'on_slider', 'external_url', 'facebook_comments'),
+            'fields': (('etiqueta', 'tipo_publicacion'),
+                       ('slider', 'comentarios_facebook'), 'url_externa'),
             # 'classes': ('collapse',)
         }),
         ('Contenido', {
-            'fields': ('is_active', 'headline', 'subheadline', 'location', 'summary', 'content',),
+            'fields': (('titulo', 'ubicacion',), 'visible', 'subtitulo', 'resumen', 'contenido',),
             # 'classes': ('collapse',)
         }),
         ('Adicionales', {
-            'fields': ('pub_date', 'slug',),
+            'fields': ('fecha_publicacion', 'slug',),
             'classes': ('collapse',)
         }),
     )
-    ordering = ['pub_date', ]
+    ordering = ['fecha_publicacion', ]
 
     def save_model(self, request, obj, form, change):
-        obj.author = request.user
+        obj.autor = request.user
         obj.save()
 
 
-admin.site.register(Entry, EntryAdmin)
-admin.site.register(Tag)
+admin.site.register(Entrada, EntradaAdmin)
+admin.site.register(Etiqueta)

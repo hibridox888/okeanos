@@ -12,7 +12,7 @@ class Contact(models.Model):
     name = models.CharField(_('name'), max_length=50)
     mail = models.EmailField(_('mail'), )
     message = models.TextField(_('message'), help_text='mensaje del cliente', unique=True)
-
+    
     def __unicode__(self):
         return u"%s" % (self.name)
 

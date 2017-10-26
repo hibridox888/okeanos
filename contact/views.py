@@ -33,7 +33,7 @@ def form_contact(request):
             elif '<img' in c.message:
                 contact = ContactForm()
                 pass
-            elif '<img' in c.message:
+            elif '>' in c.message:
                 contact = ContactForm()
             elif '==' in c.message:
                 contact = ContactForm()

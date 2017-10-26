@@ -1,36 +1,22 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.utils.translation import ugettext as _, ugettext_lazy
-
+import datetime
 from django.shortcuts import render
 
-from blog.models import Entry, now, Tag
+from blog.models import Entrada, Etiqueta
 from contact.views import form_contact
 
 
-class Pagina(object):
-    titulo = 'Modelo'
-    subtitulo = 'Acción'
-    description = 'descripción'
-    now = now
-
-
 def home(request):
-    Pagina.titulo = _('Okeanos Marine Technology')
-    Pagina.subtitulo = _('Home')
-    Pagina.description = _(
-        'Nos dedicamos a desarrollar tecnologías de punta en robótica, monitoreo remoto y control a distancia dentro de '
-        'entornos marinos. Trabajamos desde los 39 grados de latitud sur para proveer soluciones y soporte a clientes de todo el mundo.')
-    projects_entries = Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now).filter(
-        publication_type='P')[:3]
-    other_entries = Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now).exclude(publication_type='P')[
-                    :3]
-    last_entries = Entry.objects.filter(is_active=True).filter(pub_date__lte=Pagina.now)[:3]
+    entradas_proyectos = Entrada.objects.publicado().filter(tipo_publicacion='PR')[:3]
+    otras_entradas = Entrada.objects.publicado().exclude(tipo_publicacion='PR')[:3]
+    slider_entries = Entrada.objects.publicado().filter(slider=False)[:3]
+    last_entries = Entrada.objects.publicado()[:5]
     return render(request, 'web/home.html', {
-        'pagina': Pagina,
+        'slider_entries': slider_entries,
         'last_entries': last_entries,
-        'other_entries': other_entries,
-        'projects_entries': projects_entries,
-        'all_tags': Tag.objects.all(),
+        'other_entries': otras_entradas,
+        'projects_entries': entradas_proyectos,
+        'all_tags': Etiqueta.objects.all(),
         'contact': form_contact(request=request),
     })

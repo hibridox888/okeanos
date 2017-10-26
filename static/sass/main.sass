@@ -115,7 +115,8 @@ main
     .container
       .header
         .logo
-          max-width: 30em
+          max-width: 100%
+          width: 30em
           vertical-align: middle
           padding:
             top: 5em
@@ -128,7 +129,8 @@ main
   .container
     .header
       .logo
-        max-width: 30em
+        max-width: 100%
+        width: 30em
         vertical-align: middle
         padding:
           top: 5em
@@ -157,15 +159,31 @@ main
 .black-transparent
   background-color: rgba(0, 0, 0, 0.8) !important
 
+#sidenav-overlay
+  z-index: 1
+
+.side-nav
+  background-color: rgba(255, 255, 255, 0.5)
+  color: #fff
+  padding: 25% 5%
+  width: 100%
+  font-weight: 800
+  text-align: right
+  z-index: 16
+
+.drag-target
+  z-index: 15
+  width: 0 !important
+
 .navbar-fixed
   nav
     background-color: rgba(34, 34, 34, 0.9) !important
     ul
       a
         font-weight: 500
-        font-size: 12px
+        font-size: 11px
         text-transform: uppercase
-        letter-spacing: 3px
+        letter-spacing: 1px
         -webkit-transition: color .5s
         -moz-transition: color .5s
         -ms-transition: color .5s
@@ -469,3 +487,11 @@ section
     p
       font-weight: 300
       line-height: 1em
+
+@media (max-width: 1200px)
+  .hide-on-med-and-down
+    li
+      a
+        padding:
+          left: 1em
+          right: 1em

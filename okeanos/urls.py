@@ -24,8 +24,8 @@ from .views import home
 from django.conf.urls import include, url
 
 urlpatterns = i18n_patterns(
+    url(r'^admin/', include(admin.site.urls), name='django-admin'),
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
-    url(r'^admin/', admin.site.urls, name='django-admin'),
     url(r'^$', home, name='home'),
     url(r'^blog/', include('blog.urls', namespace='blog-app'), name='blog-index'),
     url(r'^enviado/$', TemplateView.as_view(template_name="web/enviado.html"), name='enviado'),

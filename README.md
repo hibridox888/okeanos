@@ -17,6 +17,11 @@ Esta aplicación es para OKEANOS, cumpliendo requisitos de:
 Ese archivo contiene todos los nombres de las librerías y versiones utilizadas para el proyecto
 ##### Recordar compilar el archivo SASS!
 Se utilizó Koala (MacOs)
+
+# Para archivos estaticos (fuera del sistema de administración):
+```sh
+(env)$ python manage.py collectstatic
+```
 # Para traducciones:
 ```sh
 (env)$ django-admin.py makemessages -l en
@@ -31,6 +36,15 @@ Luego ingresar a "/proyecto/locale/en/LC_MESSAGES/django.po" y agregar traduccio
 ### TODO:
   - Imagenes reales de los miembros del equipo
   - Llenar de post
+  
+  
+## Para modificar usuarios y sociales
+
+ingresar a 'okeanos/templates/' y hay 2 archivos: 'equipo.html' y 'sociales.html'
+- 'equipo.html': Es para cambiar las imagenes y redes sociales del equipo..
+    - Agregar imagenes en directorio /okeanos/static/img/equipo/aquí
+    - Luego hacer un 'python manage.py collectstatic' para agregar los cambios en producción de los archivos estaticos
+- 'sociales.html': Son las redes sociales que aparecen en el footer de la web, al cambiarlas se cambiarán en toda la web
 
 ### Hosting recomendados:
 > - [Webfaction]

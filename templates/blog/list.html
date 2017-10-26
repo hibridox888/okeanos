@@ -1,33 +1,6 @@
 {% extends 'web/base.html' %}
 {% load staticfiles thumbnail i18n %}
-{% block menu-links %}
-    <ul class="right options-nav hide-on-med-and-down">
-        <li><a class="waves-effect" href="#projects">{% trans 'Proyectos' %}</a></li>
-        <li><a class="waves-effect" href="#blog">{% trans 'Blog' %}</a></li>
-        <li><a class="waves-effect" href="#contacto">{% trans 'Contacto' %}</a></li>
-        <li class="flag">
-            {% if LANGUAGE_CODE == 'es' %}
-                <a class="tooltipped" href="/en" data-position="bottom" data-delay="50"
-                   data-tooltip="Change to english?">
-                    <img class="circle"
-                         src="{% static 'flags/chile-29125.png' %}" alt="">
-                </a>
-            {% elif LANGUAGE_CODE == 'en' %}
-                <a class="tooltipped" href="/es" data-position="bottom" data-delay="50"
-                   data-tooltip="¿Cambiar a español?">
-                    <img class="circle"
-                         src="{% static 'flags/union-jack-26119.png' %}" alt="">
-                </a>
-            {% endif %}
-        </li>
-    </ul>
-    <ul class="side-nav" id="mobile-demo">
-        <li><a href="">{% trans 'Home' %}</a></li>
-        <li><a href="">{% trans 'Somos' %}</a></li>
-        <li><a href="">{% trans 'Blog' %}</a></li>
-        <li><a href="">{% trans 'Contacto' %}</a></li>
-    </ul>
-{% endblock %}
+
 {% block main %}
     <section class="blog-main section scrollspy" id="blog">
         <div class="parallax-container valign-wrapper">
