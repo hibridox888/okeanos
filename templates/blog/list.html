@@ -20,34 +20,34 @@
                 <div class="col l4 m12 right aside">
                     <div class="container">
                         <div class="container">
-                            <div class="title">{% trans 'Tags' %}</div>
+                            <div class="title">{% trans 'Etiquetas' %}</div>
                             <div class="chip">
                                 <a href="{% url 'blog-app:home' %}"
-                                   class="black-text">{% trans 'all' %}</a>
+                                   class="black-text">{% trans 'Todas' %}</a>
                             </div>
                             {% for tag in all_tags %}
                                 <div class="chip">
-                                    <a href="{% url 'blog-app:list_tag' tag.title %}"
-                                       class="black-text">{{ tag.title|title }}</a>
+                                    <a href="{% url 'blog-app:list_tag' tag.titulo %}"
+                                       class="black-text">{{ tag.titulo|title }}</a>
                                 </div>
                             {% endfor %}
-                            <div class="title">{% trans 'Recent posts' %}</div>
+                            <div class="title padding-top-min">{% trans 'Post Recientes' %}</div>
                             <hr class="hr-1">
-                            {% for entry in all_entries %}
-                                {% if entry.external_url %}
-                                    <a href="{{ entry.external_url }}" class="black-text">
-                                        <div class="entry padding-top-min padding-bot-min">
-                                            <div class="title">{{ entry.headline }} <i class="material-icons right">open_in_new</i>
+                            {% for entrada in all_entries %}
+                                {% if entrada.external_url %}
+                                    <a href="{{ entrada.external_url }}" class="black-text">
+                                        <div class="entrada padding-top-min padding-bot-min">
+                                            <div class="title">{{ entrada.titulo }} <i class="material-icons right">open_in_new</i>
                                             </div>
-                                            <div class="date">{{ entry.pub_date }}</div>
+                                            <div class="date">{{ entrada.pub_date }}</div>
                                             <hr class="hr-2">
                                         </div>
                                     </a>
                                 {% else %}
-                                    <a href="{{ entry.get_absolute_url }}" class="black-text">
-                                        <div class="entry padding-top-min padding-bot-min">
-                                            <div class="title">{{ entry.headline }}</div>
-                                            <div class="date">{{ entry.pub_date }}</div>
+                                    <a href="{{ entrada.get_absolute_url }}" class="black-text">
+                                        <div class="entrada padding-top-min padding-bot-min">
+                                            <div class="title">{{ entrada.titulo }}</div>
+                                            <div class="date">{{ entrada.fecha_publicacion }}</div>
                                             <hr class="hr-2">
                                         </div>
                                     </a>
@@ -58,30 +58,30 @@
                 </div>
                 <div class="col l8 m12">
                     <div class="row container-masonry">
-                        {% for entry in last_entries %}
+                        {% for entrada in last_entries %}
                             <div class="col s12 m6 item">
                                 <div class="card">
                                     <div class="card-image">
-                                        {% if entry.first_img %}
-                                            <img src="{% thumbnail entry.first_img.file 'card-img' %}">
+                                        {% if entrada.primera_imagen %}
+                                            <img src="{% thumbnail entrada.primera_imagen.archivo 'card-img' %}">
                                         {% else %}
                                             <img src="{% static 'img/sunrise-1756274_1920.jpg' %}">
                                         {% endif %}
-                                        {% if entry.external_url %}
+                                        {% if entrada.external_url %}
                                             <a class="btn-floating btn-large halfway-fab waves-effect waves-light color-1 pulse"
-                                               href="{{ entry.external_url }}" target="_blank">
+                                               href="{{ entrada.url_externa }}" target="_blank">
                                                 <i class="material-icons">link</i>
                                             </a>
                                         {% else %}
                                             <a class="btn-floating btn-large halfway-fab waves-effect waves-light color-1 pulse"
-                                               href="{{ entry.get_absolute_url }}">
+                                               href="{{ entrada.get_absolute_url }}">
                                                 <i class="material-icons">add</i>
                                             </a>
                                         {% endif %}
                                     </div>
                                     <div class="card-content">
-                                        <span class="card-title">{{ entry.headline }}</span>
-                                        <p>{{ entry.subheadline }}</p>
+                                        <span class="card-title">{{ entrada.titulo }}</span>
+                                        <p>{{ entrada.subtitulo }}</p>
                                     </div>
                                 </div>
                             </div>

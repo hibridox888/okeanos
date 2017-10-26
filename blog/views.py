@@ -14,7 +14,7 @@ def home(request):
         'subtitulo': 'Noticias, proyectos, post y eventos',
         'descripcion': 'Descripción',
         'last_entries': ultimas_entradas,
-        'Tag.objects.all()': Etiqueta.objects.all(),
+        'all_tags': Etiqueta.objects.all(),
         'all_entries': Entrada.objects.publicado()[:30],
         'contact': form_contact(request=request),
     })
@@ -32,7 +32,7 @@ def list_author(request, username):
     })
 
 
-def list_tag(request, title):
+def list_tag(request, titulo):
     ultimas_entradas = Entrada.objects.publicado()[:30]
     return render(request, 'blog/list.html', {
         'last_entries': ultimas_entradas,
